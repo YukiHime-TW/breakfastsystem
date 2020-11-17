@@ -5,7 +5,7 @@
 <head>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <link rel="Shortcut Icon" href="cbja6-lmvd1-001.ico" type="image/x-icon/">
 
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -39,16 +39,24 @@
 
     <div id="regis">
 
-        <h4>請輸入下列資料</h4>
+        <h4>建立您的帳戶</h4>
+        <form>
 
-        <div class="form-group">
+            <div class="form-group">
+                <input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
+                <input type="password" id="PW" class="form-control" placeholder="密碼 ( Password )" required>
+            </div>
 
-            <input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="gendermale" value="option1">
+                <label class="form-check-label" for="gendermale">男</label>
+            </div>
 
-            <input type="password" id="PW" class="form-control" placeholder="密碼 ( Password )" required>
-
-        </div>
-
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="genderfemale" value="option2">
+                <label class="form-check-label" for="genderfemale">女</label>
+            </div>
+        </form>
     </div>
 
 </body>
