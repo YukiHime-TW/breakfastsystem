@@ -91,6 +91,18 @@ div{
 
 }
 
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+  
+
 .video-container{
 
     display: block;
