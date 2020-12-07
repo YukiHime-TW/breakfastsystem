@@ -10,7 +10,7 @@
 
     <link href="style.css" rel="stylesheet" type="text/css">
 
-    <title>新豐街早餐店系統</title>
+    <title>編輯菜單</title>
 
     <meta charset="utf-8">
 
@@ -36,27 +36,25 @@
 </head>
 
 <body id="main">
-
-    <div id="regis">
-
-        <h4>建立您的帳戶</h4>
-        <form>
-            <label>性別: </label>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="gendermale" value="option1">
-                <label class="form-check-label" for="gendermale">男</label>
-            </div>
-
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="genderfemale" value="option2">
-                <label class="form-check-label" for="genderfemale">女</label>
-            </div>
-
-            <div class="form-group">
-                <input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
-                <input type="password" id="PW" class="form-control" placeholder="密碼 ( Password )" required>
-            </div>
-        </form>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="background-color: #ffffff;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="top">編輯菜單</div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="regis" style="width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;">
+        <img src="plus.png" width="100% ">
     </div>
 
 </body>
