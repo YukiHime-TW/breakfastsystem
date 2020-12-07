@@ -35,11 +35,10 @@ table, td, th{
 }
 
 #main{
-    background-color: lightblue;
+    background-color: bisque;
 
     font-family: Microsoft JhengHei;
 
-    padding-top: 3.5rem;
 }
 
 #page{
@@ -127,7 +126,40 @@ div{
     height: 60%;
 
 }
-
+.manage{
+    width: auto ; 
+    height:100px ;
+    margin-top:20% ;
+}
+.manage_left{
+    float:left; 
+    margin-left:10% ; 
+    width:35%; 
+    height:100px;
+    background-color: yellow; 
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+.manage_right{
+      float:right;
+      margin-right:10% ;
+      width:35%;
+      height:100px;
+      background-color: yellow ;
+      line-height: 100px;
+      text-align: center;
+      cursor: pointer;
+}
+.manage_font{
+    font-size:30px;
+    font-weight: bold;
+}
+.top{
+    margin:0 auto; 
+    font-weight: bold; 
+    font-size:30px ;
+}
 #icon{
     height: 40px;
     width: 40px;
