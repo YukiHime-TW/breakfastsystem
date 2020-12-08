@@ -23,7 +23,9 @@ table, td, th{
     margin-top:-190px;
     text-align: center;
 }
-
+.bg-green{
+    background-color:rgba(0, 0, 0, 0.747);
+}
 #highlighting{
     color: 	#7700BB;
     font-weight: bolder;
@@ -35,7 +37,7 @@ table, td, th{
 }
 
 #main{
-    background-color: bisque;
+    background-color: white;
 
     font-family: Microsoft JhengHei;
 
@@ -136,7 +138,7 @@ div{
     margin-left:10% ; 
     width:35%; 
     height:100px;
-    background-color: yellow; 
+    background-color: yellow;
     line-height: 100px;
     text-align: center;
     cursor: pointer;

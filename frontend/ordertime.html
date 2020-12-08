@@ -37,26 +37,63 @@
 
 <body id="main">
 
-    <div id="regis">
+    <div id="ordertime">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-green" >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <h4>建立您的帳戶</h4>
-        <form>
-            <label>性別: </label>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="gendermale" value="option1">
-                <label class="form-check-label" for="gendermale">男</label>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+        </nav>
 
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" name="inlineRadioOptions" id="genderfemale" value="option2">
-                <label class="form-check-label" for="genderfemale">女</label>
-            </div>
-
+        <h4>設定可下單時間</h4>
+        <form class="form-inline">
             <div class="form-group">
-                <input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
-                <input type="password" id="PW" class="form-control" placeholder="密碼 ( Password )" required>
-            </div>
+                <label for="Time1">時間</label>
+                <input type="time" id="Time1" class="form-control" placeholder="06" required>
+                <label for="Time2"> ~ </label>
+                <input type="time" id="Time2" class="form-control" placeholder="00" required>     
         </form>
+        <div class="btn-group btn-block">
+            <p class="h3">星期日</p>            
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <div class="btn-group btn-block">
+            <p class="h3">星期一</p>  
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <div class="btn-group btn-block">
+            <p class="h3">星期二</p>  
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <div class="btn-group btn-block">
+            <p class="h3">星期三</p>  
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <div class="btn-group btn-block">
+            <p class="h3">星期四</p>  
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <div class="btn-group btn-block">
+            <p class="h3">星期五</p>  
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <div class="btn-group btn-block">
+            <p class="h3">星期六</p>  
+            <button type="button" class="btn btn-warning">選定</button>
+        </div>
+        <button type="button" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">確定</button>
+        <button type="button" class="btn btn-warning" style="position: absolute;bottom: 0px;">取消</button>
     </div>
 
 </body>
