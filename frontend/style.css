@@ -37,8 +37,7 @@ table, td, th{
 }
 
 #main{
-    background-color: white;
-
+    background-color:wheat;
     font-family: Microsoft JhengHei;
 
 }
@@ -92,6 +91,7 @@ div{
 
 }
 
+
 .no-gutters {
     margin-right: 0;
     margin-left: 0;
@@ -131,30 +131,34 @@ div{
 .manage{
     width: auto ; 
     height:100px ;
-    margin-top:20% ;
+    margin-top:30% ;
 }
 .manage_left{
+    box-shadow: 10px 5px 10px black;
     float:left; 
     margin-left:10% ; 
     width:35%; 
     height:100px;
-    background-color: yellow;
+    background-color: white;
     line-height: 100px;
     text-align: center;
     cursor: pointer;
+
 }
+
 .manage_right{
+      box-shadow: 10px 5px 10px black;
       float:right;
       margin-right:10% ;
       width:35%;
       height:100px;
-      background-color: yellow ;
+      background-color: white ;
       line-height: 100px;
       text-align: center;
       cursor: pointer;
 }
 .manage_font{
-    font-size:30px;
+    font-size:23px;
     font-weight: bold;
 }
 .top{
