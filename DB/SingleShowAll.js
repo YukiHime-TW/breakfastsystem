@@ -9,7 +9,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/breakfast',{
 }); 
   
 // User model 
-const Single = mongoose.model('Single', { 
+var Single = mongoose.model('Single', { 
     food_name: { type: String }, 
     price: { type: Number } ,
     description: { type: String } 
