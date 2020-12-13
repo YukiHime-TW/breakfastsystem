@@ -1,24 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const singleSchema = new Schema({
+
+const orderSchema = new Schema({
     
-    set_name:{
-        type: String
-    },
-    price:{
-        type: Number
-    },
-    description: {
-        type: String
-    ,
-    food_id:{
-
-    }    
-    }
-
+    
+    food_id:[{
+        type: String // singleObjectID
+    }],
+    /*
+    set_id: [{
+        type: String // setObjectID
+    }],
+    */
+    state:[{
+        type: String  // 送出:1 製作中:2 待領取 :3 已領取: 4
+    }]
 },{timestamps: true})
 
+var order = mongoose.model('order',orderSchema)
+module.exports = order;
 
+
+
+
+/*
 {
     "order_id": "order_001",
     "date": "ISODate",
@@ -27,3 +32,4 @@ const singleSchema = new Schema({
     "set_id": [],
     "arrive_time": "ISODate"
 }
+*/
