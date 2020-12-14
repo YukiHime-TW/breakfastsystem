@@ -5,12 +5,11 @@
 <head>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
     <link rel="Shortcut Icon" href="cbja6-lmvd1-001.ico" type="image/x-icon/">
 
     <link href="style.css" rel="stylesheet" type="text/css">
 
-    <title>新豐街早餐店系統</title>
+    <title>登入</title>
 
     <meta charset="utf-8">
 
@@ -33,6 +32,8 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <script src="./script/allfunction.js"></script>
+
 </head>
 
 <body id="main">
@@ -40,21 +41,23 @@
     <div id="login">
 
         <h4>新豐街早餐店系統</h4>
+        <form action="" method="POST">
+            <div class="form-group">
 
-        <div class="form-group">
+                <input type="text" id="AC" name="AC"class="form-control" placeholder="帳號 ( Account )" required autofocus>
 
-            <input type="email" id="EM" class="form-control" placeholder="電子信箱 ( Email address )" required autofocus>
+                <input type="password" id="PW" name="PW"class="form-control" placeholder="密碼 ( Password )" required>
 
-            <input type="password" id="PW" class="form-control" placeholder="密碼 ( Password )" required>
+            </div>
 
-        </div>
+            <input type="submit" class="btn btn-lg btn-primary btn-light btn-block" value="登入" 
+                onclick="window.location='manage.html';">
 
-        <input type="submit" class="btn btn-lg btn-primary btn-light btn-block" value="登入" onclick="window.location='manage.html';">
-
+        </form>
         <div class="btn-group btn-block">
-            <input type="submit" class="btn btn-lg btn-primary btn-light" value="&nbsp;&nbsp;&nbsp;&nbsp;註冊&nbsp&nbsp;&nbsp;" onclick="newuser()">
+            <input type="button" class="btn btn-lg btn-primary btn-light" value="註冊"
+                onclick="window.location='reg.html'">
         </div>
-
 
     </div>
 

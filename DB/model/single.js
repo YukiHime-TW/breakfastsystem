@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema
+var Schema = mongoose.Schema
 
-const singleSchema = new Schema({
+var singleSchema = new Schema({
     food_name:{
         type: String
     },
@@ -14,5 +14,5 @@ const singleSchema = new Schema({
 },{timestamps: true})
 
 
-const single = mongoose.model('Single',singleSchema)
+var single = mongoose.model('single',singleSchema)
 module.exports = single;
