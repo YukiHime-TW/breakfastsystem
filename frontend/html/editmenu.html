@@ -6,11 +6,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="Shortcut Icon" href="cbja6-lmvd1-001.ico" type="image/x-icon/">
-
     <link href="style.css" rel="stylesheet" type="text/css">
 
-    <title>歷史訂單</title>
+    <title>編輯菜單</title>
 
     <meta charset="utf-8">
 
@@ -33,6 +31,8 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <script src="./script/allfunction.js"></script>
+
 </head>
 
 <body id="main">
@@ -41,7 +41,7 @@
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <img class= "img-responsive" src="font.png" style="width:35% ;">
+        <img class= "img-responsive" src="./image/font.png">
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
@@ -53,17 +53,10 @@
             </ul>
         </div>
     </nav>
-    <form action="" method="post">
-    <div align="center" style="font-size:50px; margin-top:20% ;">輸入查詢時段</div>
-    <div align="center"><input type="time">~<input type="time"></div>
-    <div align="center" style="font-size:50px;">輸入查詢日期</div>
-    <div align="center"><input type="date" style="width: 45%;">~<input type="date" style="width: 45%;"></div>
-    <div align="center" style="font-size:50px;">輸入年齡範圍</div>
-    <div align="center"><input type="number" style="width: 45%;" >~<input type="number" style="width: 45%;"></div>
-    <div align="center" style="font-size:50px;">輸入查詢性別</div>
-    <div align="center"><input type="button" style="width: 45%;" value="男" ><input type="button" style="width: 45%;" value="女"></div>
-    <input  type="submit" value="送出" align="center" >
-    </form>
+    <div onclick="window.open('editmenuplus.html','editplus')"id="regis" style="width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;">
+        <img src="./image/plus.png" width="100% ">
+    </div>
+
 </body>
 
 </html>

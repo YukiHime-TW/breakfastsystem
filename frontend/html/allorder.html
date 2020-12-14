@@ -8,7 +8,7 @@
 
     <link href="style.css" rel="stylesheet" type="text/css">
 
-    <title>新豐街早餐店系統</title>
+    <title>全部訂單</title>
 
     <meta charset="utf-8">
 
@@ -31,70 +31,28 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <script src="./script/allfunction.js"></script>
+
 </head>
 
 <body id="main">
-
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <img class= "img-responsive" src="./image/font.png" id="brand" >
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="menu.html">Menu <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="manage.html">首頁 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="login.html">登出<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
-    </nav>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">dish</th>
-                <th scope="col">-1</th>
-                <th scope="col">Number</th>
-                <th scope="col">+1</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td><button type="button" class="btn btn-warning">-1</button></td>
-                <td>1</td>
-                <td><button type="button" class="btn btn-warning">+1</button></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td><button type="button" class="btn btn-warning">-1</button></td>
-                <td>2</td>
-                <td><button type="button" class="btn btn-warning">+1</button></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td><button type="button" class="btn btn-warning">-1</button></td>
-                <td>3</td>
-                <td><button type="button" class="btn btn-warning">+1</button></td>
-            </tr>
-        </tbody>
-    </table>
 
 </body>
-
-<footer style="position: absolute;bottom: 0px; width: 100%;">
-    <p class="h3">Ready at:</p>
-    <hr>
-    <p class="h3">Cost:</p>
-    <button type="button" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">Buy</button>
-</footer>
 
 </html>

@@ -6,11 +6,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="Shortcut Icon" href="cbja6-lmvd1-001.ico" type="image/x-icon/">
-
     <link href="style.css" rel="stylesheet" type="text/css">
 
-    <title>編輯菜單</title>
+    <title>新豐街早餐店系統</title>
 
     <meta charset="utf-8">
 
@@ -33,30 +31,61 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <script src="./script/allfunction.js"></script>
+
 </head>
 
 <body id="main">
+
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <img class= "img-responsive" src="font.png" style="width:35% ;">
+
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="manage.html">首頁 <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="menu.html">Menu <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">登出<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Link</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div onclick="window.open('editmenuplus.html','editplus')"id="regis" style="width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;">
-        <img src="plus.png" width="100% ">
-    </div>
-
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">餐點</th>
+                <th scope="col">份/杯</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>火腿蛋土司</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>紅茶-冰-中杯</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>套餐Ｂ</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
+<footer style="position: absolute;bottom: 30px; width: 100%;">
+    <p class="h3">總計: 45元      預計取餐時間: 08:00</p>
+    <hr>
+    <button type="button" class="btn btn-warning" style="position: absolute;bottom: -30px;right:600px">取消</button>
+</footer>
 
 </html>
