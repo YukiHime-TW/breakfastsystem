@@ -26,60 +26,67 @@ app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
+// html
 app.get('/editmenu.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/editmenu.html');
+    res.sendFile(__dirname + '/frontend/html/editmenu.html');
 })
 
+app.get('/manage.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/manage.html');
+})
+
+app.get('/login.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/login.html');
+})
+
+app.get('/makingorder.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/makingorder.html');
+})
+
+app.get('/newset.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/newset.html');
+})
+
+app.get('/allorder.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/allorder.html');
+})
+
+app.get('/historyorder.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/hostoryorder.html');
+})
+
+app.get('/ordertime.html', function(req, res) {
+    res.sendFile(__dirname + '/frontend/html/ordertime.html');
+})
+
+// style.css
 app.get('/style.css', function(req, res) {
 	res.sendFile(__dirname + '/frontend/style.css');
 })
 
+// images
 app.get('/font.png', function(req, res) {
-	res.sendFile(__dirname + '/frontend/font.png');
+	res.sendFile(__dirname + '/frontend/image/font.png');
 })
 
 app.get('/plus.png', function(req, res) {
-	res.sendFile(__dirname + '/frontend/plus.png');
+	res.sendFile(__dirname + '/frontend/image/plus.png');
 });
 
 app.get('/setting.jpg', function(req, res) {
-    res.sendFile(__dirname + '/frontend/setting.jpg');
+    res.sendFile(__dirname + '/frontend/image/setting.jpg');
 })
 
 app.get('/txt.jpg', function(req, res) {
-    res.sendFile(__dirname + '/frontend/txt.jpg');
+    res.sendFile(__dirname + '/frontend/image/txt.jpg');
+})
+
+app.get('/back.png', function(req, res) {
+    res.sendFile(__dirname + '/frontend/image/back.png');
 })
 
 app.get('/buycar.jpg', function(req, res) {
-    res.sendFile(__dirname + '/frontend/buycar.png');
-})
-
-app.get('/manage.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/manage.html');
-})
-
-app.get('/login.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/login.html');
-})
-
-app.get('/makingorder.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/makingorder.html');
-})
-
-app.get('/newset.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/newset.html');
-})
-
-app.get('/allorder.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/allorder.html');
-})
-
-app.get('/historyorder.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/hostoryorder.html');
-})
-
-app.get('/ordertime.html', function(req, res) {
-    res.sendFile(__dirname + '/frontend/ordertime.html');
+    res.sendFile(__dirname + '/frontend/image/buycar.png');
 })
 
 var name, price, description;
