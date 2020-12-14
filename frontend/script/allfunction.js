@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-var url = "https://yukihime-tw.github.io/breakfastsystem/frontend/script/test.json";
+var url = "http://localhost:3000";
 
 window.onload = function(){
     request.open("GET", url, true);
@@ -23,12 +23,12 @@ function addmenu() {
         var newDiv = document.createElement('div');
         newDiv.style = "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;";
         newDiv.id = "1";
-        menu.appendChild();
+        menu.appendChild(newDiv);
     }
     var plusMenu = document.createElement('div');
     var plusImg = document.createElement('img');
     plusImg.src = "../image/plus.png";
-    plusImg.width = "100%";
+    plusImg.style = "width: 100%";
     plusMenu.appendChild(plusImg);
     plusMenu.style = "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;";
     plusMenu.onclick = "addmenu()";
