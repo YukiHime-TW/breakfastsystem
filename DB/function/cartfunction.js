@@ -1,4 +1,5 @@
 const Cart = require('./model/cart');
+const User = require('./model/user');
 const mongoose = require('mongoose');
 
 exports.insertsingle = function (id) {
@@ -22,18 +23,32 @@ exports.deleteset = function (id) {
    
 };
 */ 
+exports.cartsearchbyuserid = function (id){ // 此ID為user的ObjID
+    Cart.find(id, function (err, docs) { 
+        if (err){ 
+            console.log(err); 
+        } 
+        else{ 
+            console.log("Result : ", docs); 
+        } 
+    }); 
+};
 //var arrayid = []
-exports.cartstore = function (arrayid,/*,setarrayid*/err,result) { // 接受並成為訂單
-    new_cart = new Cart({
-        food_id: arrayid,
+exports.cartstore = function (userid,foodarrayid/*,setarrayid*/) { // 接受並成為訂單
+    var new_cart = new Cart({
+        user_id = userid,
+        $addToSet: {food_id:foodarrayid},
         state:'2'
     });
-    if (err){
-        console.log(err);
-    }
-    else{
-        console.log("Result: " ,result);
-    }
+    new_cart.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result);
+            console.log("inserted");
+        }
+    });
 };
 /*
 exports.cartclear = function () { // 清除
