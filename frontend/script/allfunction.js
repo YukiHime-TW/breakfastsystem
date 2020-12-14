@@ -1,13 +1,13 @@
 var request = new XMLHttpRequest();
 var url = "http://localhost:3000";
 
-window.onload = function(){
+window.onload = function () {
     request.open("GET", url, true);
     request.responseType = 'json';
-    request.onload = function(){
-        if(request.status == 200){
+    request.onload = function () {
+        if (request.status == 200) {
             var json = JSON.parse(request.response);
-            for(var i=0;i<json.length;i++){
+            for (var i = 0; i < json.length; i++) {
                 console.log(json[i].proName);
             }
             console.log(json);
@@ -17,7 +17,12 @@ window.onload = function(){
 }
 
 function addmenu() {
-    var menu = document.getElementById("menu");
+    let d = document.getElementById("main");
+    let d_nest = document.getElementById("menu");
+    d.removeChild(d_nest);
+
+    var menu = document.createElement('div');
+    menu.id = "menu";
 
     for (var i = 0; i < length; i++) {
         var newDiv = document.createElement('div');
@@ -34,6 +39,7 @@ function addmenu() {
     plusMenu.onclick = "addmenu()";
     plusMenu.id = "regis";
     menu.appendChild(plusMenu);
+    d.appendChild(menu);
 
     /*for (var i = 0; i <reader.length;i++){
 
