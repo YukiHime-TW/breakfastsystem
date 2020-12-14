@@ -4,11 +4,11 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
 var SingleRoutes = require('./routes/singleroute')
-var singleinsert  = require('./function/SingleStore.js')
-var singledeleted  = require('./function/SingleDelete.js')
-var singleshow = require('./function/SingleShowAll.js')
-var singleupdate = require('./function/SingleFindOneAndUpdate.js')
-var singlesearch = require('./function/SingleSearchOne.js')
+var single  = require('./function/singlefunction.js')
+var user  = require('./function/userfunction.js')
+var order  = require('./function/orderfunction.js')
+var cart = require('./function/cartfunction.js')
+
 
 
 
@@ -39,14 +39,14 @@ app.post('/insert', urlencodedParser, function (req, res) {
     name = req.body.Name;
     price = req.body.Price;
     description = req.body.Introduce;
-    singleinsert.insertone(name, price, description);
+    single.singlestore(name, price, description);
     res.sendFile(__dirname + '/finish.html');
 })
 
 
 app.post('/delete', urlencodedParser, function (req, res) {
     name = req.body.Name;
-    singledeleted.deleteone(name);
+    single.singledeleteonebyname(name);
     res.sendFile(__dirname + '/finish.html');
 })
 
@@ -56,14 +56,14 @@ app.post('/update', urlencodedParser, function (req, res) {
     name = req.body.Name;
     price = req.body.Price;
     description = req.body.Introduce;
-    singleupdate.findoneandupdate(origin, name, price, description);
+    single.singlefindoneandupdate(origin, name, price, description);
     res.sendFile(__dirname + '/finish.html');
 })
 
 
 app.get('/',urlencodedParser, function (req, res) {
     price = req.body.Price;
-    singleshow.singleshowall(price);
+    single.singleshowall(price);
     res.sendFile(__dirname + '/finish.html');
 
 })
@@ -72,7 +72,7 @@ app.get('/',urlencodedParser, function (req, res) {
 app.post('/searchone', urlencodedParser, function (req, res) {
     name = req.body.Name;
     price = req.body.Price;
-    singlesearch.findone(name, price);
+    single.singlefindone(name, price);
     res.sendFile(__dirname + '/finish.html');
 })
  

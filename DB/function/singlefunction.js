@@ -1,7 +1,7 @@
 const Single = require('./model/single');
 const mongoose = require('mongoose'); 
 
-exports.singledeleteonebyid= function (name) {
+exports.singledeleteonebyname= function (name) {
     Single.findOneAndRemove({food_name: {$eq: name} }, function (err, docs) { 
     if (err){ 
     console.log(err) 
