@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-var url = "https://yukihime-tw.github.io/breakfastsystem/frontend/script/fuck.json";
+var url = "https://yukihime-tw.github.io/breakfastsystem/frontend/script/test.json";
 
 window.onload = function(){
     request.open("GET", url, true);
