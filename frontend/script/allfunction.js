@@ -1,19 +1,19 @@
-var requestURL = "";
 var request = new XMLHttpRequest();
-var url = "../script/fuck.json";
+var url = "https://yukihime-tw.github.io/breakfastsystem/frontend/script/fuck.json";
 
 window.onload = function(){
-    request.open("GET", url);
-    request.send(null);
+    request.open("GET", url, true);
+    request.responseType = 'json';
     request.onload = function(){
         if(request.status == 200){
             var json = JSON.parse(request.response);
             for(var i=0;i<json.length;i++){
-                console.log(json[i].name);
+                console.log(json[i].proName);
             }
             console.log(json);
         }
     }
+    request.send(null);
 }
 
 function addmenu() {
