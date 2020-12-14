@@ -37,9 +37,9 @@
 </head>
 
 <body id="main">
-    <center><h1><img src="../image/font.png"></h1></center> 
+    <center><div style="margin-top: 5%;"><img src="../image/font.png"></div></center> 
     <div id="regis">
-        <center><h4>建立您的帳戶</h4></center>
+        <center><h4>註冊資料</h4></center>
         <form class="form-inline justify-content-center" action="" method="POST">
             <div class="container">
                 <div class="row no-gutters justify-content-start justify-content-center">
@@ -69,11 +69,11 @@
                 <input type="text" id="Name" name="Name" class="form-control" placeholder="Name" required>
                 <label for="old">年齡:</label>
                 <input type="text" id="Age" name="Age" class="form-control" placeholder="12 years old" required>
-                <center><input type="submit" style="margin-top: 10% ; width:100px ;" value="確定"></center>
+                <input type="submit" class="btn btn-warning" style="position: absolute;bottom: 0px;left: 0px;" value="註冊">
             </div>
         </form>
         <div>
-            <center><input type="button" style=" width:100px ;"value="取消" onclick="window.location='login.html'"></center>
+            <button type="button" onclick="window.location='manage.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
         </div>
     </div>
 
