@@ -2,53 +2,56 @@ const Single = require('./model/single');
 const mongoose = require('mongoose'); 
 
 exports.singledeleteonebyname= function (name) {
-    Single.findOneAndRemove({food_name: {$eq: name} }, function (err, docs) { 
-    if (err){ 
-    console.log(err) 
-    } 
-    else{ 
-    console.log("Deleted : ", docs); 
-    } 
+    Single.findOneAndRemove({food_name: {$eq: name} } )
+    .then(function(){ 
+        console.log("Data deleted"); // Success 
+    }).catch(function(error){ 
+        console.log(error); // Failure 
     }); 
 }; 
-exports.singlefindoneandupdate = function (name, price, introduce) {
-    console.log(name);
-    console.log(price);
-    Single.findOneAndUpdate({food_name: {$eq:name} },  //條件: food_name equal to name
-    {price:price}, null, function (err, docs) {  // price change to price
-    if (err){ 
-        console.log(err) 
-    } 
-    else{ 
-        console.log("Original Doc : ",docs); 
-    } 
-}); 
+exports.singlefindbyidandupdate = function (id, updateSingle) {
+
+    Single.findByIdAndUpdate(id,{$set: updateSingle})
+    .then(() =>{
+        res.json({
+            message:'Single Update Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
 }; 
-exports.singlefindone = function (name, price) {
+exports.singlefindone = function (name) {
     console.log(name);
-    console.log(price);
-    Single.findOne({food_name: {$eq:name} }, function (err, docs) {  //條件:搜尋第一個符合名字 = 小機掰 的文件 
-    if (err){ 
-        console.log(err) 
-    } 
-    else{ 
-        console.log("Result : ", docs); 
-    } 
-}); 
+    Single.findOne({food_name: {$eq:name} }) 
+    .then(response =>{
+        res.json({
+            response,
+            message:'Single Search Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
 };
 
-exports.singleshowall = function (name, price, introduce) {
-    //console.log(name);
-    console.log(price);
-    Single.find({price: {$gte:0} }, function (err, docs) {  //條件:搜尋全部價錢>=0 
-    if (err){ 
-        console.log(err) 
-    } 
-    else{ 
-        console.log("Result : ", docs); 
-        console.log("Find Successful");
-    } 
-});
+exports.singleshowall = function () {
+    Single.find() 
+    .then(response =>{
+        res.json({
+            response,
+            message:'Single ShowAll Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
 };
 
 exports.singlestore = function (name, price, introduce) {

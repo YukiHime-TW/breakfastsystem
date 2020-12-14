@@ -13,14 +13,18 @@ exports.deletesingle = function (id) {
 };
 */
 exports.ordersearchbyuserid = function (id){ // 此ID為user的ObjID
-    Cart.find(id, function (err, docs) { 
-        if (err){ 
-            console.log(err); 
-        } 
-        else{ 
-            console.log("Result : ", docs); 
-        } 
-    }); 
+    Order.find(id) 
+    .then(response =>{
+        res.json({
+            response,
+            message:'Order ShowAll Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    });
 };
 
 

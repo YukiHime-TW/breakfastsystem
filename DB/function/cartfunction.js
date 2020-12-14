@@ -2,15 +2,15 @@ const Cart = require('./model/cart');
 const User = require('./model/user');
 const mongoose = require('mongoose');
 
-exports.insertsingle = function (id) {
-    console.log(id);
+exports.insertsingle = function (singleid) {
+    console.log(singleid);
     //console.log(price);
-    Cart.food_id.push(id)
+    Cart.food_id.push(singleid)
 };
-exports.deletesingle = function (id) {
-    console.log(id);
+exports.deletesingle = function (singleid) {
+    console.log(singleid);
     //console.log(price);
-    Cart.food_id.pop(id);
+    Cart.food_id.pop(singleid);
 };
 
 /*
@@ -24,14 +24,18 @@ exports.deleteset = function (id) {
 };
 */ 
 exports.cartsearchbyuserid = function (id){ // 此ID為user的ObjID
-    Cart.find(id, function (err, docs) { 
-        if (err){ 
-            console.log(err); 
-        } 
-        else{ 
-            console.log("Result : ", docs); 
-        } 
-    }); 
+    Cart.find(id) 
+    .then(response =>{
+        res.json({
+            response,
+            message:'Cart ShowAll Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    });
 };
 //var arrayid = []
 exports.cartstore = function (userid,foodarrayid/*,setarrayid*/) { // 接受並成為訂單

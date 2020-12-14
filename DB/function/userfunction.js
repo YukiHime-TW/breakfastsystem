@@ -18,69 +18,72 @@ exports.userstore = function(name,age,gender,account,password) {
             console.log("inserted");
         }
     });
-}
+};
 exports.usersearchbyname = function (name) {
     console.log(name);
-    User.findOne({user_name: {$eq:name} }, function (err, docs) {   
-    if (err){ 
-        console.log(err) 
-    } 
-    else{ 
-        console.log("Result : ", docs); 
-    } 
-}); 
+    User.findOne({food_name: {$eq:name} }) 
+    .then(response =>{
+        res.json({
+            response,
+            message:'User Search Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
 };
 exports.usersearchbyid = function (id) {
     console.log(id);
-    User.findById(id, function (err, docs) {   
-    if (err){ 
-        console.log(err) 
-    } 
-    else{ 
-        console.log("Result : ", docs); 
-    } 
-});
+    User.findById(id)
+    .then(response =>{
+        res.json({
+            response,
+            message:'User Search Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
 };
 exports.userdeletebyid = function(id){
-    User.findByIdAndDelete(id, function (err, docs) { 
-        if (err){ 
-            console.log(err) 
-        } 
-        else{ 
-            console.log("Deleted : ", docs); 
-        } 
-    }); 
-}
+    User.findByIdAndDelete(id) 
+    .then(() =>{
+        res.json({
+            message:'User Delete Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
+};
 exports.userdeletebyname = function(name){
-    User.findOneAndDelete(name, function (err, docs) { 
-        if (err){ 
-            console.log(err) 
-        } 
-        else{ 
-            console.log("Deleted : ", docs); 
-        } 
-    }); 
-}
-exports.userupdatebyname = function(name,updateUser){
-    User.findOneAndUpdate({user_name: {$eq:name} },  
-        {$set: updateUser}, null, function (err, docs) { 
-        if (err){ 
-            console.log(err) 
-        } 
-        else{ 
-            console.log("Original Doc : ",docs); 
-        } 
-    }); 
-    exports.userupdatebyid = function(id,updateUser){
-        User.findByIdAndUpdate(id,{$set: updateUser}, null, function (err, docs) { 
-            if (err){ 
-                console.log(err) 
-            } 
-            else{ 
-                console.log("Original Doc : ",docs); 
-            }; 
-        }); 
+    User.deleteOne({ user_name: { $eq: name } })
+    .then(function(){ 
+        console.log("User deleted"); // Success 
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    })
+};
 
+exports.userupdatebyid = function(id,updateUser){
+    User.findByIdAndUpdate(id,{$set: updateUser})
+    .then(() =>{
+        res.json({
+            message:'User Update Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
     /*
     var updateSingle ={ // 要改的參數集合
         user_name :req.body.food_name,
@@ -91,16 +94,19 @@ exports.userupdatebyname = function(name,updateUser){
     }
     */ 
 };
-};
+
 
 exports.usershowall = function () {
-    Single.find(function (err, docs) {  
-    if (err){ 
-        console.log(err) 
-    } 
-    else{ 
-        console.log("Result : ", docs); 
-        console.log("Find Successful");
-    } 
-});
+    User.find()
+    .then(response =>{
+      res.json({
+              response,
+              message:'User ShowAll Successful'
+            })  
+    })
+    .catch(error =>{
+        res.json({
+            message:'An  Error Occured'
+        })
+    })
 };
