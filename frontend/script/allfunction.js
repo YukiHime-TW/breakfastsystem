@@ -1,22 +1,18 @@
 var request = new XMLHttpRequest();
 var url = "http://localhost:3000";
 
-window.onload = function () {
+window.onload = init();
+
+function init() {
     request.open("GET", url, true);
-    request.responseType = 'json';
-    request.onload = function () {
-        if (request.status == 200) {
-            var json = JSON.parse(request.response);
-            for (var i = 0; i < json.length; i++) {
-                console.log(json[i].proName);
-            }
-            console.log(json);
-        }
-    }
     request.send(null);
 }
 
 function addmenu() {
+    var json = JSON.parse(request.response);
+
+    console.log(json);
+
     let d = document.getElementById("main");
     let d_nest = document.getElementById("menu");
     d.removeChild(d_nest);
@@ -24,10 +20,11 @@ function addmenu() {
     var menu = document.createElement('div');
     menu.id = "menu";
 
-    for (var i = 0; i < length; i++) {
+    for (var i = 0; i < json.length; i++) {
         var newDiv = document.createElement('div');
         newDiv.style = "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;";
-        newDiv.id = "1";
+        newDiv.id = i;
+        newDiv.textContent = json[i].proName + json[i].proPrice ;
         menu.appendChild(newDiv);
     }
     var plusMenu = document.createElement('div');
