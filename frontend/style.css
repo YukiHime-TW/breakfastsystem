@@ -47,7 +47,6 @@ table, td, th{
 #main{
     background-color:wheat;
     font-family: Microsoft JhengHei;
-
 }
 
 #page{
@@ -56,6 +55,14 @@ table, td, th{
 
     margin: 0px auto;
    
+}
+
+#menu{
+    height:700px;
+}
+
+#order{
+    height:700px ;
 }
 
 #page table{
