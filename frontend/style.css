@@ -14,10 +14,10 @@ table, td, th{
 }
 
 #login{
-    width: 300px;
+    width: 75%;
     height: 320px;
     position: absolute;
-    top: 50%;
+    top: 35%;
     left: 50%;
     margin-left:-150px;
     margin-top:-190px;
