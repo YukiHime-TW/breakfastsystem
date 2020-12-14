@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
-var SingleRoutes = require('../DB/routes/singleroute')
-var insert  = require('../DB/SingleStore.js')
-var single = require('../DB/model/single')
+var SingleRoutes = require('./DB/routes/singleroute')
+var insert  = require('./DB/SingleStore.js')
+var single = require('./DB/model/single')
 mongoose.connect('mongodb://localhost:27017/Breakfast', 
 {useNewUrlParser: true, 
 useCreateIndex: true, 
