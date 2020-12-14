@@ -8,7 +8,7 @@
 
     
     <link href="../style.css" rel="stylesheet" type="text/css">
-    
+
     <title>註冊</title>
 
     <meta charset="utf-8">
@@ -37,15 +37,14 @@
 </head>
 
 <body id="main">
-
+    <center><h1><img src="../image/font.png"></h1></center> 
     <div id="regis">
-
-        <h4>建立您的帳戶</h4>
-        <form class="form-inline" action="" method="POST">
+        <center><h4>建立您的帳戶</h4></center>
+        <form class="form-inline justify-content-center" action="" method="POST">
             <div class="container">
-                <div class="row no-gutters justify-content-start    ">
+                <div class="row no-gutters justify-content-start justify-content-center">
                     <div class="col-2">
-                        <label>性別: </label>
+                        <label>性別:</label>
                     </div>
                     <div class="col-2">
                         <div class="form-check form-check-inline">
@@ -61,20 +60,21 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
-                <label for="UN">帳號</label>
+                <label for="UN">帳號:</label>
                 <input type="text" id="AC" name="AC" class="form-control" placeholder="Account" required autofocus>
-                <label for="PW">密碼</label>
+                <label for="PW">密碼:</label>
                 <input type="password" id="PW" name="PW" class="form-control" placeholder="Password" required>
-                <label for="Name">姓名</label>
+                <label for="Name">姓名:</label>
                 <input type="text" id="Name" name="Name" class="form-control" placeholder="Name" required>
-                <label for="old">年齡</label>
+                <label for="old">年齡:</label>
                 <input type="text" id="Age" name="Age" class="form-control" placeholder="12 years old" required>
-                <input type="submit" style="margin-top: 20% ;" value="確定">
+                <center><input type="submit" style="margin-top: 10% ; width:100px ;" value="確定"></center>
             </div>
         </form>
-        <input type="button" value="取消" onclick="window.location='login.html'">
+        <div>
+            <center><input type="button" style=" width:100px ;"value="取消" onclick="window.location='login.html'"></center>
+        </div>
     </div>
 
 </body>
