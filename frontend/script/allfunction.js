@@ -38,21 +38,4 @@ function addmenu() {
     menu.appendChild(plusMenu);
     d.appendChild(menu);
 
-    /*for (var i = 0; i <reader.length;i++){
-
-    }*/
 }
-
-/*function request() {
-    var request = new XMLHttpRequest();
-
-    request.open('GET', requestURL);
-
-    request.responseType = 'json';
-
-    request.send();
-
-    request.onload = function () {
-        var dishes = request.response;
-    }
-}*/
