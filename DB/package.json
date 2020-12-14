@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "nodemongo",
   "version": "1.0.0",
@@ -17,3 +18,23 @@
     "nodemon": "^2.0.6"
   }
 }
+=======
+{
+  "name": "nodemongo",
+  "version": "1.0.0",
+  "description": "softeng",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "fic",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.6",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6"
+  }
+}
+>>>>>>> origin/00757034
