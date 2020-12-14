@@ -23,7 +23,7 @@ function init() {
         plusImg.style = "width: 100%";
         plusMenu.appendChild(plusImg);
         plusMenu.style = "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;";
-        plusMenu.onclick = "addmenu()";
+        plusMenu.onclick = function(){window.open('editmenuplus.html','1234');};
         plusMenu.id = "regis";
         menu.appendChild(plusMenu);
         d.appendChild(menu);
@@ -54,7 +54,7 @@ function addmenu() {
     plusImg.style = "width: 100%";
     plusMenu.appendChild(plusImg);
     plusMenu.style = "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;";
-    plusMenu.onclick = "addmenu()";
+    plusMenu.onclick = function(){window.open('editmenuplus.html','1234');};
     plusMenu.id = "regis";
     menu.appendChild(plusMenu);
     d.appendChild(menu);
