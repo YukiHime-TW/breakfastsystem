@@ -14,7 +14,7 @@ function init() {
             var newDiv = document.createElement('div');
             newDiv.style = "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; margin-left: 15%; margin-top: 20%;";
             newDiv.id = i;
-            newDiv.textContent = json[i].proName + json[i].proPrice;
+            newDiv.textContent = json[i]._id + json[i].food_name + json[i].price + json[i].description;
             menu.appendChild(newDiv);
         }
         var plusMenu = document.createElement('div');
