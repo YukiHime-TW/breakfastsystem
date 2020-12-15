@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-var url = "http://localhost:3000";
+var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 
 window.onload = init();
 
