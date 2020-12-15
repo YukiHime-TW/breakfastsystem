@@ -72,15 +72,15 @@
         <form action="" method="post">
             <br />
             <center>
-                <div><input class="pic" style="margin-top: 20%; " type="file" onchange="selectImage(this);" /></div>
+                <div><input class="pic" style="margin-top: 20%; " type="file" name="file"onchange="selectImage(this);" /></div>
             </center>
-            <div align="center"><img style="width: 50%;" id="image" src="" /></div>
+            <div align="center"><img style="width: 50%;" id="image" name="image" src="" /></div>
             <div align="center" style="font-size:50px ">輸入名字</div>
-            <div align="center"><input type="text" id="Name"></div>
+            <div align="center"><input type="text" id="Name" name="Name"></div>
             <div align="center" style="font-size:50px;">輸入價錢</div>
-            <div align="center"><input type="number" id="Price" style="width: 45%;"></div>
+            <div align="center"><input type="number" id="Price" name="Price"style="width: 45%;"></div>
             <div align="center" style="font-size:50px;">餐點介紹</div>
-            <div align="center"><input type="text" id="Introduce" style="width: 45%; height:150px ;"></div>
+            <div align="center"><input type="text" id="Introduce" name="Introduce"style="width: 45%; height:150px ;"></div>
             <input type="submit" value="新增" class="btn btn-warning" style="position: absolute; bottom:0px ;">
         </form>
             <div><button type="button" onclick="window.location='editmenu.html'" class="btn btn-warning" style="position: absolute; bottom:0px;right:0px;">取消</button></div>

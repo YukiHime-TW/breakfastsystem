@@ -55,13 +55,13 @@
     </nav>
     <form action="" method="post">
     <div align="center" style="font-size:50px; margin-top:20% ;">輸入查詢時段</div>
-    <div align="center"><input type="time" style="width: 45%">~<input type="time" style="width:45%"></div>
+    <div align="center"><input type="time" name="Start_time"style="width: 45%">~<input type="time" name="End_time" style="width:45%"></div>
     <div align="center" style="font-size:50px;">輸入查詢日期</div>
-    <div align="center"><input type="date" style="width: 45%;">~<input type="date" style="width: 45%;"></div>
+    <div align="center"><input type="date" name="Start_date" style="width: 45%;">~<input type="date" name="End_date"style="width: 45%;"></div>
     <div align="center" style="font-size:50px;">輸入年齡範圍</div>
-    <div align="center"><input type="number" style="width: 45%;" >~<input type="number" style="width: 45%;"></div>
+    <div align="center"><input type="number" name="Start_age" style="width: 45%;" >~<input type="number" name="End_age" style="width: 45%;"></div>
     <div align="center" style="font-size:50px;">輸入查詢性別</div>
-    <div align="center"><input type="button" style="width: 45%;" value="男" ><input type="button" style="width: 45%;" value="女"></div>
+    <div align="center"><input type="button" name="gender" style="width: 45%;" value="男" ><input type="button" name="gender" style="width: 45%;" value="女"></div>
     <input type="submit" class="btn btn-warning" style="position: absolute;bottom: 0px;left: 0px;" value="確定">
     </form>
     <button type="button" onclick="window.location='manage.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
