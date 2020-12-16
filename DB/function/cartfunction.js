@@ -21,7 +21,7 @@ exports.deleteset = function (id) {
    
 };
 */
-exports.cartsearchbyuserid = function (id) { // 此ID為user的ObjID
+exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
     Cart.find(id)
         .then(response => {
             res.json({
