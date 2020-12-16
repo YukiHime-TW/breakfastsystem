@@ -44,7 +44,8 @@ function init() {
         "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:left;margin-left: 15%; margin-top: 20%;";
     }
     plusMenu.onclick = function () {
-      window.open("editmenuplus.html", "1234");
+      window.open("editmenuplus.html", "新增餐點");
+      parent.window.history.go(0);
     };
     plusMenu.id = "regis";
     menu.appendChild(plusMenu);
