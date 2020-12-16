@@ -1,4 +1,4 @@
-const User  = require('./models/user')
+const User  = require('../models/user')
 
 exports.userstore = function(name,age,gender,account,password) {
     console.log(name,age,gender,account,password);
@@ -19,7 +19,7 @@ exports.userstore = function(name,age,gender,account,password) {
         }
     });
 };
-exports.usersearchbyname = function (name) {
+exports.usersearchbyname = function (name,res) {
     console.log(name);
     User.findOne({food_name: {$eq:name} }) 
     .then(response =>{
@@ -34,7 +34,7 @@ exports.usersearchbyname = function (name) {
         })
     })
 };
-exports.usersearchbyid = function (id) {
+exports.usersearchbyid = function (id,res) {
     console.log(id);
     User.findById(id)
     .then(response =>{
@@ -49,7 +49,7 @@ exports.usersearchbyid = function (id) {
         })
     })
 };
-exports.userdeletebyid = function(id){
+exports.userdeletebyid = function(id,res){
     User.findByIdAndDelete(id) 
     .then(() =>{
         res.json({
@@ -72,7 +72,7 @@ exports.userdeletebyname = function(name){
     })
 };
 
-exports.userupdatebyid = function(id,updateUser){
+exports.userupdatebyid = function(id,updateUser,res){
     User.findByIdAndUpdate(id,{$set: updateUser})
     .then(() =>{
         res.json({
@@ -96,7 +96,7 @@ exports.userupdatebyid = function(id,updateUser){
 };
 
 
-exports.usershowall = function () {
+exports.usershowall = function (res) {
     User.find()
     .then(response =>{
       res.json({

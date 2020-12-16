@@ -17,7 +17,7 @@ const cartSchema = new Schema({
 */
    ,
    state:[{
-       type: String // 接受:0,拒絕:1 初始:2
+       type: Number // 接受:0,拒絕:1 初始:2
    }]
 },{timestamps: true})
 var cart = mongoose.model('cart',cartSchema)

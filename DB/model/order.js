@@ -14,7 +14,7 @@ const orderSchema = new Schema({
     }],
     */
     state:[{
-        type: String  // 送出:1 製作中:2 待領取 :3 已領取: 4
+        type: Number  // 送出:1 製作中:2 待領取 :3 已領取: 4
     }]
 },{timestamps: true})
 

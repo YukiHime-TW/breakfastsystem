@@ -1,5 +1,6 @@
 var request = new XMLHttpRequest();
-var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+// var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var url = "http://localhost:3000/";
 
 window.onload = init();
 
@@ -7,6 +8,7 @@ function init() {
     request.open("GET", url, true);
     request.onload = function () {
         var json = JSON.parse(request.response);
+        console.log(json);
         let d = document.getElementById("main");
         var menu = document.createElement('div');
         menu.id = "menu";

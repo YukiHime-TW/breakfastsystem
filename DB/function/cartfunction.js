@@ -1,6 +1,4 @@
-const Cart = require('./model/cart');
-const User = require('./model/user');
-const mongoose = require('mongoose');
+const Cart = require('../model/cart');
 
 exports.insertsingle = function (singleid) {
     console.log(singleid);
@@ -22,27 +20,41 @@ exports.insertset = function (id) {
 exports.deleteset = function (id) {
    
 };
-*/ 
-exports.cartsearchbyuserid = function (id){ // 此ID為user的ObjID
-    Cart.find(id) 
-    .then(response =>{
-        res.json({
-            response,
-            message:'Cart ShowAll Successful'
+*/
+exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
+    Cart.find(id)
+        .then(response => {
+            res.json({
+                response,
+                message: 'Cart ShowAll Successful'
+            })
         })
-    })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    });
+        .catch(error => {
+            res.json({
+                message: 'An Error Occured'
+            })
+        });
 };
 //var arrayid = []
-exports.cartstore = function (userid,foodarrayid/*,setarrayid*/) { // 接受並成為訂單
+
+exports.cartupdate = function (cartid,res) { // 增刪完的購物車回存
+    Cart.findByIdAndUpdate(cartid)
+    .then(response => {
+        res.json({
+            response,
+            message: 'Cart ShowAll Successful'
+        })
+    })
+    .catch(error => {
+        res.json({
+            message: 'An Error Occured'
+        })
+    });
+}
+exports.newusercartcreate = function (userid) { // 新使用者的新購物車
     var new_cart = new Cart({
-        user_id = userid,
-        $addToSet: {food_id:foodarrayid},
-        state:'2'
+        user_id: userid,
+        state: 2
     });
     new_cart.save(function (err, result) {
         if (err) {
@@ -54,11 +66,8 @@ exports.cartstore = function (userid,foodarrayid/*,setarrayid*/) { // 接受並�
         }
     });
 };
+
 /*
 exports.cartclear = function () { // 清除
-
 };
 */
-
-
-

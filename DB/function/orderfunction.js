@@ -1,4 +1,4 @@
-const Order = require('./model/order')
+const Order = require('../model/order')
 // 使用者參數: food_id[],set_id[],user_id[],state[],date
 exports.orderinsertsingle = function (id) {
     console.log(id);
@@ -12,7 +12,7 @@ exports.deletesingle = function (id) {
     Order.food_id.pop(id);
 };
 */
-exports.ordersearchbyuserid = function (id){ // 此ID為user的ObjID
+exports.ordersearchbyuserid = function (id,res){ // 此ID為user的ObjID
     Order.find(id) 
     .then(response =>{
         res.json({
@@ -26,6 +26,21 @@ exports.ordersearchbyuserid = function (id){ // 此ID為user的ObjID
         })
     });
 };
+exports.makingordershowall = function (res){ // 此ID為user的ObjID
+    Order.find({state: {$eq:2} }) 
+    .then(response =>{
+        res.json({
+            response,
+            message:'Making Order ShowAll Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    })
+};
+
 
 
 
@@ -34,7 +49,7 @@ exports.orderstore = function (userid,foodarrayid/*,setarrayid*/) {
    var new_order = new Order({
     user_id:userid,
     $addToSet: {food_id:foodarrayid},
-    state: '1'
+    state: 2
     });
 
    new_order.save(function (err, result) {

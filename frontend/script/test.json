@@ -1,20 +1,29 @@
 [
     {
-        "id": "1231456156asdsad",
+        "_id": "1231456156asdsad",
         "food_name": "紅茶",
         "price": "15",
-        "description": "好喝"
+        "description": "好喝",
+        "createdAt": "2020-12-15T10:10:32.600Z",
+        "updatedAt": "2020-12-15T10:10:32.600Z",
+        "__v": 0
     },
     {
         "_id": "sadsadsad213132",
         "food_name": "綠茶",
         "price": 45,
-        "description": "好喝的綠茶"
+        "description": "好喝的綠茶",
+        "createdAt": "2020-12-15T10:10:32.600Z",
+        "updatedAt": "2020-12-15T10:10:32.600Z",
+        "__v": 0
     },
     {
         "_id": "123141231321231asdasdd",
         "food_name": "麥茶",
         "price": 105,
-        "description": "不給你喝"
+        "description": "不給你喝",
+        "createdAt": "2020-12-15T10:10:32.600Z",
+        "updatedAt": "2020-12-15T10:10:32.600Z",
+        "__v": 0
     }
 ]
