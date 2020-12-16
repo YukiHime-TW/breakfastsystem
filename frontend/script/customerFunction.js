@@ -1,6 +1,5 @@
 var request = new XMLHttpRequest();
-var url =
-  "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 
 window.onload = init();
 
@@ -17,9 +16,7 @@ function init() {
       var newImg = document.createElement("img");
       newImg.src = "../image/plus.png";
       newImg.style = "width: 100%";
-      newButton.onclick = function () {
-          
-      };
+      newButton.onclick = function () {};
       newButton.appendChild(newImg);
       newDiv.appendChild(newButton);
       if (i % 2 == 0) {
@@ -30,7 +27,7 @@ function init() {
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
       }
       newDiv.id = i;
-      
+
       menu.appendChild(newDiv);
     }
     d.appendChild(menu);
