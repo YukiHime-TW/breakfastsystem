@@ -1,4 +1,4 @@
-const Single = require('./model/single');
+const Single = require('../model/single');
 const mongoose = require('mongoose'); 
 
 exports.singledeleteonebyname= function (name) {
