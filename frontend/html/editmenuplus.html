@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="../style.css" rel="stylesheet" type="text/css">
 
     <title>新增菜單</title>
 
@@ -31,55 +31,59 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <script src="./script/allfunction.js"></script>
-    
+
 </head>
 
 <body id="main">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <img class="img-responsive" src="font.png" style="width:35% ;">
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="manage.html">首頁 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">登出<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <script>
-        var image = '';
-     
-        function selectImage(file) {
-            if (!file.files || !file.files[0]) {
-                return;
+    <div id="editmenuplus">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img class="img-responsive" src="../image/font.png" id="brand">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="manage.html">首頁 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">登出<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <script>
+            var image = '';
+
+            function selectImage(file) {
+                if (!file.files || !file.files[0]) {
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    document.getElementById('image').src = evt.target.result;
+                    image = evt.target.result;
+                }
+                reader.readAsDataURL(file.files[0]);
             }
-            var reader = new FileReader();
-            reader.onload = function (evt) {
-                document.getElementById('image').src = evt.target.result;
-                image = evt.target.result;
-            }
-            reader.readAsDataURL(file.files[0]);
-        }
-    </script>
-    <form action="" method="post">
-        <br/>
-        <div align="center"><input class="pic"style="margin-top: 20%; "type="file" onchange="selectImage(this);"/></div>
-        <div align="center"><img style="width: 50%;"id="image" src=""/></div>
-        <div align="center" style="font-size:50px ">輸入名字</div>
-        <div align="center"><input type="text" id="Name"></div>
-        <div align="center" style="font-size:50px;">輸入價錢</div>
-        <div align="center"><input type="number" id="Price" style="width: 45%;"></div>
-        <div align="center" style="font-size:50px;">餐點介紹</div>
-        <div align="center"><input type="text" id="Introduce" style="width: 45%; height:400px ;"></div>
-        <input type="submit" value="送出">
-    </form>
+        </script>
+        <form action="" method="post">
+            <br />
+            <center>
+                <div><input class="pic" style="margin-top: 20%; " type="file" name="file"onchange="selectImage(this);" /></div>
+            </center>
+            <div align="center"><img style="width: 50%;" id="image" name="image" src="" /></div>
+            <div align="center" style="font-size:50px ">輸入名字</div>
+            <div align="center"><input type="text" id="Name" name="Name"></div>
+            <div align="center" style="font-size:50px;">輸入價錢</div>
+            <div align="center"><input type="number" id="Price" name="Price"style="width: 45%;"></div>
+            <div align="center" style="font-size:50px;">餐點介紹</div>
+            <div align="center"><input type="text" id="Introduce" name="Introduce"style="width: 45%; height:150px ;"></div>
+            <input type="submit" value="新增" class="btn btn-warning" style="position: absolute; bottom:0px ;">
+        </form>
+            <div><button type="button" onclick="window.location='editmenu.html'" class="btn btn-warning" style="position: absolute; bottom:0px;right:0px;">取消</button></div>
+    </div>
 </body>
 
 </html>

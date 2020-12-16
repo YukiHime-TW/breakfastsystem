@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="../style.css" rel="stylesheet" type="text/css">
 
     <title>新豐街早餐店系統</title>
 
@@ -31,7 +31,6 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <script src="./script/allfunction.js"></script>
 
 </head>
 
@@ -42,14 +41,14 @@
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <img class= "img-responsive" src="../image/font.png" id="brand">
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="menu.html">Menu <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="menu.html">主頁 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="../../index.html">登出</a>
                 </li>
             </ul>
         </div>
@@ -96,7 +95,8 @@
     <p class="h3">Ready at:</p>
     <hr>
     <p class="h3">Cost:</p>
-    <button type="button" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">Buy</button>
+    <input type="submit" value="送出" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">
+    <button type="button" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 100px;" onclick="window.location='menu.html'">取消</button>
 </footer>
 
 </html>

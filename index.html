@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="frontend/style.css" rel="stylesheet" type="text/css">
 
     <title>登入</title>
 
@@ -38,9 +38,9 @@
 <body id="main">
 
     <div id="login">
-
-        <h4>新豐街早餐店系統</h4>
-        <form action="" method="POST">
+        <h1><img src="frontend/image/font.png"></h1>
+        <h4>新豐早餐店</h4>
+        <form action="/check_login" method="POST">
             <div class="form-group">
 
                 <input type="text" id="AC" name="AC"class="form-control" placeholder="帳號 ( Account )" required autofocus>
@@ -49,13 +49,12 @@
 
             </div>
 
-            <input type="submit" class="btn btn-lg btn-primary btn-light btn-block" value="登入" 
-                onclick="window.location='manage.html';">
+            <input type="submit" class="btn btn-lg btn-primary btn-light btn-block" value="登入" >
 
         </form>
         <div class="btn-group btn-block">
             <input type="button" class="btn btn-lg btn-primary btn-light" value="註冊"
-                onclick="window.location='reg.html'">
+                onclick="window.location='/reg'">
         </div>
 
     </div>

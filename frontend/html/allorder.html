@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="../style.css" rel="stylesheet" type="text/css">
 
     <title>全部訂單</title>
 
@@ -31,7 +31,6 @@
 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <script src="./script/allfunction.js"></script>
 
 </head>
 
@@ -41,18 +40,21 @@
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <img class= "img-responsive" src="./image/font.png" id="brand" >
+        <img class= "img-responsive" src="../image/font.png" id="brand" >
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="manage.html">首頁 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">登出<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="../../index.html">登出<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
-
-</body>
+        </nav>
+        <div>
+            <button type="button" onclick="window.location='manage.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
+        </div>
+</body> 
 
 </html>
