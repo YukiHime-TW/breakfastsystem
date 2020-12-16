@@ -12,6 +12,15 @@ function init() {
     menu.id = "menu";
     for (var i = 0; i < json.length; i++) {
       var newDiv = document.createElement("div");
+      var newButton = document.createElement("button");
+      var newImg = document.createElement("img");
+      newImg.src = "../image/plus.png";
+      newImg.style = "width: 100%";
+      newButton.onclick = function(){
+
+      };
+      newButton.appendChild(newImg);
+      newDiv.appendChild(newButton);
       if (i % 2 == 0) {
         newDiv.style =
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:left;margin-left: 15%; margin-top: 20%;";
@@ -20,7 +29,6 @@ function init() {
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
       }
       newDiv.id = i;
-      newDiv.textContent = json[i].proName + json[i].proPrice;
       menu.appendChild(newDiv);
     }
     var plusMenu = document.createElement("div");
