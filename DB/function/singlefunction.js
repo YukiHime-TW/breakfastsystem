@@ -9,7 +9,7 @@ exports.singledeleteonebyname= function (name) {
         console.log(error); // Failure 
     }); 
 }; 
-exports.singlefindbyidandupdate = function (id, updateSingle) {
+exports.singlefindbyidandupdate = function (id, updateSingle,res) {
 
     Single.findByIdAndUpdate(id,{$set: updateSingle})
     .then(() =>{
@@ -23,7 +23,7 @@ exports.singlefindbyidandupdate = function (id, updateSingle) {
         })
     })
 }; 
-exports.singlefindone = function (name) {
+exports.singlefindone = function (name,res) {
     console.log(name);
     Single.findOne({food_name: {$eq:name} }) 
     .then(response =>{
@@ -39,7 +39,7 @@ exports.singlefindone = function (name) {
     })
 };
 
-exports.singleshowall = function () {
+exports.singleshowall = function (res) {
     Single.find() 
     .then(response =>{
         res.json({
