@@ -24,11 +24,15 @@ function init() {
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
       }
       div[i].id = json[i]._id;
-      div[i].setAttribute("onclick", `localStorage.setItem('cartKey${i}', div[${i}].id)`);
+      div[i].setAttribute("onclick", `addDish(${i})`);
       menu.appendChild(div[i]);
     }
     d.appendChild(menu);
     console.log(json);
   };
   request.send(null);
+}
+
+function addDish(i){
+  localStorage.setItem('cartKey' + i, div[i].id);
 }
