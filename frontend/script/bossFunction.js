@@ -1,8 +1,6 @@
 var request = new XMLHttpRequest();
 var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 
-window.onload = init();
-
 function init() {
     request.open("GET", url, true);
     request.onload = function () {
