@@ -28,7 +28,7 @@ function init() {
         newDiv.style =
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
       }
-      newDiv.id = i;
+      newDiv.id = json[i]._id;
       menu.appendChild(newDiv);
     }
     var plusMenu = document.createElement("div");
