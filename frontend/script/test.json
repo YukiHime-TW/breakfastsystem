@@ -16,5 +16,11 @@
         "food_name": "麥茶",
         "price": 105,
         "description": "不給你喝"
+    },
+    {
+        "_id": "14568451",
+        "food_name": "茶",
+        "price": 35,
+        "description": "給你喝"
     }
 ]
