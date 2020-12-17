@@ -2,6 +2,7 @@ var request = new XMLHttpRequest();
 var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 var div = new Array(0);
 var image = new Array(0);
+
 function init() {
   request.open("GET", url, true);
   request.onload = function () {
