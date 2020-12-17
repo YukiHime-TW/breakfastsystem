@@ -37,7 +37,6 @@ function addDish(i){
   localStorage.setItem('cartKey' + i, div[i].id);
   var cart = document.getElementById("cart");
   var putIn = document.createElement("input");
-  var json = JSON.parse(request.response);
   putIn.type = "hidden";
   putIn.value = div[i].id;
   putIn.name = "Cart";
