@@ -5,17 +5,17 @@ const orderSchema = new Schema({
     user_id: {
         type: String
     },
-    food_id:[{
-        type: String // singleObjectID
+    single:[{
+        food_id: String, // singleObjectID
+        finished: Boolean
     }],
-    /*
-    set_id: [{
-        type: String // setObjectID
+    set_: [{
+        set_id: String, // setObjectID
+        finished: Boolean
     }],
-    */
-    state:[{
+    state:{
         type: Number  // 送出:1 製作中:2 待領取 :3 已領取: 4
-    }]
+    }
 },{timestamps: true})
 
 var order = mongoose.model('order',orderSchema)

@@ -13,12 +13,9 @@ exports.deletesingle = function (id) {
 };
 */
 exports.ordersearchbyuserid = function (id,res){ // 此ID為user的ObjID
-    Order.find(id) 
+    Order.find({$and: [{user_id: id}, {state: 4}]})
     .then(response =>{
-        res.json({
-            response,
-            message:'Order ShowAll Successful'
-        })
+        res.json(response)
     })
     .catch(error =>{
         res.json({
@@ -26,6 +23,20 @@ exports.ordersearchbyuserid = function (id,res){ // 此ID為user的ObjID
         })
     });
 };
+
+exports.searchbyuserid_active = function (id,res){ // 此ID為user的ObjID
+    // Order.find({$and:[{user_id: id},{state: {$or:[1, 2, 3]}}]})
+    Order.find({$and:[{user_id: id}, $or [{state: 1}, {state: 2}, {state: 3}]]}) 
+    .then(response =>{
+        res.json(response)
+    })
+    .catch(error =>{
+        res.json({
+            message:'An Error Occured'
+        })
+    });
+};
+
 exports.makingordershowall = function (res){ // 此ID為user的ObjID
     Order.find({state: {$eq:2} }) 
     .then(response =>{

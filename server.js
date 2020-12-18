@@ -1,14 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-var urlencodedParser = bodyParser.urlencoded({ extended: false})
-var SingleRoutes = require('./DB/routes/singleroute')
-// var insert  = require('./DB/SingleStore.js')
-var single = require('./DB/function/singlefunction.js')
-var order = require('./DB/function/orderfunction.js')
-var cart = require('./DB/function/cartfunction.js')
-var singleCollection = require('./DB/model/single')
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const path = require('path');
+const MongoStore = require('connect-mongo')(session);
+const urlencodedParser = bodyParser.urlencoded({ extended: false})
+const SingleRoutes = require('./DB/routes/singleroute')
+const single = require('./DB/function/singlefunction.js')
+const order = require('./DB/function/orderfunction.js')
+const cart = require('./DB/function/cartfunction.js')
+const User = require('./DB/model/user.js')
+// const singleCollection = require('./DB/model/single');
+// const user = require('../../../../../../Downloads/test/models/user');
 // mongoose.connect('mongodb://localhost:27017/Breakfast', 
 // {useNewUrlParser: true, 
 // useCreateIndex: true, 
@@ -35,104 +39,29 @@ const app = express()
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(session({
+    secret:'test',
+    store:new MongoStore({url:'mongodb+srv://admin:00757019@breakfastsystem.pcfwe.mongodb.net/breakfastSystem?retryWrites=true&w=majority'}),
+    resave: false,
+    saveUninitialized: false,
+    cookie:{maxAge:60 * 60 * 1000}
+}))
 
 app.use(express.static('frontend'))
 app.use(express.static('frontend/html'));
+app.get('/reg', function(req, res){
+    res.sendFile(__dirname + '/frontend/html/reg.html')
+})
 
 // html
-// app.get('/editmenu.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/editmenu.html');
-// })
 
-// app.get('/editmenuplus.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/editmenuplus.html');
-// })
-
-// app.get('/manage.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/manage.html');
-// })
-
-// app.get('/index.html', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
-// })
-
-// app.get('/cart.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/cart.html');
-// })
-
-// app.get('/makingorder.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/makingorder.html');
-// })
-
-// app.get('/newset.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/newset.html');
-// })
-
-// app.get('/allorder.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/allorder.html');
-// })
-
-// app.get('/historyorder.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/hostoryorder.html');
-// })
-
-// app.get('/ordertime.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/ordertime.html');
-// })
-
-// app.get('/menu.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/menu.html');
-// })
-
-// app.get('/makingorder.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/makingorder.html');
-// })
-
-// app.get('/reg', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/reg.html');
-// })
-
-// app.get('/order.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/ordertime.html');
-// })
-
-// app.get('/option.html', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/html/option.html');
-// })
-
-app.get('/', function(req, res) {
+app.get('/get_menu', function(req, res) {
     single.singleshowall(res);
 })
 
 // style.css
-// app.get('/frontend/style.css', function(req, res) {
-// 	res.sendFile(__dirname + '/frontend/style.css');
-// })
 
 // images
-// app.get('/frontend/image/font.png', function(req, res) {
-// 	res.sendFile(__dirname + '/frontend/image/font.png');
-// })
-
-// app.get('/frontend/image/plus.png', function(req, res) {
-// 	res.sendFile(__dirname + '/frontend/image/plus.png');
-// });
-
-// app.get('/frontend/image/setting.jpg', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/image/setting.jpg');
-// })
-
-// app.get('/frontend/image/txt.jpg', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/image/txt.jpg');
-// })
-
-// app.get('/frontend/image/back.png', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/image/back.png');
-// })
-
-// app.get('/frontend/image/buycar.jpg', function(req, res) {
-//     res.sendFile(__dirname + '/frontend/image/buycar.png');
-// })
 
 // script
 app.get('/script/cosmterFunction.js', function(req, res) {
@@ -144,12 +73,63 @@ app.get('/script/cosmterFunction.js', function(req, res) {
 // })
 
 // function
-app.post('/check_login', function(req, res) {
+app.post('/check_login', function (req, res) {
+	var postData = {
+        account: req.body.AC,
+        password: req.body.PW
+    };
+    if(postData.account=="shopkeeper" && postData.password=="shopkeeper"){
+        req.session.user = postData.account;
+        console.log(req.session);
+        console.log(req.sessionID);
+        res.redirect('/manage.html');
+    }
+    else{
+        User.findOne({
+            account: postData.account,
+            password: postData.password
+        }, function (err, data) {
+            if(err) throw err;
+            if(data){
+                console.log('登錄成功');
+                req.session.user = postData.account;
+                console.log(req.session);
+                console.log(req.sessionID);
+                res.redirect('/menu.html');
+            }
+            else{
+                console.log('帳號或密碼錯誤')
+                res.redirect('/index.html');
+            }
+        })
+    }
+});
 
-})
+app.post('/reg.html', function (req, res) {
+    var postData = {
+        gender: req.body.gender,
+        account: req.body.AC,
+        password: req.body.PW,
+        user_name: req.body.Name,
+        age: req.body.Age
+    };
+    User.findOne({account: postData.username}, function (err, data) {
+        if (data) {
+            console.log('用戶名已被註冊');
+            res.redirect('reg');
+        } 
+        else {
+            User.create(postData, function (err, data) {
+                if (err) throw err;
+                console.log('註冊成功');
+            });
+            res.redirect('/index.html');
+        }
+    });
+});
 
 app.use('/create_order', function(req, res){
-    var user_id = "001";
+    var user_id = req.session.user;
     // order.orderstore(user_id, null);
     res.redirect('order.html');
 })
@@ -160,12 +140,37 @@ app.use('/add_to_cart', function(req, res){
     res.redirect('menu.html');
 })
 
+app.get('/show_all_order', function(req, res) {
+    res.sendFile(__dirname + '/frontend/script/order.json');
+})
+
+app.get('/my_cart', function(req, res) {
+    var user_id = req.session.user;
+    cart.cartsearchbyuserid(user_id, res);
+})
+
+app.get('/my_old_order', function(req, res) {
+    var user_id = req.session.user;
+    order.ordersearchbyuserid(user_id, res);
+})
+
+app.get('/my_active_order', function(req, res) {
+    var user_id = req.session.user;
+    order.searchbyuserid_active(user_id, res);
+})
+
+app.post('/mark_as_done', function(req, res) {
+    var id = req.body.foor_id;
+    
+})
+
 var name, price, description;
 
 app.post('/editmenuplus.html', urlencodedParser, function (req, res) {
     name = req.body.Name;
     price = req.body.Price;
     description = req.body.Introduce;
+    req.body.file;
     console.log(description);
     single.singlestore(name, price, description);
     res.sendFile(__dirname + '/finish.html');
