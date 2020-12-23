@@ -45,7 +45,6 @@ function init() {
         plusMenu.id = "regis";
         menu.appendChild(plusMenu);
         d.appendChild(menu);
-        console.log(json);
     };
     request.send(null);
 }
