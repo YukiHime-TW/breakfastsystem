@@ -61,7 +61,6 @@ function btnOperate(op) {
   }
   var json = JSON.parse(request.response);
   document.getElementById("num").value = value;
-  var price = document.getElementById("price").value;
   document.getElementById("price").value = json[0].price * document.getElementById("num").value;
 }
 
