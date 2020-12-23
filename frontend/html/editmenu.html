@@ -29,8 +29,6 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
     <script src="../script/bossFunction.js"></script>
 
 </head>
@@ -48,11 +46,14 @@
                     <a class="nav-link" href="manage.html">首頁 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../index.html">登出<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/logout">登出<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
     </nav>
+    <script>
+        window.onload = init();
+    </script>
     <div>
         <button type="button" onclick="window.location='manage.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
     </div>
