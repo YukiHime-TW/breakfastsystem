@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    
+
     <link href="../style.css" rel="stylesheet" type="text/css">
 
     <title>註冊</title>
@@ -34,9 +34,13 @@
 </head>
 
 <body id="main">
-    <center><div style="margin-top: 5%;"><img src="../image/font.png"></div></center> 
+    <center>
+        <div style="margin-top: 5%;"><img src="../image/font.png"></div>
+    </center>
     <div id="regis">
-        <center><h4>註冊資料</h4></center>
+        <center>
+            <h4>註冊資料</h4>
+        </center>
         <form class="form-inline justify-content-center" action="" method="POST">
             <div class="container">
                 <div class="row no-gutters justify-content-start justify-content-center">
@@ -62,18 +66,39 @@
                 <input type="text" id="AC" name="AC" class="form-control" placeholder="Account" required autofocus>
                 <label for="PW">密碼:</label>
                 <input type="password" id="PW" name="PW" class="form-control" placeholder="Password" required>
+                <label for="AGPW">確認密碼:</label>
+                <input type="password" id="AGPW" name="AGPW" class="form-control" placeholder="Confirm Password"
+                    required onchange=check()>
                 <label for="Name">姓名:</label>
                 <input type="text" id="Name" name="Name" class="form-control" placeholder="Name" required>
                 <label for="old">年齡:</label>
-                <input type="text" id="Age" name="Age" class="form-control" placeholder="12 years old" required>
-                <input type="submit" class="btn btn-warning" style="position: absolute;bottom: 0px;left: 0px;" value="註冊">
+                <input type="number" id="Age" name="Age" class="form-control" placeholder="12 years old" required>
+                <input type="submit" class="btn btn-warning" style="position: absolute;bottom: 0px;left: 0px;"
+                    value="註冊" id="sub">
             </div>
         </form>
         <div>
-            <button type="button" onclick="window.location='../../index.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
+            <button type="button" onclick="window.location='../../index.html'" class="btn btn-warning"
+                style="position: absolute;bottom: 0px;right: 0px;">取消</button>
         </div>
     </div>
 
 </body>
+<script>
+    window.onload = function () {
+        document.getElementById("sub").disabled = true;
+    }
+    function check() {
+        var passw = document.getElementById("PW");
+        var passwAg = document.getElementById("AGPW");
+        if (passw.value === passwAg.value) {
+            document.getElementById("sub").disabled = false;
+        }else{
+            alert("密碼與再次輸入的密碼不符");
+            document.getElementById("AGPW").focus();
+        }
+    }
+
+</script>
 
 </html>
