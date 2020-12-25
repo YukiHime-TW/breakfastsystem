@@ -21,11 +21,13 @@ function init() {
                 newDiv.style =
                     "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
             }
-            newDiv.onclick = function () {
-
-            };
             newDiv.id = json[i]._id;
             menu.appendChild(newDiv);
+            newDiv.onclick = function (i) {
+                    var json = JSON.parse(request.response);
+                    localStorage.setItem('id', json[i].price);
+                
+            };
         }
         var plusMenu = document.createElement("div");
         var plusImg = document.createElement("img");
@@ -62,8 +64,7 @@ function editInit() {
     request.send(null);
 }
 
-function btnOperate(op)
- {
+function btnOperate(op) {
     var value = Number(document.getElementById("num").value);
     if (op == '+') {
         value += 1;
@@ -78,4 +79,41 @@ function btnOperate(op)
     document.getElementById("num").value = value;
     var price = document.getElementById("price").value;
     document.getElementById("price").value = json[0].price * document.getElementById("num").value;
+}
+
+function MakingorderInit() {
+    request.open("GET", url, true);
+    request.onload = function () {
+        var json = JSON.parse(request.response);
+        console.log(json);
+        var table = document.getElementById("table");
+        var tbody = document.createElement("tbody");
+        for (var i = 0; i < json.length; i++) {
+            var tr = document.createElement("tr");
+            var td = document.createElement("td");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            var input = document.createElement("input");
+            var input1 = document.createElement("input");
+            var form = document.createElement("form");
+            input.type = "hidden";
+            input.value = json[i]._id;
+            input.name = "_id";
+            input1.type = "submit";
+            input1.value = "未完成";
+            form.method = "post";
+            form.appendChild(input);
+            form.appendChild(input1);
+            td2.appendChild(form);
+            td.innerHTML = json[i].food_name;
+            tr.appendChild(td);
+            td1.innerHTML = json[i].price;
+            tr.appendChild(td1);
+            tr.appendChild(td2)
+            tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+    }
+    request.send(null);
+
 }
