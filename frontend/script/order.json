@@ -2,7 +2,25 @@
     "order_id": "order_001",
     "date": "ISODate",
     "state": "state",
-    "food_id": [],
+    "food_id": [
+        {
+        "id": "123",
+        "amount": 4
+        }
+        ,
+        {
+            "id": "345",
+            "amount": 2
+        }],
     "set_id": [],
-    "arrive_time": "ISODate"
+    "arrive_time": "ISODate".
+    "item": [
+        {
+            "food"
+            "set"
+        },
+        {
+
+        }
+    ]
 }
