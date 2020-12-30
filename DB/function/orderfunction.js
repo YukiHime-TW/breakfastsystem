@@ -17,12 +17,12 @@ exports.ordersearchbyuserid = function (id,res){ // 此ID為user的ObjID
     .then(response =>{
         res.json({
             response,
-            message:'Order ShowAll Successful'
+           // message:'Order ShowAll Successful'
         })
     })
     .catch(error =>{
         res.json({
-            message:'An Error Occured'
+            //message:'An Error Occured'
         })
     });
 };
@@ -31,15 +31,29 @@ exports.makingordershowall = function (res){ // 此ID為user的ObjID
     .then(response =>{
         res.json({
             response,
-            message:'Making Order ShowAll Successful'
+          //  message:'Making Order ShowAll Successful'
         })
     })
     .catch(error =>{
         res.json({
-            message:'An Error Occured'
+            //message:'An Error Occured'
         })
     })
 };
+exports.findorderwithname = function(res,date){
+    Order.findOne({ISODate:{$eq:date}})
+    .then(response =>{
+        res.json({
+            response,
+          //  message:'Making Order ShowAll Successful'
+        })
+    })
+    .catch(error =>{
+        res.json({
+            //message:'An Error Occured'
+        })
+    })
+}
 
 
 

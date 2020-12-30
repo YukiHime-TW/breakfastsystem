@@ -14,12 +14,12 @@ exports.singlefindbyidandupdate = function (id, updateSingle,res) {
     Single.findByIdAndUpdate(id,{$set: updateSingle})
     .then(() =>{
         res.json({
-            message:'Single Update Successful'
+            //message:'Single Update Successful'
         })
     })
     .catch(error =>{
         res.json({
-            message:'An Error Occured'
+           // message:'An Error Occured'
         })
     })
 }; 
@@ -29,12 +29,12 @@ exports.singlefindone = function (name,res) {
     .then(response =>{
         res.json({
             response,
-            message:'Single Search Successful'
+            //message:'Single Search Successful'
         })
     })
     .catch(error =>{
         res.json({
-            message:'An Error Occured'
+            //message:'An Error Occured'
         })
     })
 };
@@ -44,12 +44,12 @@ exports.singleshowall = function (res) {
     .then(response =>{
         res.json({
             response,
-            message:'Single ShowAll Successful'
+            //message:'Single ShowAll Successful'
         })
     })
     .catch(error =>{
         res.json({
-            message:'An Error Occured'
+          //  message:'An Error Occured'
         })
     })
 };

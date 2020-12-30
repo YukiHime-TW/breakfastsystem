@@ -26,12 +26,12 @@ exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
         .then(response => {
             res.json({
                 response,
-                message: 'Cart ShowAll Successful'
+                //message: 'Cart ShowAll Successful'
             })
         })
         .catch(error => {
             res.json({
-                message: 'An Error Occured'
+                //message: 'An Error Occured'
             })
         });
 };
@@ -42,12 +42,12 @@ exports.cartupdate = function (cartid,res) { // 增刪完的購物車回存
     .then(response => {
         res.json({
             response,
-            message: 'Cart ShowAll Successful'
+            //message: 'Cart ShowAll Successful'
         })
     })
     .catch(error => {
         res.json({
-            message: 'An Error Occured'
+            //message: 'An Error Occured'
         })
     });
 }

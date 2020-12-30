@@ -23,10 +23,7 @@ exports.usersearchbyname = function (name,res) {
     console.log(name);
     User.findOne({food_name: {$eq:name} }) 
     .then(response =>{
-        res.json({
-            response,
-            message:'User Search Successful'
-        })
+        res.json(response)
     })
     .catch(error =>{
         res.json({

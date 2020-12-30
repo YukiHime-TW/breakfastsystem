@@ -8,7 +8,8 @@ const cartSchema = new Schema({
     },
 
     food_id:[{
-        type: String // ObjectID
+        "id": String,
+        "amount": Number
     }]
 /*,
     set_id:[{
