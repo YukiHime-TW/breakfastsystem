@@ -164,6 +164,12 @@ app.post('/mark_as_done', function(req, res) {
     
 })
 
+app.get('/logout', function (req, res){
+    delete req.session.user;
+    req.session.destroy();
+    res.redirect('/index.html');
+})
+
 var name, price, description;
 
 app.post('/editmenuplus.html', urlencodedParser, function (req, res) {
