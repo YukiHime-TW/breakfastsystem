@@ -1,6 +1,7 @@
 var request = new XMLHttpRequest();
 var url =
   "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var cart_url = "";
 var div = new Array(0);
 var image = new Array(0);
 
@@ -106,7 +107,7 @@ function clearAll() {
 }
 
 function cartInit() {
-  request.open("GET", url, true);
+  request.open("GET", cart_url, true);
   request.onload = function () {
     var json = JSON.parse(request.response);
     console.log(json);
