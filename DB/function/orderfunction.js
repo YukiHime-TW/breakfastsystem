@@ -40,10 +40,8 @@ exports.makingordershowall = function (res){ // 此ID為user的ObjID
         })
     })
 };
-exports.findorderwithdate = function(res,start,finish){
-    Order.find({CreatedAt:{
-        $gte: ISODate(start),
-        $lt: ISODate(finish)}})
+exports.findorderwithdate = function(res,start,finish){ 
+    Order.find({CreatedAt:{$gte: ISODate(start),$lt: ISODate(finish)}})
     .then(response =>{
         res.json({
             response,

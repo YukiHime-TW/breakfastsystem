@@ -87,15 +87,6 @@ exports.setupdatebyid = function(id,updateSet,res){
             message:'An Error Occured'
         })
     })
-    /*
-    var updateSingle ={ // 要改的參數集合
-        user_name :req.body.food_name,
-        age : req.body.age,
-        gender : req.body.gender,
-        account: req.body.account,
-        password: req.body.password
-    }
-    */ 
 };
 
 

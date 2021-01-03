@@ -12,20 +12,18 @@ exports.deletesingle = function (id) {
 };
 
 
-/*
-exports.insertset = function (id) {
-   console.log(id);
+exports.insertset = function (setid) {
+   console.log(setid);
     //console.log(price);
-    Cart.food_id.id.push(id);
+    Cart.food_id.id.pushse(setid);
 };
-*/
-/*
-exports.deleteset = function (id) {
-   console.log(id);
+
+exports.deleteset = function (setid) {
+   console.log(setid);
     //console.log(price);
-    Cart.food_id.id.push(id);
+    Cart.food_id.id.push(setid);
 };
-*/
+
 exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
     Cart.find(id)
         .then(response => {
@@ -42,8 +40,8 @@ exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
 };
 //var arrayid = []
 
-exports.cartupdate = function (cartid,res) { // 增刪完的購物車回存
-    Cart.findByIdAndUpdate(cartid)
+exports.cartupdate = function (cartid,res,updateCart) { // 增刪完的購物車回存
+    Cart.findByIdAndUpdate(cartid,{$set: updateCart})
     .then(response => {
         res.json({
             response,

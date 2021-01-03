@@ -6,13 +6,13 @@ const orderSchema = new Schema({
         type: String
     },
     food_id:[{
-        type: String // singleObjectID
+        "id": String,
+        "amount": Number
     }],
-    /*
     set_id: [{
         type: String // setObjectID
-    }],
-    */
+    }]
+    ,
     state:[{
         type: Number  // 送出:1 製作中:2 待領取(已完成) :3 已領取: 4
     }]
