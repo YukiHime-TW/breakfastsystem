@@ -59,7 +59,7 @@ exports.newusercartcreate = function (userid) { // 新使用者的新購物車
         }
         else {
             console.log(result);
-            console.log("inserted");
+            console.log("Created new cart for new user.");
         }
     });
 };

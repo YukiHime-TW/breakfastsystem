@@ -73,6 +73,10 @@ app.get('/script/cosmterFunction.js', function(req, res) {
 // })
 
 // function
+app.post('/menu.html', function(req, res) {
+
+})
+
 app.post('/check_login', function (req, res) {
 	var postData = {
         account: req.body.AC,
@@ -113,7 +117,7 @@ app.post('/reg.html', function (req, res) {
         user_name: req.body.Name,
         age: req.body.Age
     };
-    User.findOne({account: postData.username}, function (err, data) {
+    User.findOne({account: postData.account}, function (err, data) {
         if (data) {
             console.log('用戶名已被註冊');
             res.redirect('reg');
@@ -123,6 +127,8 @@ app.post('/reg.html', function (req, res) {
                 if (err) throw err;
                 console.log('註冊成功');
             });
+            req.session.user = postData.account;
+            cart.newusercartcreate(postData.account);
             res.redirect('/index.html');
         }
     });
