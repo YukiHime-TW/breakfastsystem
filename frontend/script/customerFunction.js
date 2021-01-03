@@ -158,3 +158,8 @@ function cartInit() {
   }
   request.send(null);
 }
+
+function sendingCart(){
+  var cart = document.getElementById("cart");
+  cart.submit();
+}
