@@ -5,6 +5,7 @@ var url1 = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master
 var div = new Array(0);
 var image = new Array(0);
 var td_item_state_value = new Array(0);
+var button = new Array(0);
 
 function init() {
     request.open("GET", url, true);
@@ -29,9 +30,9 @@ function init() {
             }
 
             font.style = "width:100%;background-color:black;opacity:0.5;position:relative; word-wrap:break-word;color:white";
-            font.innerHTML = "<center>"+json[i].food_name+"$"+json[i].price;
+            font.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price;
             div[i].appendChild(font);
-            
+
             div[i].id = json[i]._id;
             menu.appendChild(div[i]);
             div[i].setAttribute("onclick", `edit(${i})`);
@@ -66,13 +67,11 @@ function init() {
 function check() {
     var message = confirm("確定要新增嗎");
     newDish = document.getElementById("newDish");
-    if (message == true)
-    {
+    if (message == true) {
         newDish.submit();
         window.location.replace('editmenu.html', '編輯菜單');
     }
-    else
-    {
+    else {
     }
 }
 
@@ -156,16 +155,23 @@ function MakingorderInit() {
             var tr_item_value = document.createElement("tr");           //訂單編號 欲取餐時間 訂單狀態 的值
             var td_item_order_value = document.createElement("td");
             tr_item_value.style = "background:white;"
-            td_item_order_value.innerHTML = "<center>"+json[i].order_id;
+            td_item_order_value.innerHTML = "<center>" + json[i].order_id;
             var td_item_arrive_time_value = document.createElement("td");
-            td_item_arrive_time_value.innerHTML = "<center>"+json[i].arrive_time;
+            td_item_arrive_time_value.innerHTML = "<center>" + json[i].arrive_time;
             td_item_state_value[i] = document.createElement("td");
-            if (json[i].state==2)
-                td_item_state_value[i].innerHTML = "<center>" + "未完成";
+            td_item_state_value[i].setAttribute("align", "center");
+
+
+            button[i] = document.createElement("button");
+            button[i].setAttribute("class", "btn btn-warning");
+
+            if (json[i].state == 2)
+                button[i].innerHTML = "<center>" + "未完成";
             else
-                td_item_state_value[i].innerHTML = "<center>" + "未取單";
-            
-            td_item_state_value[i].setAttribute("onclick", `state(${i})`);
+                button[i].innerHTML = "<center>" + "未取單";
+
+            button[i].setAttribute("onclick", `state(${i})`);
+            td_item_state_value[i].appendChild(button[i]);
             tr_item_value.appendChild(td_item_order_value);
             tr_item_value.appendChild(td_item_arrive_time_value);
             tr_item_value.appendChild(td_item_state_value[i]);
@@ -176,11 +182,11 @@ function MakingorderInit() {
 
             for (var j = 0; j < json[i].food_id.length; j++) {           //訂單內餐點的資訊
                 var tr_food = document.createElement("tr");
-                tr_food.style="background:white;"
+                tr_food.style = "background:white;"
                 var td_food_name = document.createElement("td");
-                td_food_name.innerHTML = "<center>"+json[i].food_id[j].id;
+                td_food_name.innerHTML = "<center>" + json[i].food_id[j].id;
                 var td_food_amount = document.createElement("td");
-                td_food_amount.innerHTML = "<center>"+json[i].food_id[j].amount;
+                td_food_amount.innerHTML = "<center>" + json[i].food_id[j].amount;
                 var td_food_state = document.createElement("td");
                 td_food_state.innerHTML = "<center>123";
                 tr_food.appendChild(td_food_name);
@@ -205,10 +211,8 @@ function MakingorderInit() {
 
 function state(i) {
     var json = JSON.parse(request.response);
-    if (json[i].state==2)
+    if (json[i].state == 2)
         window.location.replace(`http://localhost:3000/state2?order_id=${json[i].order_id}`);
     else if (json[i].state == 3)
         window.location.replace(`http://localhost:3000/state3?order_id=${json[i].order_id}`);
-        
-        
 }
