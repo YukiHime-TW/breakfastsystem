@@ -40,8 +40,10 @@ exports.makingordershowall = function (res){ // 此ID為user的ObjID
         })
     })
 };
-exports.findorderwithdate = function(res,date){
-    Order.findOne({ISODate:{$eq:date}})
+exports.findorderwithdate = function(res,start,finish){
+    Order.find({CreatedAt:{
+        $gte: ISODate(start),
+        $lt: ISODate(finish)}})
     .then(response =>{
         res.json({
             response,
@@ -54,9 +56,6 @@ exports.findorderwithdate = function(res,date){
         })
     })
 }
-
-
-
 
 
 exports.orderstore = function (userid,foodarrayid/*,setarrayid*/) {

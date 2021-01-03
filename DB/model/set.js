@@ -12,6 +12,7 @@ const singleSchema = new Schema({
         type: String
     },
     food_id:[{
+        type: String
     }]
     
 
