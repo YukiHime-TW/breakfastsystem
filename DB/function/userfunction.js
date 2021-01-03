@@ -19,47 +19,36 @@ exports.userstore = function(name,age,gender,account,password) {
         }
     });
 };
-exports.usersearchbyname = function (name,res) {
+exports.UserSearchByName = function (name,res) {
     console.log(name);
-    User.findOne({food_name: {$eq:name} }) 
-    .then(response =>{
-        res.json(response)
+    User.findOne({user_name: {$eq:name} }) 
+    .then((response) =>{
+    res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
-exports.usersearchbyid = function (id,res) {
+exports.UserSearchById = function (id,res) {
     console.log(id);
     User.findById(id)
-    .then(response =>{
-        res.json({
-            response,
-            message:'User Search Successful'
+    .then((response) =>{
+        res.json(response)
         })
-    })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
+        .catch(function(error){ 
+            console.log(error); // Failure 
+        }); 
 };
-exports.userdeletebyid = function(id,res){
+exports.UserDeleteById = function(id){
     User.findByIdAndDelete(id) 
-    .then(() =>{
-        res.json({
-            message:'User Delete Successful'
-        })
+    .then(function(){ 
+        console.log("User deleted"); // Success 
     })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
+    .catch(function(error){ 
+        console.log(error); // Failure 
     })
 };
-exports.userdeletebyname = function(name){
+exports.UserDeleteByName = function(name){
     User.deleteOne({ user_name: { $eq: name } })
     .then(function(){ 
         console.log("User deleted"); // Success 
@@ -69,41 +58,24 @@ exports.userdeletebyname = function(name){
     })
 };
 
-exports.userupdatebyid = function(id,updateUser,res){
+exports.UserUpdateById = function(id,updateUser,res){
     User.findByIdAndUpdate(id,{$set: updateUser})
-    .then(() =>{
-        res.json({
-            message:'User Update Successful'
+    .then((response) =>{
+        res.json(response)
         })
-    })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
-    /*
-    var updateSingle ={ // 要改的參數集合
-        user_name :req.body.food_name,
-        age : req.body.age,
-        gender : req.body.gender,
-        account: req.body.account,
-        password: req.body.password
-    }
-    */ 
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
 
 
-exports.usershowall = function (res) {
-    User.find()
-    .then(response =>{
-      res.json({
-              response,
-              message:'User ShowAll Successful'
-            })  
+exports.UserShowAll = function (res) {
+    User.find({}) 
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            message:'An  Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
+

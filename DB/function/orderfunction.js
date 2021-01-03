@@ -12,47 +12,32 @@ exports.deletesingle = function (id) {
     Order.food_id.pop(id);
 };
 */
-exports.ordersearchbyuserid = function (id,res){ // 此ID為user的ObjID
-    Order.find(id) 
-    .then(response =>{
-        res.json({
-            response,
-           // message:'Order ShowAll Successful'
-        })
+exports.OrderSearchByUserId = function (id,res){ // 此ID為user的ObjID
+    Order.find({}) 
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            //message:'An Error Occured'
-        })
-    });
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
-exports.makingordershowall = function (res){ // 此ID為user的ObjID
+exports.MakingOrderShowAll = function (res){ // 此ID為user的ObjID
     Order.find({state: {$eq:2} }) 
-    .then(response =>{
-        res.json({
-            response,
-          //  message:'Making Order ShowAll Successful'
-        })
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            //message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
-exports.findorderwithdate = function(res,start,finish){ 
+exports.FindOrderWithDate = function(res,start,finish){ 
     Order.find({CreatedAt:{$gte: ISODate(start),$lt: ISODate(finish)}})
-    .then(response =>{
-        res.json({
-            response,
-          //  message:'Making Order ShowAll Successful'
-        })
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            //message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 }
 
 

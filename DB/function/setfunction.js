@@ -1,6 +1,6 @@
 const Set  = require('../models/set')
 //create new set
-exports.setstore = function(name,price,description,food_id) {
+exports.SetStore = function(name,price,description,food_id) {
    // console.log(name,age,gender,account,password);
     var new_set = new Set({
         set_name: name, 
@@ -18,45 +18,37 @@ exports.setstore = function(name,price,description,food_id) {
         }
     });
 };
-exports.insertsingle = function (singleid) {
+exports.SetInsertSingle = function (singleid) {
     console.log(singleid);
     //console.log(price);
     Set.food_id.push(singleid)
 };
-exports.deletesingle = function (singleid) {
+exports.SetDeleteSingle = function (singleid) {
     console.log(singleid);
     //console.log(price);
     Set.food_id.pop(singleid);
 };
-exports.setsearchbyname = function (name,res) {
+exports.SetSearchByName = function (name,res) {
     console.log(name);
-    User.findOne({food_name: {$eq:name} }) 
-    .then(response =>{
-        res.json(response)
+    Set.findOne({set_name: {$eq:name} }) 
+    .then((response) =>{
+    res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            //message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
-exports.setsearchbyid = function (id,res) {
+exports.SetSearchById = function (id,res) {
     console.log(id);
-    Set.findById(id)
-    .then(response =>{
-        res.json({
-            response,
-            //message:'User Search Successful'
-        })
+    Set.findById(id) 
+    .then((response) =>{
+    res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            //message:'An Error Occured'
-
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
-exports.setdeletebyid = function(id){
+exports.SetDeleteById = function(id){
     Set.findByIdAndDelete(id) 
     .then(function(){ 
         console.log("Set deleted"); // Success 
@@ -65,42 +57,33 @@ exports.setdeletebyid = function(id){
         console.log(error); // Failure 
     })
 };
-exports.setdeletebyname = function(name){
-    Set.deleteOne({ user_name: { $eq: name } })
+exports.SetDeleteByName = function(name){
+    Set.deleteOne({ set_name: { $eq: name } })
     .then(function(){ 
-        console.log("User deleted"); // Success 
+        console.log("Set deleted"); // Success 
     })
     .catch(function(error){ 
         console.log(error); // Failure 
     })
 };
 
-exports.setupdatebyid = function(id,updateSet,res){
+exports.SetUpdateById = function(id,updateSet,res){
     Set.findByIdAndUpdate(id,{$set: updateSet})
-    .then(() =>{
-        res.json({
-            message:'User Update Successful'
+    .then((response) =>{
+        res.json(response)
         })
-    })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
 
 
-exports.setshowall = function (res) {
-    Set.find()
-    .then(response =>{
-      res.json({
-              response,
-              message:'User ShowAll Successful'
-            })  
+exports.SetShowall = function (res) {
+    Set.find({}) 
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            message:'An  Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };

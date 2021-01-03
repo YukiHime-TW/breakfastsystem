@@ -26,34 +26,24 @@ exports.deleteset = function (setid) {
 
 exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
     Cart.find(id)
-        .then(response => {
-            res.json({
-                response,
-                //message: 'Cart ShowAll Successful'
-            })
-        })
-        .catch(error => {
-            res.json({
-                //message: 'An Error Occured'
-            })
-        });
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
 //var arrayid = []
 
 exports.cartupdate = function (cartid,res,updateCart) { // 增刪完的購物車回存
     Cart.findByIdAndUpdate(cartid,{$set: updateCart})
-    .then(response => {
-        res.json({
-            response,
-            //message: 'Cart ShowAll Successful'
-        })
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error => {
-        res.json({
-            //message: 'An Error Occured'
-        })
-    });
-}
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+};
 exports.newusercartcreate = function (userid) { // 新使用者的新購物車
     var new_cart = new Cart({
         user_id = userid,
