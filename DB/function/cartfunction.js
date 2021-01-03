@@ -1,24 +1,29 @@
 const Cart = require('../model/cart');
 
-exports.insertsingle = function (singleid) {
+exports.insertsingle = function (id) {
+    console.log(id);
+    //console.log(price);
+    Cart.food_id.id.push(id);
+};
+exports.deletesingle = function (id) {
     console.log(singleid);
     //console.log(price);
-    Cart.food_id.push(singleid)
+    Cart.food_id.id.pop(id);
 };
-exports.deletesingle = function (singleid) {
-    console.log(singleid);
-    //console.log(price);
-    Cart.food_id.pop(singleid);
-};
+
 
 /*
 exports.insertset = function (id) {
-   
+   console.log(id);
+    //console.log(price);
+    Cart.food_id.id.push(id);
 };
 */
 /*
 exports.deleteset = function (id) {
-   
+   console.log(id);
+    //console.log(price);
+    Cart.food_id.id.push(id);
 };
 */
 exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID

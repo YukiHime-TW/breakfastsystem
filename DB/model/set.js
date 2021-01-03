@@ -10,11 +10,10 @@ const singleSchema = new Schema({
     },
     description: {
         type: String
-    ,
-    food_id:{
-
-    }    
-    }
+    },
+    food_id:[{
+    }]
+    
 
 },{timestamps: true})
 

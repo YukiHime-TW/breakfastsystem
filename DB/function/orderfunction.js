@@ -40,7 +40,7 @@ exports.makingordershowall = function (res){ // 此ID為user的ObjID
         })
     })
 };
-exports.findorderwithname = function(res,date){
+exports.findorderwithdate = function(res,date){
     Order.findOne({ISODate:{$eq:date}})
     .then(response =>{
         res.json({
