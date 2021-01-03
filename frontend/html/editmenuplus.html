@@ -68,19 +68,19 @@
                 reader.readAsDataURL(file.files[0]);
             }
         </script>
-        <form action="" method="post" name="newDish">
+        <form action="" method="post" name="newDish" id="newDish">
             <br />
             <center>
                 <div><input class="pic" style="margin-top: 20%; " type="file" name="file"onchange="selectImage(this);" /></div>
             </center>
             <div align="center"><img style="width: 50%;" id="image" name="image" src="" /></div>
-            <div align="center" style="font-size:50px ">輸入名字</div>
-            <div align="center"><input type="text" id="Name" name="Name"></div>
+            <div align="center" style="font-size:50px " >輸入名字</div>
+            <div align="center"><input type="text" id="Name" name="Name" required></div>
             <div align="center" style="font-size:50px;">輸入價錢</div>
-            <div align="center"><input type="number" id="Price" name="Price"style="width: 45%;"></div>
+            <div align="center"><input type="number" id="Price" name="Price"style="width: 45%;" required></div>
             <div align="center" style="font-size:50px;">餐點介紹</div>
             <div align="center"><input type="text" id="Introduce" name="Introduce"style="width: 45%; height:150px ;"></div>
-            <input type="button" value="新增" class="btn btn-warning" style="position: absolute; bottom:0px ;" onclick="submit();window.location.replace('editmenu.html', '編輯菜單');">
+            <input type="button" value="新增" class="btn btn-warning" style="position: absolute; bottom:0px ;" onclick="check();">
         </form>
             <div><button type="button" onclick="window.location='editmenu.html'" class="btn btn-warning" style="position: absolute; bottom:0px;right:0px;">取消</button></div>
     </div>
