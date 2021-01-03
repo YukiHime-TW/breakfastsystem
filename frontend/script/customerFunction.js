@@ -162,4 +162,5 @@ function cartInit() {
 function sendingCart(){
   var cart = document.getElementById("cart");
   cart.submit();
+  console.log("Cart sended");
 }
