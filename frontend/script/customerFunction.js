@@ -20,7 +20,7 @@ function init() {
       image[i].style = "width: 100%";
       div[i].appendChild(image[i]);
       foodName.style = "width:100%;background-color:black;opacity:0.5;position:relative; word-wrap:break-word;color:white";
-      foodName.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price;
+      foodName.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price + "</center>";
       div[i].appendChild(foodName);
       if (i % 2 == 0) {
         div[i].style =
