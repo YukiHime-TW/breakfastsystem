@@ -64,16 +64,7 @@ function init() {
     request.send(null);
 }
 
-function check() {
-    var message = confirm("確定要新增嗎");
-    newDish = document.getElementById("newDish");
-    if (message == true) {
-        newDish.submit();
-        window.location.replace('editmenu.html', '編輯菜單');
-    }
-    else {
-    }
-}
+
 
 function edit(i) {
     var json = JSON.parse(request.response);
