@@ -55,14 +55,6 @@ app.get('/reg', function(req, res){
 
 // html
 
-app.get('/get_menu', function(req, res) {
-    single.singleshowall(res);
-})
-
-app.get('/cart.html', function(req, res) {
-    cart.cartSearchByAccount(req.session.user, res)
-})
-
 // style.css
 
 // images
@@ -79,6 +71,11 @@ app.get('/script/cosmterFunction.js', function(req, res) {
 // function
 app.post('/menu.html', function(req, res) {
 
+})
+
+app.post('/editmenumiddle.html', function(req, res) {       // 等DB SingleUpdate
+    
+    res.redirect('/editmenu.html')
 })
 
 app.post('/check_login', function (req, res) {
@@ -154,9 +151,9 @@ app.get('/show_all_order', function(req, res) {
     res.sendFile(__dirname + '/frontend/script/order.json');
 })
 
-app.get('/my_cart', function(req, res) {
+app.get('/my_cart', function(req, res) {        // 客人自己的購物車
     var user_id = req.session.user;
-    cart.cartsearchbyuserid(user_id, res);
+    cart.cartSearchByAccount(user_id, res)
 })
 
 app.get('/my_old_order', function(req, res) {
@@ -178,6 +175,10 @@ app.get('/logout', function (req, res){
     delete req.session.user;
     req.session.destroy();
     res.redirect('/index.html');
+})
+
+app.get('/get_menu', function(req, res) {
+    single.SingleShowAll(res);
 })
 
 var name, price, description;

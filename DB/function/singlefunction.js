@@ -24,7 +24,7 @@ exports.singlefindbyidandupdate = function (id, updateSingle,res) {
         })
     })
 }; 
-exports.SingleUpdate = function (id, updateSingle,res) {
+exports.SingleUpdate = function (id, updateSingle,res) {        // 改完去修改server.js post editmenumiddle.html
     Single.findByIdAndUpdate(id,{$set: updateSingle})
     .then((response) =>{
         res.json(response)

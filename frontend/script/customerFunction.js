@@ -6,7 +6,7 @@ var div = new Array(0);
 var image = new Array(0);
 
 function init() {
-  request.open("GET", url, true);
+  request.open("GET", "http://localhost:3000/get_menu", true);
   request.onload = function () {
     var json = JSON.parse(request.response);
     let d = document.getElementById("main");
