@@ -42,7 +42,7 @@
 
         <form class="form-inline">
             <a class="navbar-brand" href="order.html"><img src="../image/txt.jpg" width="40" height="40" alt="訂單"></a>
-            <a class="navbar-brand" href="cart.html"><img src="../image/buycar.png" width="40" height="40"
+            <a class="navbar-brand" href="cart.html" onclick="sendingCart()"><img src="../image/buycar.png" width="40" height="40"
                     alt="購物車"></a>
             <a class="navbar-brand" href="option.html"><img src="../image/setting.jpg" width="40" height="40"
                     alt="設定"></a>
@@ -54,7 +54,7 @@
                     <a class="nav-link " href="menu.html">菜單 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../index.html">登出</a>
+                    <a class="nav-link" href="/logout">登出</a>
                 </li>
             </ul>
         </div>
@@ -62,7 +62,7 @@
     <script>
         window.onload = init();
     </script>
-    <form id="cart" action=""></form>
+    <form id="cart" action="tobackend"></form>
 </body>
 
 </html>
