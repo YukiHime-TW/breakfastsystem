@@ -59,6 +59,11 @@ app.get('/get_menu', function(req, res) {
     single.singleshowall(res);
 })
 
+app.get('/cart.html', function(req, res) {
+    cart.cartsearchbyuserid(req.session.user, res)
+    single.singleshowall(res);
+})
+
 // style.css
 
 // images
@@ -160,7 +165,7 @@ app.get('/my_old_order', function(req, res) {
     order.ordersearchbyuserid(user_id, res);
 })
 
-app.get('/my_active_order', function(req, res) {
+app.get('/my_active_order', function(req, res) {        // 顧客顯示個人訂單
     var user_id = req.session.user;
     order.searchbyuserid_active(user_id, res);
 })

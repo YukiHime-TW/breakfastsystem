@@ -32,7 +32,7 @@ exports.searchbyuserid_active = function (id,res){ // 此ID為user的ObjID
     })
     .catch(error =>{
         res.json({
-            message:'An Error Occured'
+            message:"No active order"
         })
     });
 };
