@@ -24,6 +24,16 @@ exports.ordersearchbyuserid = function (id,res){ // 此ID為user的ObjID
     });
 };
 
+exports.OrderSearchByUserId = function (id,res){ // 此ID為user的ObjID
+    Order.find({}) 
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+};
+
 exports.searchbyuserid_active = function (id,res){ // 此ID為user的ObjID
     // Order.find({$and:[{user_id: id},{state: {$or:[1, 2, 3]}}]})
     Order.find({$and:[{user_id: id}, $or [{state: 1}, {state: 2}, {state: 3}]]}) 
@@ -52,7 +62,25 @@ exports.makingordershowall = function (res){ // 此ID為user的ObjID
     })
 };
 
+exports.MakingOrderShowAll = function (res){ // 此ID為user的ObjID
+    Order.find({state: {$eq:2} }) 
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+};
 
+exports.FindOrderWithDate = function(res,start,finish){ 
+    Order.find({CreatedAt:{$gte: ISODate(start),$lt: ISODate(finish)}})
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+}
 
 
 

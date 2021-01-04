@@ -1,14 +1,15 @@
 const Single = require('../model/single');
 const mongoose = require('mongoose'); 
 
-exports.singledeleteonebyname= function (name) {
-    Single.findOneAndRemove({food_name: {$eq: name} } )
+exports.SingleDelete= function (name) {
+    Single.deleteOne({food_name: {$eq: name} } )
     .then(function(){ 
         console.log("Data deleted"); // Success 
     }).catch(function(error){ 
         console.log(error); // Failure 
     }); 
-}; 
+};
+
 exports.singlefindbyidandupdate = function (id, updateSingle,res) {
 
     Single.findByIdAndUpdate(id,{$set: updateSingle})
@@ -23,46 +24,49 @@ exports.singlefindbyidandupdate = function (id, updateSingle,res) {
         })
     })
 }; 
-exports.singlefindone = function (name,res) {
+exports.SingleUpdate = function (id, updateSingle,res) {
+    Single.findByIdAndUpdate(id,{$set: updateSingle})
+    .then((response) =>{
+        res.json(response)
+        })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+}; 
+
+exports.SingleSearch = function (name,res) {
     console.log(name);
     Single.findOne({food_name: {$eq:name} }) 
-    .then(response =>{
-        res.json({
-            response,
-            message:'Single Search Successful'
-        })
+    .then((response) =>{
+    res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
 
-exports.singleshowall = function (res) {
-    Single.find() 
-    .then(response => {
-        res.json(response);
+exports.SingleShowAll = function (res) {
+    Single.find({}) 
+    .then((response) =>{
+        res.json(response)
     })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
 
-exports.singlestore = function (name, price, introduce) {
+exports.SingleStore = function (name, price, description) {
     console.log(name);
     console.log(price);
     var new_food = new Single({
         food_name: name,
         price: price,
-        description: introduce
+        description: description
     })
   
-    new_food.save(function (err, result) {
-        if (err) {
-            console.log(err);
+    new_food.save(function (error, result) {
+        if (error) {
+            console.log(error);
         }
         else {
             console.log(result);

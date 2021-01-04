@@ -1,26 +1,28 @@
 const Cart = require('../model/cart');
 
-exports.insertsingle = function (singleid) {
-    console.log(singleid);
+exports.insertsingle = function (id) {
+    console.log(id);
     //console.log(price);
-    Cart.food_id.push(singleid)
+    Cart.food_id.push(id)
 };
-exports.deletesingle = function (singleid) {
-    console.log(singleid);
+exports.deletesingle = function (id) {
+    console.log(id);
     //console.log(price);
-    Cart.food_id.pop(singleid);
+    Cart.food_id.pop(id);
 };
 
-/*
-exports.insertset = function (id) {
-   
-};
-*/
-/*
-exports.deleteset = function (id) {
-   
-};
-*/
+exports.insertset = function (setid) {
+    console.log(setid);
+     //console.log(price);
+     Cart.food_id.id.pushse(setid);
+ };
+ 
+ exports.deleteset = function (setid) {
+    console.log(setid);
+     //console.log(price);
+     Cart.food_id.id.push(setid);
+ };
+
 exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
     Cart.find(id)
         .then(response => {
@@ -33,6 +35,18 @@ exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
         });
 };
 //var arrayid = []
+
+exports.cartSearchByAccount = function (id, res) {  // 用Account搜尋，因為session存的是Account
+    Cart.find({user_id: id})
+        .then(response => {
+            res.json(response)
+        })
+        .catch(error => {
+            res.json({
+                message: 'An Error Occured'
+            })
+        })
+}
 
 exports.cartupdate = function (cartid,res) { // 增刪完的購物車回存
     Cart.findByIdAndUpdate(cartid)

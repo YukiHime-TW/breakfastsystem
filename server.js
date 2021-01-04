@@ -60,8 +60,7 @@ app.get('/get_menu', function(req, res) {
 })
 
 app.get('/cart.html', function(req, res) {
-    cart.cartsearchbyuserid(req.session.user, res)
-    single.singleshowall(res);
+    cart.cartSearchByAccount(req.session.user, res)
 })
 
 // style.css

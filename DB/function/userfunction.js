@@ -34,6 +34,17 @@ exports.usersearchbyname = function (name,res) {
         })
     })
 };
+exports.UserSearchByName = function (name,res) {
+    console.log(name);
+    User.findOne({user_name: {$eq:name} }) 
+    .then((response) =>{
+    res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+};
+
 exports.usersearchbyid = function (id,res) {
     console.log(id);
     User.findById(id)
@@ -49,6 +60,17 @@ exports.usersearchbyid = function (id,res) {
         })
     })
 };
+exports.UserSearchById = function (id,res) {
+    console.log(id);
+    User.findById(id)
+    .then((response) =>{
+        res.json(response)
+        })
+        .catch(function(error){ 
+            console.log(error); // Failure 
+        }); 
+};
+
 exports.userdeletebyid = function(id,res){
     User.findByIdAndDelete(id) 
     .then(() =>{
@@ -62,7 +84,26 @@ exports.userdeletebyid = function(id,res){
         })
     })
 };
+exports.UserDeleteById = function(id){
+    User.findByIdAndDelete(id) 
+    .then(function(){ 
+        console.log("User deleted"); // Success 
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    })
+};
+
 exports.userdeletebyname = function(name){
+    User.deleteOne({ user_name: { $eq: name } })
+    .then(function(){ 
+        console.log("User deleted"); // Success 
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    })
+};
+exports.UserDeleteByName = function(name){
     User.deleteOne({ user_name: { $eq: name } })
     .then(function(){ 
         console.log("User deleted"); // Success 
@@ -94,19 +135,23 @@ exports.userupdatebyid = function(id,updateUser,res){
     }
     */ 
 };
-
-
-exports.usershowall = function (res) {
-    User.find()
-    .then(response =>{
-      res.json({
-              response,
-              message:'User ShowAll Successful'
-            })  
-    })
-    .catch(error =>{
-        res.json({
-            message:'An  Error Occured'
+exports.UserUpdateById = function(id,updateUser,res){
+    User.findByIdAndUpdate(id,{$set: updateUser})
+    .then((response) =>{
+        res.json(response)
         })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+};
+
+
+exports.UserShowAll = function (res) {
+    User.find({}) 
+    .then((response) =>{
+        res.json(response)
     })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
 };
