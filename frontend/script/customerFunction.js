@@ -1,15 +1,4 @@
 var request = new XMLHttpRequest();
-<<<<<<< HEAD
-// var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
-var div = new Array(0);
-var image = new Array(0);
-
-window.onload = init();
-
-function init() {
-    request.open("GET", "http://localhost:3000/get_menu", true);
-    request.onload = function () {
-=======
 var url =
   "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 var cart_url = "";
@@ -19,7 +8,6 @@ var image = new Array(0);
 function init() {
   request.open("GET", url, true);
   request.onload = function () {
->>>>>>> master
     var json = JSON.parse(request.response);
     let d = document.getElementById("main");
     var menu = document.createElement("div");
@@ -43,11 +31,6 @@ function init() {
       menu.appendChild(div[i]);
     }
     d.appendChild(menu);
-<<<<<<< HEAD
-    console.log(json);
-  };
-  request.send(null);
-=======
   };
   request.send(null);
 }
@@ -181,7 +164,6 @@ function sendingCart(){
   var cart = document.getElementById("cart");
   cart.submit();
   console.log("Cart sended");
->>>>>>> master
 }
 
 function addDish(i) {

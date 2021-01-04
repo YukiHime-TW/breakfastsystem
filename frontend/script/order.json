@@ -1,13 +1,6 @@
 [
     {
         "order_id": "order_001",
-<<<<<<< HEAD
-        "date": "ISODate",
-        "state": 2,
-        "food_id": [],
-        "set_id": [],
-        "arrive_time": "ISODate"
-=======
         "date": "ISODate1",
         "state": 2,
         "food_id": [
@@ -39,6 +32,5 @@
         ],
         "set_id": [],
         "arrive_time": "ISODate2"
->>>>>>> master
     }
 ]
