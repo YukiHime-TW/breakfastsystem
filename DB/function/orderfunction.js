@@ -12,8 +12,8 @@ exports.deletesingle = function (id) {
     Order.food_id.pop(id);
 };
 */
-exports.OrderSearchByUserId = function (id,res){ // 此ID為user的ObjID
-    Order.find({}) 
+exports.OrderSearchByUserId = function (userid,res){ // 此ID為user的ObjID
+    Order.find({user_id:userid}) 
     .then((response) =>{
         res.json(response)
     })
@@ -21,8 +21,8 @@ exports.OrderSearchByUserId = function (id,res){ // 此ID為user的ObjID
         console.log(error); // Failure 
     }); 
 };
-exports.MakingOrderShowAll = function (res){ // 此ID為user的ObjID
-    Order.find({state: {$eq:2} }) 
+exports.MakingOrderShowAll = function (userid,res){ // 此ID為user的ObjID
+    Order.find({user_id:userid,state: {$eq:2} }) 
     .then((response) =>{
         res.json(response)
     })
@@ -31,7 +31,7 @@ exports.MakingOrderShowAll = function (res){ // 此ID為user的ObjID
     }); 
 };
 exports.FindOrderWithDate = function(res,start,finish){ 
-    Order.find({CreatedAt:{$gte: ISODate(start),$lt: ISODate(finish)}})
+    Order.find({createdAt:{$gte: ISODate(start),$lt: ISODate(finish)}})
     .then((response) =>{
         res.json(response)
     })

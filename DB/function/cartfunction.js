@@ -35,7 +35,7 @@ exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
 };
 //var arrayid = []
 
-exports.cartupdate = function (cartid,res,updateCart) { // 增刪完的購物車回存
+exports.cartupdate = function (cartid,res,updateCart) { // 增刪完的購物車回存進資料庫
     Cart.findByIdAndUpdate(cartid,{$set: updateCart})
     .then((response) =>{
         res.json(response)

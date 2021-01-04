@@ -17,6 +17,7 @@ exports.SingleUpdate = function (id, updateSingle,res) {
     .catch(function(error){ 
         console.log(error); // Failure 
     }); 
+    
 }; 
 exports.SingleSearch = function (name,res) {
     console.log(name);
