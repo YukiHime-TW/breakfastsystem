@@ -1,6 +1,5 @@
 var request = new XMLHttpRequest();
-var url =
-  "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var url ="https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 var cart_url = "";
 var div = new Array(0);
 var image = new Array(0);
@@ -16,10 +15,10 @@ function init() {
       div[i] = document.createElement("div");
       image[i] = document.createElement("img");
       var foodName = document.createElement("div");
-      image[i].src = "../image/plus.png";
+      image[i].src = `../image/plus.png`;
       image[i].style = "width: 100%";
       div[i].appendChild(image[i]);
-      foodName.style = "width:100%;background-color:black;opacity:0.5;position:relative; word-wrap:break-word;color:white";
+      foodName.style = "width:100%; background-color:black; opacity:0.5; position:relative; word-wrap:break-word; color:white";
       foodName.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price + "</center>";
       div[i].appendChild(foodName);
       if (i % 2 == 0) {
