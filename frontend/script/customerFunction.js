@@ -110,7 +110,7 @@ function clearAll() {
 }
 
 function cartInit() {
-  request.open("GET", cart_url, true);
+  request.open("GET", url, true);
   request.onload = function () {
     var json = JSON.parse(request.response);
     console.log(json);
@@ -167,4 +167,10 @@ function sendingCart() {
   var cart = document.getElementById("cart");
   cart.submit();
   console.log("Cart sended");
+}
+
+function sendingFinalCart(){
+  var cart = document.getElementById("finalCart");
+  cart.submit();
+  console.log("Order send");
 }
