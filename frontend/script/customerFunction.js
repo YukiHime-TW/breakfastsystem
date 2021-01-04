@@ -15,9 +15,13 @@ function init() {
     for (var i = 0; i < json.length; i++) {
       div[i] = document.createElement("div");
       image[i] = document.createElement("img");
+      var foodName = document.createElement("div");
       image[i].src = "../image/plus.png";
       image[i].style = "width: 100%";
       div[i].appendChild(image[i]);
+      foodName.style = "width:100%;background-color:black;opacity:0.5;position:relative; word-wrap:break-word;color:white";
+      foodName.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price;
+      div[i].appendChild(foodName);
       if (i % 2 == 0) {
         div[i].style =
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:left;margin-left: 15%; margin-top: 20%;";
@@ -160,7 +164,7 @@ function cartInit() {
   request.send(null);
 }
 
-function sendingCart(){
+function sendingCart() {
   var cart = document.getElementById("cart");
   cart.submit();
   console.log("Cart sended");
