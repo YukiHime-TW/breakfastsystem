@@ -1,30 +1,30 @@
 const Cart = require('../model/cart');
 
-exports.insertsingle = function (id) {
+exports.InsertSingle = function (id) {
     console.log(id);
     //console.log(price);
     Cart.food_id.id.push(id);
 };
-exports.deletesingle = function (id) {
+exports.DeleteSingle = function (id) {
     console.log(singleid);
     //console.log(price);
     Cart.food_id.id.pop(id);
 };
 
 
-exports.insertset = function (setid) {
+exports.InSertset = function (setid) {
    console.log(setid);
     //console.log(price);
     Cart.food_id.id.pushse(setid);
 };
 
-exports.deleteset = function (setid) {
+exports.DeleteSet = function (setid) {
    console.log(setid);
     //console.log(price);
     Cart.food_id.id.push(setid);
 };
 
-exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
+exports.CartSearchByUserId = function (id,res) { // 此ID為user的ObjID
     Cart.find(id)
     .then((response) =>{
         res.json(response)
@@ -33,9 +33,18 @@ exports.cartsearchbyuserid = function (id,res) { // 此ID為user的ObjID
         console.log(error); // Failure 
     }); 
 };
+exports.CartUpdateState = function(cartid,state,res){ 
+    Order.findByIdAndUpdate(cartid,{state:state})
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+}
 //var arrayid = []
 
-exports.cartupdate = function (cartid,res,updateCart) { // 增刪完的購物車回存進資料庫
+exports.CartUpdate = function (cartid,res,updateCart) { // 增刪完的購物車回存進資料庫
     Cart.findByIdAndUpdate(cartid,{$set: updateCart})
     .then((response) =>{
         res.json(response)
@@ -44,7 +53,7 @@ exports.cartupdate = function (cartid,res,updateCart) { // 增刪完的購物車
         console.log(error); // Failure 
     }); 
 };
-exports.newusercartcreate = function (userid) { // 新使用者的新購物車
+exports.NewUserCartCreate = function (userid) { // 新使用者的新購物車
     var new_cart = new Cart({
         user_id = userid,
         state: 2

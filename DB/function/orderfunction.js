@@ -1,6 +1,6 @@
 const Order = require('../model/order')
 // 使用者參數: food_id[],set_id[],user_id[],state[],date
-exports.orderinsertsingle = function (id) {
+exports.OrderInsertSingle = function (id) {
     console.log(id);
     //console.log(price);
     Order.food_id.push(id)
@@ -21,6 +21,22 @@ exports.OrderSearchByUserId = function (userid,res){ // 此ID為user的ObjID
         console.log(error); // Failure 
     }); 
 };
+exports.OrderReturnUserID = function(orderid) {
+    var OrderProjection = { 
+        __v: false,
+        _id: false,
+        food_id:false,
+        set_id: false,
+        state: false
+    };
+    Order.findById(orderid,OrderProjection)
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    });  
+};
 exports.MakingOrderShowAll = function (userid,res){ // 此ID為user的ObjID
     Order.find({user_id:userid,state: {$eq:2} }) 
     .then((response) =>{
@@ -39,9 +55,17 @@ exports.FindOrderWithDate = function(res,start,finish){
         console.log(error); // Failure 
     }); 
 }
+exports.OrderUpdateState = function(orderid,state,res){ 
+    Order.findByIdAndUpdate(orderid,{state:state})
+    .then((response) =>{
+        res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+}
 
-
-exports.orderstore = function (userid,foodarrayid/*,setarrayid*/) {
+exports.OrderStore = function (userid,foodarrayid/*,setarrayid*/) {
    var new_order = new Order({
     user_id:userid,
     $addToSet: {food_id:foodarrayid},
