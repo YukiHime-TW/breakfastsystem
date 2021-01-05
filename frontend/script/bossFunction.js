@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest();
-var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var url = "http://localhost:3000/get_menu";
 var url1 = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/order.json";
 
 var div = new Array(0);
@@ -206,4 +206,38 @@ function state(i) {
         window.location.replace(`http://localhost:3000/state2?order_id=${json[i].order_id}`);
     else if (json[i].state == 3)
         window.location.replace(`http://localhost:3000/state3?order_id=${json[i].order_id}`);
+}
+
+function AllorderInit() {
+    request.open("GET", url1, true);
+    request.onload = function () {
+        var json = JSON.parse(request.response);
+        console.log(json);
+        var All_order = document.getElementById("All_order");
+        for (var i = 0; i < json.length; i++) {
+            var order = document.createElement("p");
+            order.innerHTML = json[i].order_id;
+            order.style = "border-width:3px;border-style:groove;border-color:black;padding:5px;margin-top:2%";
+            order.setAttribute("class", "flip");
+            order.onclick = function () {
+                $(".panel").slideToggle("slow");
+            };
+
+            var ext = document.createElement("div");
+            ext.setAttribute("class", "panel");
+            
+            for (var j = 0; j < json[i].food_id.length; j++) {
+                var text = document.createElement("p");
+                text.innerHTML = json[i].food_id[j].id + "x" + json[i].food_id[j].amount;
+                ext.appendChild(text);
+            }
+            var total = document.createElement("p");
+            total.innerHTML = "總共:50元";
+            ext.appendChild(total);
+            All_order.appendChild(order);
+            All_order.appendChild(ext);
+        }
+
+    }
+    request.send(null);
 }
