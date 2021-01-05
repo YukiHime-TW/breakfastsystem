@@ -71,6 +71,7 @@ function addDish(i) {
   var json = JSON.parse(request.response);
   var cart = document.getElementById("cart");
   var putIn = document.createElement("input");
+  localStorage.setItem("cartKey" + i + "num", div[i].num);
   putIn.type = "hidden";
   putIn.value = div[i].id;
   putIn.id = json[i].food_name;
@@ -83,6 +84,7 @@ function addAlreadyDish(i) {
   var json = JSON.parse(request.response);
   var cart = document.getElementById("cart");
   var alreadyDish = document.getElementById(`div[${i}].food_name`);
+  localStorage.setItem("cartKey" + i + "num", div[i].num++);
   if (alreadyDish != null) {
     var putIn = document.createElement("input");
     putIn.type = "hidden";
