@@ -73,8 +73,8 @@ app.post('/menu.html', function(req, res) {
 
 })
 
-app.post('/editmenumiddle.html', function(req, res) {       // 等DB SingleUpdate
-    
+app.post('/editmenumiddle.html', function(req, res) {
+    single.SingleUpdateByName(req.body.name, req)
     res.redirect('/editmenu.html')
 })
 

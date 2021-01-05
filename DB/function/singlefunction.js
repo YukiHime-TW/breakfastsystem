@@ -1,5 +1,6 @@
 const Single = require('../model/single');
 const mongoose = require('mongoose'); 
+const { response } = require('express');
 
 exports.SingleDelete= function (name) {
     Single.deleteOne({food_name: {$eq: name} } )
@@ -10,35 +11,36 @@ exports.SingleDelete= function (name) {
     }); 
 };
 
-exports.singlefindbyidandupdate = function (id, updateSingle,res) {
-
-    Single.findByIdAndUpdate(id,{$set: updateSingle})
-    .then(() =>{
-        res.json({
-            message:'Single Update Successful'
-        })
-    })
-    .catch(error =>{
-        res.json({
-            message:'An Error Occured'
-        })
-    })
-}; 
 exports.SingleUpdate = function (id, updateSingle,res) {        // 改完去修改server.js post editmenumiddle.html
     Single.findByIdAndUpdate(id,{$set: updateSingle})
     .then((response) =>{
         res.json(response)
-        })
+    })
     .catch(function(error){ 
         console.log(error); // Failure 
     }); 
-}; 
+};
+
+exports.SingleUpdateByName = function (name, req) {
+    var update = {
+        food_name: req.body.name,
+        price: req.body.price,
+        description: req.body.description
+    }
+    Single.findOneAndUpdate({food_name: name}, update)
+    .then((response) =>{
+        console.log('Update Single Successful')
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+}
 
 exports.SingleSearch = function (name,res) {
     console.log(name);
     Single.findOne({food_name: {$eq:name} }) 
     .then((response) =>{
-    res.json(response)
+        res.json(response)
     })
     .catch(function(error){ 
         console.log(error); // Failure 
