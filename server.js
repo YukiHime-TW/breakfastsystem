@@ -194,8 +194,9 @@ app.post('/editmenuplus.html', urlencodedParser, function (req, res) {
     description = req.body.Introduce;
     req.body.file;
     console.log(description);
-    single.singlestore(name, price, description);
-    res.sendFile(__dirname + '/finish.html');
+    single.SingleStore(name, price, description);
+    res.redirect('/editmenu.html')
+    // res.sendFile(__dirname + '/finish.html');
 })
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
