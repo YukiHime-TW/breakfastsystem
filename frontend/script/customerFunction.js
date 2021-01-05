@@ -79,8 +79,10 @@ function initNum(i) {
 function addDish(i) {
   var cart = document.getElementById("cart");
   var putIn = document.createElement("input");
-  div[i].setAttribute("num", 1);
-  localStorage.setItem(div[i].getAttribute("food"), div[i].getAttribute("num"));
+  var temp = +div[i].getAttribute("num");
+  ++temp;
+  localStorage.setItem(div[i].getAttribute("food"), temp);
+  div[i].setAttribute("num", temp);
   putIn.type = "hidden";
   putIn.value = div[i].id;
   putIn.id = div[i].getAttribute("food");
@@ -94,7 +96,7 @@ function addAlreadyDish(i) {
   var alreadyDish = document.getElementById(`div[${i}].food_name`);
   var temp = +div[i].getAttribute("num");
   ++temp;
-  localStorage.setItem(div[i].getAttribute("food"), div[i].getAttribute("num"));
+  localStorage.setItem(div[i].getAttribute("food"), temp);
   div[i].setAttribute("num", temp);
   if (alreadyDish != null) {
     var putIn = document.createElement("input");
