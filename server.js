@@ -78,6 +78,11 @@ app.post('/editmenumiddle.html', function(req, res) {
     res.redirect('/editmenu.html')
 })
 
+app.delete('/editmenumiddle.html', function(req, res) {
+    single.SingleDelete(req.body.name)
+    res.redirect('/editmenu.html')
+})
+
 app.post('/check_login', function (req, res) {
 	var postData = {
         account: req.body.AC,
