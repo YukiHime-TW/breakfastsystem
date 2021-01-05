@@ -165,12 +165,6 @@ function cartInit() {
   request.send(null);
 }
 
-function sendingCart() {
-  var cart = document.getElementById("cart");
-  cart.submit();
-  console.log("Cart sended");
-}
-
 function sendingFinalCart(){
   var cart = document.getElementById("finalCart");
   localStorage.clear();
