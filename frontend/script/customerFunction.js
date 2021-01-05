@@ -173,6 +173,7 @@ function sendingCart() {
 
 function sendingFinalCart(){
   var cart = document.getElementById("finalCart");
+  localStorage.clear();
   cart.submit();
   console.log("Order send");
 }
