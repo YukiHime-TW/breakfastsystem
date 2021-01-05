@@ -177,3 +177,46 @@ function sendingFinalCart(){
   cart.submit();
   console.log("Order send");
 }
+
+function orderInit(){
+  request.open("GET", url, true);
+  request.onload = function () {
+    var json = JSON.parse(request.response);
+    console.log(json);
+    var d = document.getElementById("main");
+    var table = document.createElement("table");
+    table.className = "table table-striped";
+    d.appendChild(table);
+
+    var thead = document.createElement("thead");
+    table.appendChild(thead);
+
+    var tr = document.createElement("tr");
+    thead.appendChild(tr);
+
+    var th_name = document.createElement("th");
+    th_name.scope = "col";
+    th_name.innerText = "餐點名稱";
+    tr.appendChild(th_name);
+
+    var th_number = document.createElement("th");
+    th_number.scope = "col";
+    th_number.innerText = "數量";
+    tr.appendChild(th_number);
+
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+
+    for (var i = 0; i < json.length; i++) {
+      var tr_food = document.createElement("tr");
+      var td_food_name = document.createElement("td");
+      td_food_name.innerText = json[i].food_name;
+      var td_food_number = document.createElement("td");
+      td_food_number.innerText = json[i].food_num;
+      tr_food.appendChild(td_food_name);
+      tr_food.appendChild(td_food_number);
+      tbody.appendChild(tr_food);
+    }
+  }
+  request.send(null);
+}
