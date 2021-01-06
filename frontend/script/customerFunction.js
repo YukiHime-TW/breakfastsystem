@@ -139,6 +139,7 @@ function ifSomething() {
   var form = document.createElement("form");
   form.id = "finalCart";
   form.action = "/send_cart";
+  form.method = "POST";
   var table = document.createElement("table");
   table.className = "table table-striped";
   form.appendChild(table);
