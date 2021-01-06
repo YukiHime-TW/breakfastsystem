@@ -1,13 +1,13 @@
 const Set  = require('../models/set')
 //create new set
-exports.SetStore = function(name,price,description,food_id) {
+exports.SetStore = function(name,price,description,food_id,set_id) {
    // console.log(name,age,gender,account,password);
     var new_set = new Set({
         set_name: name, 
         price:price,
         description: description,
        // food_id : food_id 
-         $push: { food_id: food_id } 
+         $push: { food_id: food_id,set_id: set_id} 
     })
     new_set.save(function (err, result) {
         if (err) {
