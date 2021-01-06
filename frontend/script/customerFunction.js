@@ -3,6 +3,7 @@ var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/
 var cart_url = "";
 var div = new Array(0);
 var image = new Array(0);
+var something = false;
 
 function init() {
   request.open("GET", url, true);
@@ -82,6 +83,7 @@ function addDish(i) {
   var temp = +div[i].getAttribute("num");
   ++temp;
   localStorage.setItem(div[i].getAttribute("food"), temp);
+  localStorage.setItem(div[i].getAttribute("food") + " id", div[i].id);
   div[i].setAttribute("num", temp);
   putIn.type = "hidden";
   putIn.value = div[i].id;
@@ -117,63 +119,96 @@ function clearAll() {
 }
 
 function cartInit() {
-  request.open("GET", url, true);
-  request.onload = function () {
-    var json = JSON.parse(request.response);
-    console.log(json);
-    var d = document.getElementById("main");
-    var form = document.createElement("form");
-    form.id = "finalCart";
-    var table = document.createElement("table");
-    table.className = "table table-striped";
-    form.appendChild(table);
-    d.appendChild(form);
+  
+  something =false;
 
-    var thead = document.createElement("thead");
-    table.appendChild(thead);
+  if (localStorage.length != 0) {
+    something = true;
+  }
 
-    var tr = document.createElement("tr");
-    thead.appendChild(tr);
+  if (something) {
+    ifSomething();
+  } else {
+    ifNothing();
+  }
 
-    var th_name = document.createElement("th");
-    th_name.scope = "col";
-    th_name.innerText = "餐點名稱";
-    tr.appendChild(th_name);
+}
 
-    var th_number = document.createElement("th");
-    th_number.scope = "col";
-    th_number.innerText = "數量";
-    tr.appendChild(th_number);
+function ifSomething() {
+  var d = document.getElementById("main");
+  var form = document.createElement("form");
+  form.id = "finalCart";
+  form.action = "/send_cart";
+  var table = document.createElement("table");
+  table.className = "table table-striped";
+  form.appendChild(table);
+  d.appendChild(form);
 
-    var tbody = document.createElement("tbody");
-    table.appendChild(tbody);
+  var thead = document.createElement("thead");
+  table.appendChild(thead);
 
-    for (var i = 0; i < json.length; i++) {
+  var tr = document.createElement("tr");
+  thead.appendChild(tr);
 
-      var tr_food = document.createElement("tr");
-      var td_food_name = document.createElement("td");
-      var input_food_name = document.createElement("input");
+  var th_name = document.createElement("th");
+  th_name.scope = "col";
+  th_name.innerText = "餐點名稱";
+  tr.appendChild(th_name);
 
-      input_food_name.hidden = true;
-      input_food_name.value = json[i]._id;
-      td_food_name.appendChild(input_food_name);
-      td_food_name.innerText = json[i].food_name;
+  var th_number = document.createElement("th");
+  th_number.scope = "col";
+  th_number.innerText = "數量";
+  tr.appendChild(th_number);
 
-      var td_food_number = document.createElement("td");
-      var input_food_number = document.createElement("input");
+  var tbody = document.createElement("tbody");
+  table.appendChild(tbody);
 
-      input_food_number.hidden = true;
-      input_food_number.value = json[i].food_num;
-      td_food_number.appendChild(input_food_number);
-      td_food_number.innerText = json[i].food_num;
+  var cartLength = 0;
 
-      tr_food.appendChild(td_food_name);
-      tr_food.appendChild(td_food_number);
-      tbody.appendChild(tr_food);
-      localStorage.setItem(json[i].food_name, json[i].food_num);
+  var j=1;
+
+  for(var i = 0; i<localStorage.length;i++){
+    if(localStorage.key(i).charAt(localStorage.key(i).length-1)!="d"){
+      cartLength++;
     }
   }
-  request.send(null);
+
+  for (var i = 0; i < localStorage.length; i++) {
+
+    if(localStorage.key(i).charAt(localStorage.key(i).length-1)=="d"){
+      continue;
+    }
+
+    var tr_food = document.createElement("tr");
+    var td_food_name = document.createElement("td");
+    var input_food_name = document.createElement("input");
+
+    input_food_name.hidden = true;
+    input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
+    input_food_name.name = `cart[${j}][id]`;
+    td_food_name.appendChild(input_food_name);
+    td_food_name.innerText = localStorage.key(i);
+
+    var td_food_number = document.createElement("td");
+    var input_food_number = document.createElement("input");
+
+    input_food_number.hidden = true;
+    input_food_number.value = localStorage.getItem(localStorage.key(i));
+    input_food_number.name = `cart[${j}][num]`;
+    td_food_number.appendChild(input_food_number);
+    td_food_number.innerText = localStorage.getItem(localStorage.key(i));
+
+    tr_food.appendChild(td_food_name);
+    tr_food.appendChild(td_food_number);
+    tbody.appendChild(tr_food);
+    j++;
+  }
+}
+
+function ifNothing() {
+  var p = document.createElement("p");
+  p.innerText="購物車裡沒有東西";
+  document.getElementById("main").appendChild(p);
 }
 
 function sendingFinalCart() {
