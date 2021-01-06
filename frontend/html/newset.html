@@ -28,17 +28,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-
-
+    <script src="../script/bossFunction.js"></script>
+    <script>
+        window.onload = NewsetInit();
+    </script>
 </head>
 
 <body id="main">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <img class= "img-responsive" src="../image/font.png" id="brand">
+        <img class="img-responsive" src="../image/font.png" id="brand">
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
@@ -50,7 +52,60 @@
             </ul>
         </div>
     </nav>
-    <div>
-        <button type="button" onclick="window.location='manage.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
+    <script>
+        var image = '';
+
+        function selectImage(file) {
+            if (!file.files || !file.files[0]) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                document.getElementById('image').src = evt.target.result;
+                image = evt.target.result;
+            }
+            reader.readAsDataURL(file.files[0]);
+        }
+    </script>
+    <div style="margin-top: 20%;">
+        <form method="POST" action="">
+            <center>
+                <div><input class="pic" type="file" name="file" onchange="selectImage(this);" /></div>
+            </center>
+            <div align="center"><img style="width: 30%;" id="image" name="image" src="" /></div>
+            <div align="center" style="font-size:50px ">套餐名稱</div>
+            <div align="center"><input type="text" id="Name" name="Name" required></div>
+            <div align="center" style="font-size:50px ">套餐內容</div>
+            <center>
+                <div id="Set" style="background-color: rgba(0, 0, 0, 0.562); width:80%;height:auto ;">
+                    <table id="Newset_table" style="width: 100%;">
+                        <tbody id="Newset_tbody"></tbody>
+                    </table>
+                </div>
+            </center>
+            <div align="center" style="font-size:50px;">輸入價錢</div>
+            <div align="center"><input type="number" id="Price" name="Price" style="width: 45%;" required></div>
+            <div align="center" style="font-size:50px;">餐點介紹</div>
+            <div align="center"><input type="text" id="Introduce" name="Introduce" style="width: 45%; height:150px ;">
+            </div>
+            <center><input type="submit" class="btn btn-warning" value="送出" style="width: 50%; margin-top:5% ;">
+            </center>
+
+        </form>
+    </div>
+    <center>
+        <p style="background-color: blanchedalmond;">---------------------------------------------</p>
+    </center>
+    <center>
+        <div align="center" style="font-size:50px ">可被新增餐點</div>
+    </center>
+    <center>
+        <div id="Usefood" style="background-color: rgba(0, 0, 0, 0.562); width:80%;height:auto ;">
+        </div>
+    </center>
+    <button type="button" onclick="window.location='manage.html'" class="btn btn-warning"
+        style="position: absolute;bottom: auto;right: 0px;">取消</button>
     </div>
 </body>
+
+</html>
