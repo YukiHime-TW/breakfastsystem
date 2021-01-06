@@ -10,9 +10,9 @@ const orderSchema = new Schema({
         "amount": Number
     }],
     set_id: [{
-        type: String // setObjectID
-    }]
-    ,
+        "id":String,
+        "amount": Number    
+    }],
     state:[{
         type: Number  // 送出:1 製作中:2 待領取(已完成) :3 已領取: 4
     }]

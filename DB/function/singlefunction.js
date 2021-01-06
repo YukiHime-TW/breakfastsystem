@@ -29,6 +29,16 @@ exports.SingleSearch = function (name,res) {
         console.log(error); // Failure 
     }); 
 };
+exports.SingleSearch = function (id,res) {
+    console.log(id);
+    Single.findOneBy(id) 
+    .then((response) =>{
+    res.json(response)
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    }); 
+};
 
 exports.SingleShowAll = function (res) {
     Single.find({}) 

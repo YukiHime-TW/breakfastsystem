@@ -10,13 +10,11 @@ const cartSchema = new Schema({
     food_id:[{
         "id": String,
         "amount": Number
-    }]
-/*,
+    }],
     set_id:[{
-        type: String
-    }]
-*/
-   ,
+        "id": String,
+        "amount": Number
+    }],
    state:[{
        type: Number // 接受:0,拒絕:1 初始:2
    }]

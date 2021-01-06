@@ -1,5 +1,5 @@
 const Cart = require('../model/cart');
-
+/*
 exports.InsertSingle = function (id) {
     console.log(id);
     //console.log(price);
@@ -15,15 +15,15 @@ exports.DeleteSingle = function (id) {
 exports.InSertset = function (setid) {
    console.log(setid);
     //console.log(price);
-    Cart.food_id.id.pushse(setid);
+    Cart.set_id.id.pushs(setid);
 };
 
 exports.DeleteSet = function (setid) {
    console.log(setid);
     //console.log(price);
-    Cart.food_id.id.push(setid);
+    Cart.set_id.id.push(setid);
 };
-
+*/
 exports.CartSearchByUserId = function (id,res) { // 此ID為user的ObjID
     Cart.find(id)
     .then((response) =>{
@@ -69,11 +69,6 @@ exports.NewUserCartCreate = function (userid) { // 新使用者的新購物車
     });
 };
 
-/*
-exports.cartclear = function () { // 清除
-
-};
-*/
 
 
 

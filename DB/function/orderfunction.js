@@ -1,15 +1,29 @@
 const Order = require('../model/order')
 // 使用者參數: food_id[],set_id[],user_id[],state[],date
+/*
 exports.OrderInsertSingle = function (id) {
     console.log(id);
     //console.log(price);
     Order.food_id.push(id)
 };
 /*
-exports.deletesingle = function (id) {
+exports.OrderDeleteSingle = function (id) {
     console.log(id);
     //console.log(price);
     Order.food_id.pop(id);
+    
+};
+exports.OrderInsertSet = function (id) {
+    console.log(id);
+    //console.log(price);
+    Order.food_id.push(id)
+};
+/*
+exports.OrderDeleteSet = function (id) {
+    console.log(id);
+    //console.log(price);
+    Order.food_id.pop(id);
+    
 };
 */
 exports.OrderSearchByUserId = function (userid,res){ // 此ID為user的ObjID
@@ -21,7 +35,7 @@ exports.OrderSearchByUserId = function (userid,res){ // 此ID為user的ObjID
         console.log(error); // Failure 
     }); 
 };
-exports.OrderReturnUserID = function(orderid) {
+exports.OrderReturnUserID = function(orderid,res) {
     var OrderProjection = { 
         __v: false,
         _id: false,
@@ -65,10 +79,10 @@ exports.OrderUpdateState = function(orderid,state,res){
     }); 
 }
 
-exports.OrderStore = function (userid,foodarrayid/*,setarrayid*/) {
+exports.OrderStore = function (userid,foodarrayid,setarrayid) {
    var new_order = new Order({
     user_id:userid,
-    $addToSet: {food_id:foodarrayid},
+    $push: {food_id:foodarrayid,set_id:setarrayid},
     state: 2
     });
 

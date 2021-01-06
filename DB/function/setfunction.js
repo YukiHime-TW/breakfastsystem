@@ -6,7 +6,8 @@ exports.SetStore = function(name,price,description,food_id) {
         set_name: name, 
         price:price,
         description: description,
-        food_id : food_id
+       // food_id : food_id 
+         $push: { food_id: food_id } 
     })
     new_set.save(function (err, result) {
         if (err) {
@@ -18,6 +19,7 @@ exports.SetStore = function(name,price,description,food_id) {
         }
     });
 };
+/*
 exports.SetInsertSingle = function (singleid) {
     console.log(singleid);
     //console.log(price);
@@ -28,6 +30,7 @@ exports.SetDeleteSingle = function (singleid) {
     //console.log(price);
     Set.food_id.pop(singleid);
 };
+*/
 exports.SetSearchByName = function (name,res) {
     console.log(name);
     Set.findOne({set_name: {$eq:name} }) 
