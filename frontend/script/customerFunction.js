@@ -119,8 +119,8 @@ function clearAll() {
 }
 
 function cartInit() {
-  
-  something =false;
+
+  something = false;
 
   if (localStorage.length != 0) {
     something = true;
@@ -165,17 +165,17 @@ function ifSomething() {
 
   var cartLength = 0;
 
-  var j=1;
+  var j = 1;
 
-  for(var i = 0; i<localStorage.length;i++){
-    if(localStorage.key(i).charAt(localStorage.key(i).length-1)!="d"){
+  for (var i = 0; i < localStorage.length; i++) {
+    if (localStorage.key(i).charAt(localStorage.key(i).length - 1) != "d") {
       cartLength++;
     }
   }
 
   for (var i = 0; i < localStorage.length; i++) {
 
-    if(localStorage.key(i).charAt(localStorage.key(i).length-1)=="d"){
+    if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
       continue;
     }
 
@@ -183,20 +183,21 @@ function ifSomething() {
     var td_food_name = document.createElement("td");
     var input_food_name = document.createElement("input");
 
+    td_food_name.innerText = localStorage.key(i);
     input_food_name.hidden = true;
     input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
     input_food_name.name = `cart[${j}][id]`;
     td_food_name.appendChild(input_food_name);
-    td_food_name.innerText = localStorage.key(i);
+
 
     var td_food_number = document.createElement("td");
     var input_food_number = document.createElement("input");
 
+    td_food_number.innerText = localStorage.getItem(localStorage.key(i));
     input_food_number.hidden = true;
     input_food_number.value = localStorage.getItem(localStorage.key(i));
     input_food_number.name = `cart[${j}][num]`;
     td_food_number.appendChild(input_food_number);
-    td_food_number.innerText = localStorage.getItem(localStorage.key(i));
 
     tr_food.appendChild(td_food_name);
     tr_food.appendChild(td_food_number);
@@ -207,7 +208,7 @@ function ifSomething() {
 
 function ifNothing() {
   var p = document.createElement("p");
-  p.innerText="購物車裡沒有東西";
+  p.innerText = "購物車裡沒有東西";
   document.getElementById("main").appendChild(p);
 }
 
