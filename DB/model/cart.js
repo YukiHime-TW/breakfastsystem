@@ -17,7 +17,11 @@ const cartSchema = new Schema({
     }],
    state:[{
        type: Number // 接受:0,拒絕:1 初始:2
-   }]
+   }],
+   price:{
+       type: Number
+   }
+
 },{timestamps: true})
 var cart = mongoose.model('cart',cartSchema)
 module.exports = cart;

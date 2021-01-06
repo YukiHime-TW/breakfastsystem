@@ -79,11 +79,12 @@ exports.OrderUpdateState = function(orderid,state,res){
     }); 
 }
 
-exports.OrderStore = function (userid,foodarrayid,setarrayid) {
+exports.OrderStore = function (userid,foodarrayid,setarrayid,price) {
    var new_order = new Order({
     user_id:userid,
     $push: {food_id:foodarrayid,set_id:setarrayid},
-    state: 2
+    state: 2,
+    price:price
     });
 
    new_order.save(function (err, result) {
