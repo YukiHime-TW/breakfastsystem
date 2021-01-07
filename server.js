@@ -11,6 +11,9 @@ const single = require('./DB/function/singlefunction.js')
 const order = require('./DB/function/orderfunction.js')
 const cart = require('./DB/function/cartfunction.js')
 const User = require('./DB/model/user.js')
+const Order = require('./DB/model/order.js')
+const WebSocket = require('ws');
+var order_id = 2;
 // const singleCollection = require('./DB/model/single');
 // const user = require('../../../../../../Downloads/test/models/user');
 // mongoose.connect('mongodb://localhost:27017/Breakfast', 
@@ -140,6 +143,51 @@ app.post('/reg.html', function (req, res) {
     });
 });
 
+app.get('/state2',function(req,res){
+    var order_id=req.query.order_id;
+    var user=order.OrderReturnUserID(order_id);
+    server.on('connection',function connection(ws,req){
+        ws.on('message',function incoming(){
+            server.clients.forEach(function each(client){
+                if(client.session.user==user){
+                    client.send('訂單已完成');
+                }
+            })
+        })
+    })
+})
+
+app.post('/send_cart', function(req, res){
+    // console.log(req.body.cart)
+    var postData = {
+        order_num: order_id,
+        user_id: req.session.user,
+        state: 2,
+        price: 0,
+        food_id: [],
+        set_id: []
+    };
+    if (Array.isArray(req.body.cart.num)) {
+        for(var i = 0; i < req.body.cart.num.length; i++) {
+            // console.log(req.body.cart.id[i])
+            // console.log(req.body.cart.num[i])
+            postData.food_id.push({id: req.body.cart.id[i], amount: req.body.cart.num[i]})
+        }
+        console.log(postData)
+    }
+    else {
+        console.log(req.body.cart.id)
+        console.log(req.body.cart.num)
+        postData.food_id.push({id: req.body.cart.id, amount: req.body.cart.num})
+    }
+    Order.create(postData, function (err, data) {
+        if (err) throw err;
+        console.log('Successfully created order');
+    })
+    order_id++;
+    res.redirect('/menu.html')
+})
+
 app.use('/create_order', function(req, res){
     var user_id = req.session.user;
     // order.orderstore(user_id, null);
@@ -196,7 +244,6 @@ app.post('/editmenuplus.html', urlencodedParser, function (req, res) {
     console.log(description);
     single.SingleStore(name, price, description);
     res.redirect('/editmenu.html')
-    // res.sendFile(__dirname + '/finish.html');
 })
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
