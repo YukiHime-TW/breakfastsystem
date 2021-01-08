@@ -55,7 +55,7 @@ exports.CartUpdate = function (cartid,res,updateCart) { // 增刪完的購物車
 };
 exports.NewUserCartCreate = function (userid) { // 新使用者的新購物車
     var new_cart = new Cart({
-        user_id = userid,
+        user_id : userid,
         state: 2
     });
     new_cart.save(function (err, result) {
