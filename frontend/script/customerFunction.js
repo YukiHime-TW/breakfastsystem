@@ -170,11 +170,15 @@ function ifSomething() {
     var tr_food = document.createElement("tr");
     var td_food_name = document.createElement("td");
     var input_food_name = document.createElement("input");
+    var input_name = document.createElement("input");
 
     td_food_name.innerText = localStorage.key(i);
     input_food_name.hidden = true;
     input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
     input_food_name.name = `cart[id]`;
+    input_name.value = localStorage.key(i);
+    input_name.name = `cart[num]`;
+    input_name.hidden = true;
     td_food_name.appendChild(input_food_name);
 
     var td_food_number = document.createElement("td");
