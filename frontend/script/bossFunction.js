@@ -7,6 +7,8 @@ var image = new Array(0);
 var td_item_state_value = new Array(0);
 var button = new Array(0);
 var button1 = new Array(0);
+var button2 = new Array(0);
+var set_name = new Array(0);
 
 function init() {
     request.open("GET", url, true);
@@ -279,27 +281,25 @@ function NewsetInit() {
 
 var tr_set = new Array(0);
 function AdddishtoSet(i) {
+    button1[i].disabled = true;
     var json = JSON.parse(request.response);
     var Set = document.getElementById("Set");
     var table = document.getElementById("Newset_table");
     var tbody = document.getElementById("Newset_tbody");
     var PutIn = document.createElement("input");
-    var button2 = document.createElement("div");
-    button2.innerHTML = "移除";
-    button2.setAttribute("class", "btn btn-warning");
-    button2.setAttribute("onclick", function del(i) {
-        var tbody = document.getElementById("Newset_tbody");
-        tbody.removeChild(tbody.childNodes[0]);
-    });
+    button2[i] = document.createElement("div");
+    button2[i].innerHTML = "移除";
+    button2[i].setAttribute("class", "btn btn-warning");
+    button2[i].setAttribute("onclick", `del(${i})`);
     PutIn.type = "hidden";
     PutIn.value = json[i]._id;
-    PutIn.name = "set" + i;
+    PutIn.name = `set[id]`;
     tr_set[i] = document.createElement("tr");
     var td0 = document.createElement("td");
     td0.innerHTML = json[i].food_name;
     var td1 = document.createElement("td");
     var td2 = document.createElement("td");
-    td2.appendChild(button2);
+    td2.appendChild(button2[i]);
     td1.innerHTML = json[i].price+"元";
     tr_set[i].appendChild(PutIn);
     tr_set[i].appendChild(td0);
@@ -309,4 +309,9 @@ function AdddishtoSet(i) {
     table.appendChild(tbody);
     Set.appendChild(table);
 
+}
+function del(i) {
+    button1[i].disabled = false;
+    var tbody = document.getElementById("Newset_tbody");
+    tbody.removeChild(tr_set[i]);
 }
