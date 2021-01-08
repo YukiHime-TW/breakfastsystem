@@ -75,6 +75,12 @@ function plusDish(i){
   localStorage.setItem();
 }
 
+function minusDish(i){
+  var temp = +localStorage.getItem(div[i].getAttribute("food")+" num");
+  temp--;
+  localStorage.setItem();
+}
+
 function initNum(i) {
   if (localStorage.getItem(div[i].getAttribute("food")) != null) {
     div[i].setAttribute("num", localStorage.getItem(div[i].getAttribute("food")));
