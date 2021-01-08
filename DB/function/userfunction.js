@@ -1,4 +1,4 @@
-const User  = require('../models/user')
+const User  = require('../model/user')
 
 exports.userstore = function(name,age,gender,account,password) {
     console.log(name,age,gender,account,password);
