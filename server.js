@@ -15,12 +15,38 @@ const Order = require('./DB/model/order.js')
 const WebSocket = require('ws');
 const { response } = require('express');
 var order_id = 2;
-// const singleCollection = require('./DB/model/single');
-// const user = require('../../../../../../Downloads/test/models/user');
-// mongoose.connect('mongodb://localhost:27017/Breakfast', 
-// {useNewUrlParser: true, 
-// useCreateIndex: true, 
-// useUnifiedTopology: true})
+var web_user;
+
+const app = express()
+const PORT = process.env.PORT || 3000
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`)
+// })
+let srv=app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+})
+
+const wss = new WebSocket.Server({ server:app });
+var CLIENTS=[];
+wss.on('open',function open(){
+    console.log('connected');
+})
+wss.on('close',function close(){
+    console.log('disconnected');
+})
+wss.on('connection',function connection(ws){
+        if(ws.user_id==undefined)
+        {    
+            ws.user_id=web_user;
+            CLIENTS.push(ws);
+        }
+})
+srv.on('upgrade',function(req, socket, head) {
+    wss.handleUpgrade(req, socket, head, function connected(ws) {
+        wss.emit('connection', ws, req);
+    })
+})
+
 mongoose.connect('mongodb+srv://admin:00757019@breakfastsystem.pcfwe.mongodb.net/breakfastSystem?retryWrites=true&w=majority',
 {
     useNewUrlParser: true,
@@ -37,8 +63,6 @@ db.on('error',(err) =>{
 db.once('open',(db) => {
     console.log('data base connection established')
 })
-
-const app = express()
 
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
@@ -94,6 +118,7 @@ app.post('/check_login', function (req, res) {
     };
     if(postData.account=="shopkeeper" && postData.password=="shopkeeper"){
         req.session.user = postData.account;
+        web_user = req.session.user;
         console.log(req.session);
         console.log(req.sessionID);
         res.redirect('/manage.html');
@@ -107,6 +132,7 @@ app.post('/check_login', function (req, res) {
             if(data){
                 console.log('登錄成功');
                 req.session.user = postData.account;
+                web_user = req.session.user;
                 console.log(req.session);
                 console.log(req.sessionID);
                 res.redirect('/menu.html');
@@ -138,6 +164,7 @@ app.post('/reg.html', function (req, res) {
                 console.log('註冊成功');
             });
             req.session.user = postData.account;
+            web_user = req.session.user;
             cart.newusercartcreate(postData.account);
             res.redirect('/index.html');
         }
@@ -145,17 +172,41 @@ app.post('/reg.html', function (req, res) {
 });
 
 app.get('/state2',function(req,res){
-    var order_id=req.query.order_id;
-    var user=order.OrderReturnUserID(order_id);
-    server.on('connection',function connection(ws,req){
-        ws.on('message',function incoming(){
-            server.clients.forEach(function each(client){
-                if(client.session.user==user){
-                    client.send('訂單已完成');
-                }
-            })
+    var order_id = req.query.order_id;
+    var user;
+    ~async function(){
+        const delay = (s) => {
+            return new Promise(resolve => {
+              setTimeout(resolve,s); 
+            });
+        };
+        Order.findOne({$and: [{state: 2}, {order_num:order_id}]},function(err,obj){
+            user=obj.user_id;
         })
+        await delay(200);
+        for(var i=0;i<CLIENTS.length;i++){
+            console.log(CLIENTS[i].user_id);
+            console.log(user);
+            if(CLIENTS[i].user_id==user){
+                CLIENTS[i].send('訂單已完成');
+                break;
+            }
+        }
+    }();
+    Order.findOneAndUpdate({$and: [{state: 2}, {order_num:order_id}]}, {state: 3}, {returnOriginal: true})
+    .then((response) => {
+        console.log(response);
     })
+    res.redirect('makingorder.html');
+})
+
+app.get('/state3',function(req,res){
+    var order_id = req.query.order_id;
+    Order.findOneAndUpdate({$and: [{state: 3}, {order_num:order_id}]}, {state: 4}, {returnOriginal: true})
+    .then((response) => {
+        console.log(response);
+    })
+    res.redirect('makingorder.html');
 })
 
 app.post('/send_cart', function(req, res){
@@ -172,14 +223,14 @@ app.post('/send_cart', function(req, res){
         for(var i = 0; i < req.body.cart.num.length; i++) {
             // console.log(req.body.cart.id[i])
             // console.log(req.body.cart.num[i])
-            postData.food_id.push({id: req.body.cart.id[i], name: req.body.cart.name[i], amount: req.body.cart.num[i]})
+            postData.food_id.push({id: req.body.cart.id[i], name: req.body.cart.name[i], amount: req.body.cart.num[i], finished: false})
         }
         console.log(postData)
     }
     else {
         console.log(req.body.cart.id)
         console.log(req.body.cart.num)
-        postData.food_id.push({id: req.body.cart.id, name: req.body.cart.name, amount: req.body.cart.num})
+        postData.food_id.push({id: req.body.cart.id, name: req.body.cart.name, amount: req.body.cart.num, finished: false})
     }
     Order.create(postData, function (err, data) {
         if (err) throw err;
@@ -205,6 +256,17 @@ app.get('/show_all_order', function(req, res) {
     res.sendFile(__dirname + '/frontend/script/order.json');
 })
 
+app.get('/show_all_active_order', function(req, res) {
+    Order.find({$or: [{state: 2}, {state: 3}] }) 
+    .then(response =>{
+        // console.log(response)
+        res.json(response)
+    })
+    .catch(error =>{
+        console.log('No Active order')
+    });
+})
+
 app.get('/my_cart', function(req, res) {        // 客人自己的購物車
     var user_id = req.session.user;
     cart.cartSearchByAccount(user_id, res)
@@ -227,9 +289,10 @@ app.get('/my_active_order', function(req, res) {        // 顧客顯示個人訂
     });
 })
 
-app.post('/mark_as_done', function(req, res) {
-    var id = req.body.foor_id;
-    
+app.get('/mark_as_done', function(req, res) {
+    console.log(req.query.item)
+    Order.findOneAndUpdate({$and: [{state: 2}, {order_num: req.query.order_id}], 'food_id._id': req.query.item}, {$set: {'food_id.$.finished': true}}, {select: {food_id: {$elemMatch: {finished: false}}}, returnOriginal: true})
+    res.redirect('/makingorder.html')
 })
 
 app.get('/logout', function (req, res){
@@ -252,10 +315,6 @@ app.post('/editmenuplus.html', urlencodedParser, function (req, res) {
     console.log(description);
     single.SingleStore(name, price, description);
     res.redirect('/editmenu.html')
-})
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
 })
 
 app.use('/api/singleroute', SingleRoutes)
