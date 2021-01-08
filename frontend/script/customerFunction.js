@@ -205,12 +205,64 @@ function ifSomething() {
     tr_food.appendChild(td_food_number);
     tbody.appendChild(tr_food);
   }
+  calCost(d);
+}
+
+function calCost(d) {
+  var lastCost = 0;
+  parseInt(lastCost);
+  var footer = document.createElement("footer");
+  footer.style = "position: absolute;bottom: 0px; width: 100%;";
+  var readyAt = document.createElement("p");
+  readyAt.className = "h3";
+  readyAt.innerText = "Ready at:";
+  footer.appendChild(readyAt);
+  var hr = document.createElement("hr");
+  footer.appendChild(hr);
+  var cost = document.createElement("p");
+  cost.className = "h3";
+  request.open("GET", url, true);
+  request.onload = function () {
+    var json = JSON.parse(request.response);
+    for (var i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
+        continue;
+      }
+      for (var j = 0; j < json.length; j++) {
+        if (localStorage.key(i) == json[j].food_name) {
+          lastCost += parseInt(json[j].price*localStorage.getItem(localStorage.key(i)),10);
+          console.log(`${lastCost}`);
+        }
+      }
+    }
+    cost.innerText = `Cost: ${lastCost}元`;
+  };
+  footer.appendChild(cost);
+  var send = document.createElement("input");
+  send.className = "btn btn-warning";
+  send.value = "送出";
+  send.type = "button";
+  send.style = "position: absolute;bottom: 0px;right: 0px;";
+  send.setAttribute("onclick","sendingFinalCart()");
+  footer.appendChild(send);
+  var cancel = document.createElement("button");
+  cancel.className = "btn btn-warning";
+  cancel.innerText = "取消";
+  cancel.type = "button";
+  cancel.style = "position: absolute;bottom: 0px;right: 100px;";
+  cancel.setAttribute("onclick","window.location='menu.html'");
+  footer.appendChild(cancel);
+  d.appendChild(footer);
+  request.send(null);
 }
 
 function ifNothing() {
   var p = document.createElement("p");
   p.innerText = "購物車裡沒有東西";
-  document.getElementById("main").appendChild(p);
+  p.style="margin-top: 75%";
+  var center = document.createElement ("center");
+  center.appendChild(p);
+  document.getElementById("main").appendChild(center);
 }
 
 function sendingFinalCart() {
