@@ -40,35 +40,6 @@ function init() {
   request.send(null);
 }
 
-function menuInit() {
-  request.open("GET", url, true);
-  request.onload = function () {
-    var json = JSON.parse(request.response);
-    document.getElementById("food_id").value = json[0]._id;
-    document.getElementById("name").value = json[0].food_name;
-    document.getElementById("description").value = json[0].description;
-    document.getElementById("price").value = json[0].price;
-    console.log(json);
-  };
-  request.send(null);
-}
-
-function btnOperate(op) {
-  var value = Number(document.getElementById("num").value);
-  if (op == '+') {
-    value += 1;
-  } else if (op == '-') {
-    if (value <= 1) {
-      value = 1;
-    } else {
-      value -= 1;
-    }
-  }
-  var json = JSON.parse(request.response);
-  document.getElementById("num").value = value;
-  document.getElementById("price").value = json[0].price * document.getElementById("num").value;
-}
-
 function plusDish(i){
   var temp = +localStorage.getItem(div[i].getAttribute("food")+" num");
   temp++;
@@ -179,10 +150,6 @@ function ifSomething() {
 
   var tbody = document.createElement("tbody");
   table.appendChild(tbody);
-
-  var cartLength = 0;
-
-  var j = 1;
 
   for (var i = 0; i < localStorage.length; i++) {
     if (localStorage.key(i).charAt(localStorage.key(i).length - 1) != "d") {
