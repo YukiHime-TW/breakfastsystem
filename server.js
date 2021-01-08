@@ -13,6 +13,7 @@ const cart = require('./DB/function/cartfunction.js')
 const User = require('./DB/model/user.js')
 const Order = require('./DB/model/order.js')
 const WebSocket = require('ws');
+const { response } = require('express');
 var order_id = 2;
 // const singleCollection = require('./DB/model/single');
 // const user = require('../../../../../../Downloads/test/models/user');
@@ -171,14 +172,14 @@ app.post('/send_cart', function(req, res){
         for(var i = 0; i < req.body.cart.num.length; i++) {
             // console.log(req.body.cart.id[i])
             // console.log(req.body.cart.num[i])
-            postData.food_id.push({id: req.body.cart.id[i], amount: req.body.cart.num[i]})
+            postData.food_id.push({id: req.body.cart.id[i], name: req.body.cart.name[i], amount: req.body.cart.num[i]})
         }
         console.log(postData)
     }
     else {
         console.log(req.body.cart.id)
         console.log(req.body.cart.num)
-        postData.food_id.push({id: req.body.cart.id, amount: req.body.cart.num})
+        postData.food_id.push({id: req.body.cart.id, name: req.body.cart.name, amount: req.body.cart.num})
     }
     Order.create(postData, function (err, data) {
         if (err) throw err;
@@ -215,8 +216,15 @@ app.get('/my_old_order', function(req, res) {
 })
 
 app.get('/my_active_order', function(req, res) {        // 顧客顯示個人訂單
-    var user_id = req.session.user;
-    order.searchbyuserid_active(user_id, res);
+    console.log(req.session.user)
+    Order.find({$and:[{user_id: req.session.user}, {$or: [{state: 1}, {state: 2}, {state: 3}] } ] } ) 
+    .then(response =>{
+        console.log(response)
+        res.json(response)
+    })
+    .catch(error =>{
+        console.log('No Active order')
+    });
 })
 
 app.post('/mark_as_done', function(req, res) {
