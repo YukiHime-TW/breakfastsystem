@@ -41,19 +41,19 @@ function init() {
 }
 
 function plusDish(i){
-  var temp = +localStorage.getItem(div[i].getAttribute("food")+" num");
+  var temp = +localStorage.getItem(localStorage.key(i)+" num");
   temp++;
-  localStorage.setItem(div[i].getAttribute("food")+" num",temp);
+  localStorage.setItem(localStorage.key(i)+" num",temp);
 }
 
 function minusDish(i){
-  var temp = +localStorage.getItem(div[i].getAttribute("food")+" num");
+  var temp = +localStorage.getItem(localStorage.key(i)+" num");
   if(temp-- == 0){
     temp = 1;
   }else{
     temp--;
   }
-  localStorage.setItem(div[i].getAttribute("food")+" num",temp);
+  localStorage.setItem(localStorage.key(i)+" num",temp);
 }
 
 function initNum(i) {
@@ -149,19 +149,23 @@ function ifSomething() {
   tr.appendChild(th_number);
 
   var tbody = document.createElement("tbody");
+  tbody.style = "center = true;";
   table.appendChild(tbody);
-
-  for (var i = 0; i < localStorage.length; i++) {
-    if (localStorage.key(i).charAt(localStorage.key(i).length - 1) != "d") {
-      cartLength++;
-    }
-  }
 
   for (var i = 0; i < localStorage.length; i++) {
 
     if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
       continue;
     }
+
+    var plusButton = document.createElement("input");
+    var minusButton = document.createElement("input");
+    plusButton.type = "button";
+    minusButton.type = "button";
+    plusButton.setAttribute("onclick",`plusDish(${i})`);
+    minusButton.setAttribute("onclick",`minusDish(${i})`);
+    plusButton.value = "+";
+    minusButton.value = "-";
 
     var tr_food = document.createElement("tr");
     var td_food_name = document.createElement("td");
@@ -173,7 +177,6 @@ function ifSomething() {
     input_food_name.name = `cart[id]`;
     td_food_name.appendChild(input_food_name);
 
-
     var td_food_number = document.createElement("td");
     var input_food_number = document.createElement("input");
 
@@ -181,12 +184,13 @@ function ifSomething() {
     input_food_number.hidden = true;
     input_food_number.value = localStorage.getItem(localStorage.key(i));
     input_food_number.name = `cart[num]`;
+    td_food_number.appendChild(plusButton);
     td_food_number.appendChild(input_food_number);
+    td_food_number.appendChild(minusButton);
 
     tr_food.appendChild(td_food_name);
     tr_food.appendChild(td_food_number);
     tbody.appendChild(tr_food);
-    j++;
   }
 }
 
