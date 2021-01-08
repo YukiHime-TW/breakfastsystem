@@ -123,89 +123,158 @@ function cartInit() {
   }
 
   if (something) {
-    ifSomething();
+    ifSomething(true);
   } else {
-    ifNothing();
+    ifNothing(true);
   }
 }
 
-function ifSomething() {
-  var d = document.getElementById("main");
-  var form = document.createElement("form");
-  form.id = "finalCart";
-  form.action = "/send_cart";
-  form.method = "POST";
-  var table = document.createElement("table");
-  table.className = "table table-striped";
-  table.id = "table";
-  form.appendChild(table);
-  d.appendChild(form);
+function ifSomething(flag) {
+  if (flag) {
+    var d = document.getElementById("main");
+    var form = document.createElement("form");
+    form.id = "finalCart";
+    form.action = "/send_cart";
+    form.method = "POST";
+    var table = document.createElement("table");
+    table.className = "table table-striped";
+    table.id = "table";
+    form.appendChild(table);
+    d.appendChild(form);
 
-  var thead = document.createElement("thead");
-  table.appendChild(thead);
+    var thead = document.createElement("thead");
+    table.appendChild(thead);
 
-  var tr = document.createElement("tr");
-  thead.appendChild(tr);
+    var tr = document.createElement("tr");
+    thead.appendChild(tr);
 
-  var th_name = document.createElement("th");
-  th_name.scope = "col";
-  th_name.innerText = "餐點名稱";
-  tr.appendChild(th_name);
+    var th_name = document.createElement("th");
+    th_name.scope = "col";
+    th_name.innerText = "餐點名稱";
+    tr.appendChild(th_name);
 
-  var th_number = document.createElement("th");
-  th_number.scope = "col";
-  th_number.innerText = "數量";
-  tr.appendChild(th_number);
+    var th_number = document.createElement("th");
+    th_number.scope = "col";
+    th_number.innerText = "數量";
+    tr.appendChild(th_number);
 
-  var tbody = document.createElement("tbody");
-  tbody.style = "center = true;";
-  table.appendChild(tbody);
+    var tbody = document.createElement("tbody");
+    tbody.style = "center = true;";
+    table.appendChild(tbody);
 
-  for (var i = 0; i < localStorage.length; i++) {
-    if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
-      continue;
+    for (var i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
+        continue;
+      }
+
+      var plusButton = document.createElement("input");
+      var minusButton = document.createElement("input");
+      plusButton.type = "button";
+      minusButton.type = "button";
+      plusButton.setAttribute("onclick", `plusDish(${i})`);
+      minusButton.setAttribute("onclick", `minusDish(${i})`);
+      plusButton.value = "+";
+      minusButton.value = "-";
+
+      var tr_food = document.createElement("tr");
+      tr_food.id = `${i}`;
+      var td_food_name = document.createElement("td");
+      var input_food_name = document.createElement("input");
+      var input_name = document.createElement("input");
+
+      td_food_name.innerText = localStorage.key(i);
+      input_food_name.hidden = true;
+      input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
+      input_food_name.name = `cart[id]`;
+      input_name.value = localStorage.key(i);
+      input_name.name = `cart[num]`;
+      input_name.hidden = true;
+      td_food_name.appendChild(input_food_name);
+
+      var td_food_number = document.createElement("td");
+      var input_food_number = document.createElement("input");
+
+      td_food_number.innerText = localStorage.getItem(localStorage.key(i));
+      input_food_number.hidden = true;
+      input_food_number.value = localStorage.getItem(localStorage.key(i));
+      input_food_number.name = `cart[num]`;
+      td_food_number.appendChild(plusButton);
+      td_food_number.appendChild(input_food_number);
+      td_food_number.appendChild(minusButton);
+
+      tr_food.appendChild(td_food_name);
+      tr_food.appendChild(td_food_number);
+      tbody.appendChild(tr_food);
     }
+    calCost(d, true);
+  } else {
+    var d = document.getElementById("main");
+    var form = document.createElement("form");
+    form.id = "finalCart";
+    form.action = "/send_cart";
+    form.method = "POST";
+    var table = document.createElement("table");
+    table.className = "table table-striped";
+    table.id = "table";
+    form.appendChild(table);
+    d.appendChild(form);
 
-    var plusButton = document.createElement("input");
-    var minusButton = document.createElement("input");
-    plusButton.type = "button";
-    minusButton.type = "button";
-    plusButton.setAttribute("onclick", `plusDish(${i})`);
-    minusButton.setAttribute("onclick", `minusDish(${i})`);
-    plusButton.value = "+";
-    minusButton.value = "-";
+    var thead = document.createElement("thead");
+    table.appendChild(thead);
 
-    var tr_food = document.createElement("tr");
-    tr_food.id = `${i}`;
-    var td_food_name = document.createElement("td");
-    var input_food_name = document.createElement("input");
-    var input_name = document.createElement("input");
+    var tr = document.createElement("tr");
+    thead.appendChild(tr);
 
-    td_food_name.innerText = localStorage.key(i);
-    input_food_name.hidden = true;
-    input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
-    input_food_name.name = `cart[id]`;
-    input_name.value = localStorage.key(i);
-    input_name.name = `cart[num]`;
-    input_name.hidden = true;
-    td_food_name.appendChild(input_food_name);
+    var th_name = document.createElement("th");
+    th_name.scope = "col";
+    th_name.innerText = "餐點名稱";
+    tr.appendChild(th_name);
 
-    var td_food_number = document.createElement("td");
-    var input_food_number = document.createElement("input");
+    var th_number = document.createElement("th");
+    th_number.scope = "col";
+    th_number.innerText = "數量";
+    tr.appendChild(th_number);
 
-    td_food_number.innerText = localStorage.getItem(localStorage.key(i));
-    input_food_number.hidden = true;
-    input_food_number.value = localStorage.getItem(localStorage.key(i));
-    input_food_number.name = `cart[num]`;
-    td_food_number.appendChild(plusButton);
-    td_food_number.appendChild(input_food_number);
-    td_food_number.appendChild(minusButton);
+    var tbody = document.createElement("tbody");
+    tbody.style = "center = true;";
+    table.appendChild(tbody);
 
-    tr_food.appendChild(td_food_name);
-    tr_food.appendChild(td_food_number);
-    tbody.appendChild(tr_food);
+    for (var i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
+        continue;
+      }
+
+      var tr_food = document.createElement("tr");
+      tr_food.id = `${i}`;
+      var td_food_name = document.createElement("td");
+      var input_food_name = document.createElement("input");
+      var input_name = document.createElement("input");
+
+      td_food_name.innerText = localStorage.key(i);
+      input_food_name.hidden = true;
+      input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
+      input_food_name.name = `cart[id]`;
+      input_name.value = localStorage.key(i);
+      input_name.name = `cart[num]`;
+      input_name.hidden = true;
+      td_food_name.appendChild(input_food_name);
+
+      var td_food_number = document.createElement("td");
+      var input_food_number = document.createElement("input");
+
+      td_food_number.innerText = localStorage.getItem(localStorage.key(i));
+      input_food_number.hidden = true;
+      input_food_number.value = localStorage.getItem(localStorage.key(i));
+      input_food_number.name = `cart[num]`;
+      td_food_number.appendChild(input_food_number);
+
+      tr_food.appendChild(td_food_name);
+      tr_food.appendChild(td_food_number);
+      tbody.appendChild(tr_food);
+    }
+    calCost(d, false);
   }
-  calCost(d,true);
+
 }
 
 function calCost(d, flag) {
@@ -253,7 +322,7 @@ function calCost(d, flag) {
     cancel.style = "position: absolute;bottom: 0px;right: 100px;";
     cancel.setAttribute("onclick", "window.location='menu.html'");
     footer.appendChild(cancel);
-  }else{
+  } else {
     var cancel = document.createElement("button");
     cancel.className = "btn btn-warning";
     cancel.innerText = "取消";
@@ -267,13 +336,22 @@ function calCost(d, flag) {
   request.send(null);
 }
 
-function ifNothing() {
-  var p = document.createElement("p");
-  p.innerText = "購物車裡沒有東西";
-  p.style = "margin-top: 75%";
-  var center = document.createElement("center");
-  center.appendChild(p);
-  document.getElementById("main").appendChild(center);
+function ifNothing(flag) {
+  if (flag) {
+    var p = document.createElement("p");
+    p.innerText = "購物車裡沒有東西";
+    p.style = "margin-top: 75%";
+    var center = document.createElement("center");
+    center.appendChild(p);
+    document.getElementById("main").appendChild(center);
+  }else{
+    var p = document.createElement("p");
+    p.innerText = "尚未訂餐";
+    p.style = "margin-top: 75%";
+    var center = document.createElement("center");
+    center.appendChild(p);
+    document.getElementById("main").appendChild(center);
+  }
 }
 
 function sendingFinalCart() {
@@ -284,69 +362,15 @@ function sendingFinalCart() {
 }
 
 function orderInit() {
-  var d = document.getElementById("main");
-  var form = document.createElement("form");
-  form.id = "finalCart";
-  form.action = "/send_cart";
-  form.method = "POST";
-  var table = document.createElement("table");
-  table.className = "table table-striped";
-  table.id = "table";
-  form.appendChild(table);
-  d.appendChild(form);
+  something = false;
 
-  var thead = document.createElement("thead");
-  table.appendChild(thead);
-
-  var tr = document.createElement("tr");
-  thead.appendChild(tr);
-
-  var th_name = document.createElement("th");
-  th_name.scope = "col";
-  th_name.innerText = "餐點名稱";
-  tr.appendChild(th_name);
-
-  var th_number = document.createElement("th");
-  th_number.scope = "col";
-  th_number.innerText = "數量";
-  tr.appendChild(th_number);
-
-  var tbody = document.createElement("tbody");
-  tbody.style = "center = true;";
-  table.appendChild(tbody);
-
-  for (var i = 0; i < localStorage.length; i++) {
-    if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
-      continue;
-    }
-
-    var tr_food = document.createElement("tr");
-    tr_food.id = `${i}`;
-    var td_food_name = document.createElement("td");
-    var input_food_name = document.createElement("input");
-    var input_name = document.createElement("input");
-
-    td_food_name.innerText = localStorage.key(i);
-    input_food_name.hidden = true;
-    input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
-    input_food_name.name = `cart[id]`;
-    input_name.value = localStorage.key(i);
-    input_name.name = `cart[num]`;
-    input_name.hidden = true;
-    td_food_name.appendChild(input_food_name);
-
-    var td_food_number = document.createElement("td");
-    var input_food_number = document.createElement("input");
-
-    td_food_number.innerText = localStorage.getItem(localStorage.key(i));
-    input_food_number.hidden = true;
-    input_food_number.value = localStorage.getItem(localStorage.key(i));
-    input_food_number.name = `cart[num]`;
-    td_food_number.appendChild(input_food_number);
-
-    tr_food.appendChild(td_food_name);
-    tr_food.appendChild(td_food_number);
-    tbody.appendChild(tr_food);
+  if (localStorage.length != 0) {
+    something = true;
   }
-  calCost(d,false);
+
+  if (something) {
+    ifSomething(false);
+  } else {
+    ifNothing(false);
+  }
 }
