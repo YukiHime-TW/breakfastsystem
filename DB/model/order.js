@@ -9,16 +9,16 @@ const orderSchema = new Schema({
     food_id:[{
         "id": String,
         "name": String, 
-        "amount": Number
+        "amount": Number,
+        "finished": Boolean
     }],
     set_id: [{
         "id": String,
         "name": String,
-        "amount": Number    
+        "amount": Number,
+        "finished": Boolean
     }],
-    state:[{
-        type: Number  // 送出:1 製作中:2 待領取(已完成) :3 已領取: 4
-    }],
+    state: Number,  // 送出:1 製作中:2 待領取(已完成) :3 已領取: 4
     price:{
         type: Number
     }
