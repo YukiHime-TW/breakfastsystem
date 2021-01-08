@@ -220,14 +220,13 @@ function AllorderInit() {
         for (var i = 0; i < json.length; i++) {
             var order = document.createElement("p");
             order.innerHTML = json[i].order_id;
-            order.style = "border-width:3px;border-style:groove;border-color:black;padding:5px;margin-top:2%";
             order.setAttribute("class", "flip");
-            order.onclick = function () {
-                $(".panel").slideToggle("slow");
-            };
+            order.setAttribute("onclick",`AllorderExtend(${i})`)
+
 
             var ext = document.createElement("div");
-            ext.setAttribute("class", "panel");
+            ext.setAttribute("class", "panel" + i);
+            ext.style="margin:0px;padding:15px;text-align:center; background:#e5eecc;border:solid 1px #c3c3c3;width: 100%;height:120px; display:none;"
 
             for (var j = 0; j < json[i].food_id.length; j++) {
                 var text = document.createElement("p");
@@ -243,6 +242,11 @@ function AllorderInit() {
 
     }
     request.send(null);
+}
+
+function AllorderExtend(i) {
+    $(".panel"+i).slideToggle("slow");
+ ;
 }
 
 function NewsetInit() {
