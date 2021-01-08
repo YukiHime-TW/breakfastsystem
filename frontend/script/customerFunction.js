@@ -182,12 +182,17 @@ function ifSomething() {
     var tr_food = document.createElement("tr");
     var td_food_name = document.createElement("td");
     var input_food_name = document.createElement("input");
+    var input_name = document.createElement("input");
 
     input_food_name.hidden = true;
     input_food_name.value = localStorage.getItem(localStorage.key(i) + " id");
     input_food_name.name = 'cart[id]';
+    input_name.hidden = true;
+    input_name.value = localStorage.key(i);
+    input_name.name = 'cart[name]';
     td_food_name.innerText = localStorage.key(i);
     td_food_name.appendChild(input_food_name);
+    td_food_name.appendChild(input_name);
 
     var td_food_number = document.createElement("td");
     var input_food_number = document.createElement("input");
@@ -247,12 +252,12 @@ function orderInit() {
     var tbody = document.createElement("tbody");
     table.appendChild(tbody);
 
-    for (var i = 0; i < json.length; i++) {
+    for (var i = 0; i < json[0].food_id.length; i++) {
       var tr_food = document.createElement("tr");
       var td_food_name = document.createElement("td");
-      td_food_name.innerText = json[i].food_name;
+      td_food_name.innerText = json[0].food_id[i].name;
       var td_food_number = document.createElement("td");
-      td_food_number.innerText = json[i].food_num;
+      td_food_number.innerText = json[0].food_id[i].amount;
       tr_food.appendChild(td_food_name);
       tr_food.appendChild(td_food_number);
       tbody.appendChild(tr_food);
