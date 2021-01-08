@@ -1,5 +1,6 @@
 var request = new XMLHttpRequest();
-var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var url =
+  "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 var cart_url = "";
 var div = new Array(0);
 var image = new Array(0);
@@ -19,8 +20,10 @@ function init() {
       image[i].src = `../image/plus.png`;
       image[i].style = "width: 100%";
       div[i].appendChild(image[i]);
-      foodName.style = "width:100%; background-color:black; opacity:0.5; position:relative; word-wrap:break-word; color:white";
-      foodName.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price + "</center>";
+      foodName.style =
+        "width:100%; background-color:black; opacity:0.5; position:relative; word-wrap:break-word; color:white";
+      foodName.innerHTML =
+        "<center>" + json[i].food_name + "$" + json[i].price + "</center>";
       div[i].appendChild(foodName);
       div[i].setAttribute("food", json[i].food_name);
       if (i % 2 == 0) {
@@ -40,25 +43,30 @@ function init() {
   request.send(null);
 }
 
-function plusDish(i){
-  var temp = +localStorage.getItem(localStorage.key(i)+" num");
+function plusDish(i) {
+  var temp = +localStorage.getItem(localStorage.key(i));
   temp++;
-  localStorage.setItem(localStorage.key(i)+" num",temp);
+  localStorage.setItem(localStorage.key(i), temp);
+  window.location.reload();
 }
 
-function minusDish(i){
-  var temp = +localStorage.getItem(localStorage.key(i)+" num");
-  if(temp-- == 0){
+function minusDish(i) {
+  var temp = +localStorage.getItem(localStorage.key(i));
+  if (temp == 1) {
     temp = 1;
-  }else{
+  } else {
     temp--;
   }
-  localStorage.setItem(localStorage.key(i)+" num",temp);
+  localStorage.setItem(localStorage.key(i), temp);
+  window.location.reload();
 }
 
 function initNum(i) {
   if (localStorage.getItem(div[i].getAttribute("food")) != null) {
-    div[i].setAttribute("num", localStorage.getItem(div[i].getAttribute("food")));
+    div[i].setAttribute(
+      "num",
+      localStorage.getItem(div[i].getAttribute("food"))
+    );
   } else {
     div[i].setAttribute("num", 0);
   }
@@ -77,7 +85,9 @@ function addDish(i) {
   putIn.id = div[i].getAttribute("food");
   putIn.name = "Cart";
   cart.appendChild(putIn);
-  document.getElementById(div[i].id).setAttribute("onclick", `addAlreadyDish(${i})`);
+  document
+    .getElementById(div[i].id)
+    .setAttribute("onclick", `addAlreadyDish(${i})`);
 }
 
 function addAlreadyDish(i) {
@@ -106,7 +116,6 @@ function clearAll() {
 }
 
 function cartInit() {
-
   something = false;
 
   if (localStorage.length != 0) {
@@ -118,7 +127,6 @@ function cartInit() {
   } else {
     ifNothing();
   }
-
 }
 
 function ifSomething() {
@@ -129,6 +137,7 @@ function ifSomething() {
   form.method = "POST";
   var table = document.createElement("table");
   table.className = "table table-striped";
+  table.id = "table";
   form.appendChild(table);
   d.appendChild(form);
 
@@ -153,7 +162,6 @@ function ifSomething() {
   table.appendChild(tbody);
 
   for (var i = 0; i < localStorage.length; i++) {
-
     if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
       continue;
     }
@@ -162,12 +170,13 @@ function ifSomething() {
     var minusButton = document.createElement("input");
     plusButton.type = "button";
     minusButton.type = "button";
-    plusButton.setAttribute("onclick",`plusDish(${i})`);
-    minusButton.setAttribute("onclick",`minusDish(${i})`);
+    plusButton.setAttribute("onclick", `plusDish(${i})`);
+    minusButton.setAttribute("onclick", `minusDish(${i})`);
     plusButton.value = "+";
     minusButton.value = "-";
 
     var tr_food = document.createElement("tr");
+    tr_food.id = `${i}`;
     var td_food_name = document.createElement("td");
     var input_food_name = document.createElement("input");
     var input_name = document.createElement("input");
@@ -250,6 +259,6 @@ function orderInit() {
       tr_food.appendChild(td_food_number);
       tbody.appendChild(tr_food);
     }
-  }
+  };
   request.send(null);
 }
