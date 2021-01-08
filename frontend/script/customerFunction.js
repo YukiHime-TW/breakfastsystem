@@ -325,7 +325,7 @@ function calCost(d, flag) {
   } else {
     var cancel = document.createElement("button");
     cancel.className = "btn btn-warning";
-    cancel.innerText = "取消";
+    cancel.innerText = "返回";
     cancel.type = "button";
     cancel.style = "position: absolute;bottom: 0px;right: 0px;";
     cancel.setAttribute("onclick", "window.location='menu.html'");
