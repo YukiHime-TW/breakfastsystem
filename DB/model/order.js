@@ -12,7 +12,8 @@ const orderSchema = new Schema({
         "amount": Number
     }],
     set_id: [{
-        "id":String,
+        "id": String,
+        "name": String,
         "amount": Number    
     }],
     state:[{
