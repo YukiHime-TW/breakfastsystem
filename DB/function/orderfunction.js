@@ -1,9 +1,13 @@
 const Order = require('../model/order')
 // 使用者參數: food_id[],set_id[],user_id[],state[],date
-exports.orderinsertsingle = function (id) {
-    console.log(id);
+exports.orderinsertsingle = function (id, num) {
     //console.log(price);
-    Order.food_id.push(id)
+    var newSingle = {
+        id: id,
+        amount: num
+    }
+    console.log(newSingle)
+    Order.food_id.push(newSingle)
 };
 /*
 exports.deletesingle = function (id) {
@@ -100,4 +104,21 @@ exports.orderstore = function (userid,foodarrayid/*,setarrayid*/) {
             console.log("inserted");
         }
     });
+};
+
+exports.OrderReturnUserID = function(orderid) {
+    var OrderProjection = { 
+        __v: false,
+        _id: false,
+        food_id:false,
+        set_id: false,
+        state: false
+    };
+    Order.findOne({order_num: orderid}, OrderProjection)
+    .then((response) =>{
+        
+    })
+    .catch(function(error){ 
+        console.log(error); // Failure 
+    });  
 };
