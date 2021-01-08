@@ -122,7 +122,7 @@ function btnOperate(op) {
 }
 
 function MakingorderInit() {
-    request.open("GET", url1, true);
+    request.open("GET", "http://localhost:3000/show_all_active_order", true);
     request.onload = function () {
         var json = JSON.parse(request.response);
         console.log(json);
@@ -157,7 +157,7 @@ function MakingorderInit() {
             var tr_item_value = document.createElement("tr");           //訂單編號 欲取餐時間 訂單狀態 的值
             var td_item_order_value = document.createElement("td");
             tr_item_value.style = "background:white;"
-            td_item_order_value.innerHTML = "<center>" + json[i].order_id;
+            td_item_order_value.innerHTML = "<center>" + json[i].order_num;
             var td_item_arrive_time_value = document.createElement("td");
             td_item_arrive_time_value.innerHTML = "<center>" + json[i].arrive_time;
             td_item_state_value[i] = document.createElement("td");
@@ -186,11 +186,21 @@ function MakingorderInit() {
                 var tr_food = document.createElement("tr");
                 tr_food.style = "background:white;"
                 var td_food_name = document.createElement("td");
-                td_food_name.innerHTML = "<center>" + json[i].food_id[j].id;
+                td_food_name.innerHTML = "<center>" + json[i].food_id[j].name;
                 var td_food_amount = document.createElement("td");
                 td_food_amount.innerHTML = "<center>" + json[i].food_id[j].amount;
+                var food_button = document.createElement("button");
                 var td_food_state = document.createElement("td");
-                td_food_state.innerHTML = "<center>123";
+                td_food_state.setAttribute("align", "center");
+                if (json[i].food_id[j].finished == false) {
+                    food_button.innerHTML = "<center>未完成"
+                    food_button.setAttribute("class", "btn btn-warning");
+                    food_button.setAttribute("onclick", `singleState(${i}, ${j})`)
+                    td_food_state.appendChild(food_button);
+                }
+                else {
+                    td_food_state.innerHTML = "<center>已完成";
+                }
                 tr_food.appendChild(td_food_name);
                 tr_food.appendChild(td_food_amount);
                 tr_food.appendChild(td_food_state);
@@ -214,7 +224,114 @@ function MakingorderInit() {
 function state(i) {
     var json = JSON.parse(request.response);
     if (json[i].state == 2)
-        window.location.replace(`http://localhost:3000/state2?order_id=${json[i].order_id}`);
+        window.location.replace(`http://localhost:3000/state2?order_id=${json[i].order_num}`);
     else if (json[i].state == 3)
-        window.location.replace(`http://localhost:3000/state3?order_id=${json[i].order_id}`);
+        window.location.replace(`http://localhost:3000/state3?order_id=${json[i].order_num}`);
+}
+
+function singleState(i, j) {
+    var json = JSON.parse(request.response);
+    window.location.replace(`http://localhost:3000/mark_as_done?order_id=${json[i].order_num}&item=${json[i].food_id[j]._id}`)
+}
+
+function AllorderInit() {
+    request.open("GET", url1, true);
+    request.onload = function () {
+        var json = JSON.parse(request.response);
+        console.log(json);
+        var All_order = document.getElementById("All_order");
+        for (var i = 0; i < json.length; i++) {
+            var order = document.createElement("p");
+            order.innerHTML = json[i].order_id;
+            order.style = "border-width:3px;border-style:groove;border-color:black;padding:5px;margin-top:2%";
+            order.setAttribute("class", "flip");
+            order.onclick = function () {
+                $(".panel").slideToggle("slow");
+            };
+
+            var ext = document.createElement("div");
+            ext.setAttribute("class", "panel");
+
+            for (var j = 0; j < json[i].food_id.length; j++) {
+                var text = document.createElement("p");
+                text.innerHTML = json[i].food_id[j].id + "x" + json[i].food_id[j].amount;
+                ext.appendChild(text);
+            }
+            var total = document.createElement("p");
+            total.innerHTML = "總共:50元";
+            ext.appendChild(total);
+            All_order.appendChild(order);
+            All_order.appendChild(ext);
+        }
+
+    }
+    request.send(null);
+}
+
+function NewsetInit() {
+    request.open("GET", "http://localhost:3000/get_menu", true);
+    request.onload = function () {
+        var json = JSON.parse(request.response);
+        console.log(json);
+        var usefood = document.getElementById("Usefood");
+        var table = document.createElement("table");
+        table.style = "width:100%";
+        var tbody = document.createElement("tbody");
+        for (var i = 0; i < json.length; i++) {
+
+            var count = document.createElement("tr");
+            var td0 = document.createElement("td");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            td0.innerHTML = json[i].food_name;
+            td1.innerHTML = json[i].price + "元";
+            button1[i] = document.createElement("button");
+            button1[i].setAttribute("class", "btn btn-warning");
+            button1[i].innerHTML = "<center>加入";
+            button1[i].setAttribute("onclick", `AdddishtoSet(${i})`);
+            td2.appendChild(button1[i]);
+            count.appendChild(td0);
+            count.appendChild(td1);
+            count.appendChild(td2);
+            tbody.appendChild(count);
+        }
+        table.appendChild(tbody);
+        usefood.appendChild(table);
+    }
+    request.send(null);
+}
+
+
+var tr_set = new Array(0);
+function AdddishtoSet(i) {
+    var json = JSON.parse(request.response);
+    var Set = document.getElementById("Set");
+    var table = document.getElementById("Newset_table");
+    var tbody = document.getElementById("Newset_tbody");
+    var PutIn = document.createElement("input");
+    var button2 = document.createElement("div");
+    button2.innerHTML = "移除";
+    button2.setAttribute("class", "btn btn-warning");
+    button2.setAttribute("onclick", function del(i) {
+        var tbody = document.getElementById("Newset_tbody");
+        tbody.removeChild(tbody.childNodes[0]);
+    });
+    PutIn.type = "hidden";
+    PutIn.value = json[i]._id;
+    PutIn.name = "set" + i;
+    tr_set[i] = document.createElement("tr");
+    var td0 = document.createElement("td");
+    td0.innerHTML = json[i].food_name;
+    var td1 = document.createElement("td");
+    var td2 = document.createElement("td");
+    td2.appendChild(button2);
+    td1.innerHTML = json[i].price+"元";
+    tr_set[i].appendChild(PutIn);
+    tr_set[i].appendChild(td0);
+    tr_set[i].appendChild(td1);
+    tr_set[i].appendChild(td2);
+    tbody.appendChild(tr_set[i]);
+    table.appendChild(tbody);
+    Set.appendChild(table);
+
 }
