@@ -77,7 +77,11 @@ function plusDish(i){
 
 function minusDish(i){
   var temp = +localStorage.getItem(div[i].getAttribute("food")+" num");
-  temp--;
+  if(temp-- == 0){
+    temp = 1;
+  }else{
+    temp--;
+  }
   localStorage.setItem(div[i].getAttribute("food")+" num",temp);
 }
 
