@@ -69,6 +69,12 @@ function btnOperate(op) {
   document.getElementById("price").value = json[0].price * document.getElementById("num").value;
 }
 
+function plusDish(i){
+  var temp = +localStorage.getItem(div[i].getAttribute("food")+" num");
+  temp++;
+  localStorage.setItem();
+}
+
 function initNum(i) {
   if (localStorage.getItem(div[i].getAttribute("food")) != null) {
     div[i].setAttribute("num", localStorage.getItem(div[i].getAttribute("food")));
