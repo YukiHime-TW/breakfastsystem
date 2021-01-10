@@ -3,6 +3,8 @@ var request = new XMLHttpRequest();
 // var url = "http://localhost:3000/"
 var url = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
 var url1 = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/order.json";
+// var mainURL = "https://hidden-garden-96019.herokuapp.com"
+var mainURL = "http://localhost:3000"
 
 var div = new Array(0);
 var image = new Array(0);
@@ -10,7 +12,7 @@ var td_item_state_value = new Array(0);
 var button = new Array(0);
 
 function init() {
-    request.open("GET", "http://localhost:3000/get_menu", true);
+    request.open("GET", mainURL + "/get_menu", true);
     request.onload = function () {
         var json = JSON.parse(request.response);
         let d = document.getElementById("main");
@@ -94,6 +96,7 @@ function editInit() {
         document.getElementById("name").value = localStorage.getItem("name");
         document.getElementById("description").value = localStorage.getItem("description");
         document.getElementById("price").value = localStorage.getItem("price");
+        document.getElementById("delete_id").value = localStorage.getItem("id");
         console.log(json);
     };
     request.send(null);
@@ -122,7 +125,7 @@ function btnOperate(op) {
 }
 
 function MakingorderInit() {
-    request.open("GET", "http://localhost:3000/show_all_active_order", true);
+    request.open("GET", mainURL + "/show_all_active_order", true);
     request.onload = function () {
         var json = JSON.parse(request.response);
         console.log(json);
@@ -224,14 +227,14 @@ function MakingorderInit() {
 function state(i) {
     var json = JSON.parse(request.response);
     if (json[i].state == 2)
-        window.location.replace(`http://localhost:3000/state2?order_id=${json[i].order_num}`);
+        window.location.replace(mainURL + `/state2?order_id=${json[i].order_num}`);
     else if (json[i].state == 3)
-        window.location.replace(`http://localhost:3000/state3?order_id=${json[i].order_num}`);
+        window.location.replace(mainURL + `/state3?order_id=${json[i].order_num}`);
 }
 
 function singleState(i, j) {
     var json = JSON.parse(request.response);
-    window.location.replace(`http://localhost:3000/mark_as_done?order_id=${json[i].order_num}&item=${json[i].food_id[j]._id}`)
+    window.location.replace(mainURL + `/mark_as_done?order_id=${json[i].order_num}&item=${json[i].food_id[j]._id}`)
 }
 
 function AllorderInit() {
@@ -269,7 +272,7 @@ function AllorderInit() {
 }
 
 function NewsetInit() {
-    request.open("GET", "http://localhost:3000/get_menu", true);
+    request.open("GET", mainURL + "/get_menu", true);
     request.onload = function () {
         var json = JSON.parse(request.response);
         console.log(json);

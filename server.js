@@ -12,9 +12,17 @@ const order = require('./DB/function/orderfunction.js')
 const cart = require('./DB/function/cartfunction.js')
 const User = require('./DB/model/user.js')
 const Order = require('./DB/model/order.js')
+const Single = require('./DB/model/single.js')
 const WebSocket = require('ws');
 const { response } = require('express');
-var order_id = 2;
+const schedule = require('node-schedule');
+
+var order_id = 1;
+
+schedule.scheduleJob('0 0 * * *', () => {
+    order_id = 1;
+})
+
 var web_user;
 
 const app = express()
@@ -106,8 +114,16 @@ app.post('/editmenumiddle.html', function(req, res) {
     res.redirect('/editmenu.html')
 })
 
-app.delete('/editmenumiddle.html', function(req, res) {
-    single.SingleDelete(req.body.name)
+app.get('/delete_single', function(req, res) {
+    Single.findByIdAndDelete(req.query.delete_id, function (err, docs) { 
+        if (err){ 
+            console.log(err) 
+        } 
+        else{ 
+            console.log("Deleted : ", docs); 
+        } 
+    }); 
+    console.log(req.query.delete_id)
     res.redirect('/editmenu.html')
 })
 
