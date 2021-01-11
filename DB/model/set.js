@@ -11,7 +11,7 @@ const setSchema = new Schema({
     description: {
         type: String
     },
-    food_id: [ Number ]
+    food_id: [ String ]
 
 },{timestamps: true})
 
