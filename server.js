@@ -187,6 +187,17 @@ app.post('/reg.html', function (req, res) {
     });
 });
 
+app.post('/historyorder.html', function(req, res) {
+    Order.find({state: 4})
+    .then((response) => {
+        res.json(response);
+    })
+    .catch((error) => {
+        console.log('Find history order error!');
+    })
+    res.redirect('/historyorder.html');
+});
+
 app.get('/state2',function(req,res){
     var order_id = req.query.order_id;
     var user;
@@ -233,8 +244,17 @@ app.post('/send_cart', function(req, res){
         state: 2,
         price: 0,
         food_id: [],
-        set_id: []
+        set_id: [],
+        pickupTime: new Date()
     };
+    var str = req.body.appt
+    var time = str.match( /(\d+)\:(\d+)/ );
+    var date = new Date()
+    date.setHours(parseInt(time[1]))
+    date.setMinutes(parseInt(time[2]))
+    postData.pickupTime = date
+    // console.log(date)
+    // console.log(req.body.appt)
     if (Array.isArray(req.body.cart.num)) {
         for(var i = 0; i < req.body.cart.num.length; i++) {
             // console.log(req.body.cart.id[i])
@@ -273,7 +293,7 @@ app.get('/show_all_order', function(req, res) {
 })
 
 app.get('/show_all_active_order', function(req, res) {
-    Order.find({$or: [{state: 2}, {state: 3}] }) 
+    Order.find({$or: [{state: 2}, {state: 3}] }).sort('createdAt')
     .then(response =>{
         // console.log(response)
         res.json(response)

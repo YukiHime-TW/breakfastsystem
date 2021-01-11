@@ -221,6 +221,7 @@ function ifNothing() {
 function sendingFinalCart() {
   var cart = document.getElementById("finalCart");
   localStorage.clear();
+  cart.appendChild(document.getElementById("appt"))
   cart.submit();
   console.log("Order send");
 }
