@@ -13,6 +13,7 @@ const cart = require('./DB/function/cartfunction.js')
 const User = require('./DB/model/user.js')
 const Order = require('./DB/model/order.js')
 const Single = require('./DB/model/single.js')
+const Set = require('./DB/model/set.js')
 const WebSocket = require('ws');
 const { response } = require('express');
 const schedule = require('node-schedule');
@@ -323,6 +324,31 @@ app.get('/my_active_order', function(req, res) {        // 顧客顯示個人訂
     .catch(error =>{
         console.log('No Active order')
     });
+})
+
+app.post('/new_set', function(req, res) {
+    console.log(req.body)
+    var postData = {
+        set_name: req.body.Name, 
+        price: req.body.Price,
+        description: req.body.Introduce,
+        food_id : []
+    }
+    if (Array.isArray(req.body.set.id)) {
+        for(var i = 0; i < req.body.set.id.length; i++) {
+            postData.food_id.push(req.body.set.id[i])
+        }
+    }
+    else {
+        console.log('Not a set')
+        postData.food_id.push(req.body.set.id)
+    }
+    console.log(postData)
+    Set.create(postData, function (err, data) {
+        if (err) throw err;
+        console.log('Successfully created set');
+    })
+    res.redirect('manage.html');
 })
 
 app.get('/mark_as_done', function(req, res) {
