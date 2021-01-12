@@ -239,6 +239,7 @@ app.get('/state3',function(req,res){
 
 app.post('/send_cart', function(req, res){
     // console.log(req.body.cart)
+    // console.log(req.body.price)
     var postData = {
         order_num: order_id,
         user_id: req.session.user,
@@ -254,6 +255,7 @@ app.post('/send_cart', function(req, res){
     date.setHours(parseInt(time[1]))
     date.setMinutes(parseInt(time[2]))
     postData.pickupTime = date
+    postData.price = req.body.price
     // console.log(date)
     // console.log(req.body.appt)
     if (Array.isArray(req.body.cart.num)) {

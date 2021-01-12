@@ -5,6 +5,7 @@ var url = "http://localhost:3000/get_menu";
 var cart_url = "";
 var div = new Array(0);
 var image = new Array(0);
+var price = 0;
 
 function init() {
   request.open("GET", mainURL + "/get_menu", true);
@@ -13,6 +14,9 @@ function init() {
     let d = document.getElementById("main");
     var menu = document.createElement("div");
     menu.id = "menu";
+    if (localStorage.getItem("price") != null) {
+      price = Number(localStorage.getItem("price"));
+    }
     for (var i = 0; i < json.length; i++) {
       div[i] = document.createElement("div");
       image[i] = document.createElement("img");
@@ -24,6 +28,7 @@ function init() {
       foodName.innerHTML = "<center>" + json[i].food_name + "$" + json[i].price + "</center>";
       div[i].appendChild(foodName);
       div[i].setAttribute("food", json[i].food_name);
+      div[i].setAttribute("price", json[i].price);
       if (i % 2 == 0) {
         div[i].style =
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:left;margin-left: 15%; margin-top: 20%;";
@@ -83,6 +88,8 @@ function addDish(i) {
   var putIn = document.createElement("input");
   var temp = +div[i].getAttribute("num");
   ++temp;
+  price += Number(div[i].getAttribute("price"));
+  localStorage.setItem("price", price);
   localStorage.setItem(div[i].getAttribute("food"), temp);
   localStorage.setItem(div[i].getAttribute("food") + " id", div[i].id);
   div[i].setAttribute("num", temp);
@@ -121,6 +128,11 @@ function clearAll() {
 
 function cartInit() {
   
+  var p = document.getElementById("price");
+  if (localStorage.getItem("price") != null) {
+    price = Number(localStorage.getItem("price"));
+  }
+  p.setAttribute("value", price);
   something =false;
 
   if (localStorage.length != 0) {
@@ -177,7 +189,7 @@ function ifSomething() {
 
   for (var i = 0; i < localStorage.length; i++) {
 
-    if(localStorage.key(i).charAt(localStorage.key(i).length-1)=="d"){
+    if(localStorage.key(i).charAt(localStorage.key(i).length-1)=="d" || localStorage.key(i) == "price"){
       continue;
     }
 
@@ -221,7 +233,8 @@ function ifNothing() {
 function sendingFinalCart() {
   var cart = document.getElementById("finalCart");
   localStorage.clear();
-  cart.appendChild(document.getElementById("appt"))
+  cart.appendChild(document.getElementById("appt"));
+  cart.appendChild(document.getElementById("price"));
   cart.submit();
   console.log("Order send");
 }
