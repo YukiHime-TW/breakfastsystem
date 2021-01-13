@@ -51,7 +51,7 @@ function init() {
   requestSet.open("GET", urlSettest, true);
   requestSet.onload = function () {
     var set = JSON.parse(requestSet.response);
-    for (var i = dishLong, j = 0; i < set.length + dishLong; i++,j++) {
+    for (var i = dishLong, j = 0; i < set.length + dishLong; i++, j++) {
       descri[i] = set[j].description;
       div[i] = document.createElement("div");
       image[i] = document.createElement("img");
@@ -154,12 +154,12 @@ function showDes(i) {
   des.id = div[i].id + "des";
   div[i].appendChild(des);
   document.getElementById(div[i].id).setAttribute("onclick", `addDish(${i})`);
-  window.setTimeout(`recover(${i})`,2000);
+  window.setTimeout(`recover(${i})`, 2000);
 }
 
 function recover(i) {
   image[i].style = "width: 100%";
-  div[i].removeChild(document.getElementById(div[i].id+"des"));
+  div[i].removeChild(document.getElementById(div[i].id + "des"));
   document.getElementById(div[i].id).setAttribute("onclick", `showDes(${i})`);
 }
 
@@ -347,7 +347,7 @@ function calCost(d, flag) {
   footer.appendChild(hr);
   var cost = document.createElement("p");
   cost.className = "h3";
-  request.open("GET", url, true);
+  request.open("GET", urlDish, true);
   request.onload = function () {
     var json = JSON.parse(request.response);
     for (var i = 0; i < localStorage.length; i++) {
@@ -360,8 +360,25 @@ function calCost(d, flag) {
         }
       }
     }
+  };
+
+  requestSet.open("GET", urlSettest, true);
+  requestSet.onload = function () {
+    var json = JSON.parse(requestSet.response);
+    console.log(json);
+    for (var i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i).charAt(localStorage.key(i).length - 1) == "d") {
+        continue;
+      }
+      for (var j = 0; j < json.length; j++) {
+        if (localStorage.key(i) == json[j].set_name) {
+          lastCost += parseInt(json[j].price * localStorage.getItem(localStorage.key(i)), 10);
+        }
+      }
+    }
     cost.innerText = `Cost: ${lastCost}元`;
   };
+  
   footer.appendChild(cost);
   if (flag) {
     var send = document.createElement("input");
@@ -390,6 +407,7 @@ function calCost(d, flag) {
 
   d.appendChild(footer);
   request.send(null);
+  requestSet.send(null);
 }
 
 function ifNothing(flag) {
