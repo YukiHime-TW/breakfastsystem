@@ -165,7 +165,14 @@ function MakingorderInit() {
             tr_item_value.style = "background:white;"
             td_item_order_value.innerHTML = "<center>" + json[i].order_num;
             var td_item_arrive_time_value = document.createElement("td");
-            td_item_arrive_time_value.innerHTML = "<center>" + json[i].pickupTime;
+            var hour = Number(json[i].pickupTime[11] + json[i].pickupTime[12]);
+            var minute = json[i].pickupTime[14] + json[i].pickupTime[15];
+            console.log(hour);
+            console.log(minute);
+            hour += 8;
+            if (hour > 24) hour -= 24;
+            td_item_arrive_time_value.innerHTML = `<center>${hour}:${minute}`;
+            // "<center>" + json[i].pickupTime;
             td_item_state_value[i] = document.createElement("td");
             td_item_state_value[i].setAttribute("align", "center");
 
@@ -248,26 +255,25 @@ function singleState(i, j) {
 }
 
 function AllorderInit() {
-    request.open("GET", url1, true);
+    request.open("GET", mainURL + '/show_all_order', true);
     request.onload = function () {
         var json = JSON.parse(request.response);
         console.log(json);
         var All_order = document.getElementById("All_order");
         for (var i = 0; i < json.length; i++) {
             var order = document.createElement("p");
-            order.innerHTML = json[i].order_id;
-            order.style = "border-width:3px;border-style:groove;border-color:black;padding:5px;margin-top:2%";
+            order.innerHTML = `${json[i].order_num} ${json[i].createdAt}`;
             order.setAttribute("class", "flip");
-            order.onclick = function () {
-                $(".panel").slideToggle("slow");
-            };
+            order.setAttribute("onclick",`AllorderExtend(${i})`)
+
 
             var ext = document.createElement("div");
-            ext.setAttribute("class", "panel");
+            ext.setAttribute("class", "panel" + i);
+            ext.style=`margin:0px;padding:15px;text-align:center; background:#e5eecc;border:solid 1px #c3c3c3;width: 100%;height:${40*(json[i].food_id.length + 1)}px; display:none;`
 
             for (var j = 0; j < json[i].food_id.length; j++) {
                 var text = document.createElement("p");
-                text.innerHTML = json[i].food_id[j].id + "x" + json[i].food_id[j].amount;
+                text.innerHTML = json[i].food_id[j].name + "x" + json[i].food_id[j].amount;
                 ext.appendChild(text);
             }
             var total = document.createElement("p");

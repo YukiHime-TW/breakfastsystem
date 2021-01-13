@@ -292,7 +292,14 @@ app.use('/add_to_cart', function(req, res){
 })
 
 app.get('/show_all_order', function(req, res) {
-    res.sendFile(__dirname + '/frontend/script/order.json');
+    // res.sendFile(__dirname + '/frontend/script/order.json');
+    Order.find().sort('createdAt')
+    .then(response => {
+        res.json(response)
+    })
+    .catch(error => {
+        console.log(error)
+    });
 })
 
 app.get('/show_all_active_order', function(req, res) {
