@@ -2,20 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const cartSchema = new Schema({
-
     user_id: {
         type: String
     },
-
     food_id:[{
         type: String // ObjectID
-    }]
-/*,
+    }],
     set_id:[{
         type: String
-    }]
-*/
-   ,
+    }],
    state:[{
        type: Number // 接受:0,拒絕:1 初始:2
    }]
