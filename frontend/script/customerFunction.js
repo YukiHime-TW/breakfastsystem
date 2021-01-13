@@ -1,19 +1,24 @@
 var request = new XMLHttpRequest();
-var url =
-  "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
-var cart_url = "";
+var requestSet = new XMLHttpRequest();
+var urlDish = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
+var urlSettest = "";
+var urlSet = "https://hidden-garden-96019.herokuapp.com/get_set";
 var div = new Array(0);
 var image = new Array(0);
+var descri = new Array(0);
 var something = false;
+var dishLong = 0;
 
 function init() {
+  let d = document.getElementById("main");
+  var menu = document.createElement("div");
   request.open("GET", url, true);
   request.onload = function () {
     var json = JSON.parse(request.response);
-    let d = document.getElementById("main");
-    var menu = document.createElement("div");
+    dishLong = json.length;
     menu.id = "menu";
     for (var i = 0; i < json.length; i++) {
+      descri[i] = json[i].description;
       div[i] = document.createElement("div");
       image[i] = document.createElement("img");
       var foodName = document.createElement("div");
@@ -34,13 +39,47 @@ function init() {
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
       }
       div[i].id = json[i]._id;
-      div[i].setAttribute("onclick", `addDish(${i})`);
+      div[i].setAttribute("onclick", `showDes(${i})`);
+      div[i].setAttribute("unclick", `recover(${i})`);
       menu.appendChild(div[i]);
       initNum(i);
     }
     d.appendChild(menu);
   };
   request.send(null);
+
+  requestSet.open("GET", url, true);
+  requestSet.onload = function () {
+    var set = JSON.parse(requestSet.response);
+    for (var i = dishLong; i < set.length + dishLong; i++) {
+      div[i] = document.createElement("div");
+      image[i] = document.createElement("img");
+      var foodName = document.createElement("div");
+      image[i].src = `../image/plus.png`;
+      image[i].style = "width: 100%";
+      div[i].appendChild(image[i]);
+      foodName.style =
+        "width:100%; background-color:black; opacity:0.5; position:relative; word-wrap:break-word; color:white";
+      foodName.innerHTML =
+        "<center>" + set[i - dishLong].food_name + "$" + set[i - dishLong].price + "</center>";
+      div[i].appendChild(foodName);
+      div[i].setAttribute("food", set[i - dishLong].food_name);
+      if (i % 2 == 0) {
+        div[i].style =
+          "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:left;margin-left: 15%; margin-top: 20%;";
+      } else {
+        div[i].style =
+          "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:right;margin-right: 15%; margin-top: 20%;";
+      }
+      div[i].id = set[i - dishLong]._id;
+      div[i].setAttribute("onclick", `showDes(${i})`);
+      image[i].setAttribute("onmouseover", `showDes(${i})`);
+      image[i].setAttribute("onmouseout", `recover(${i})`);
+      menu.appendChild(div[i]);
+      initNum(i);
+    }
+  };
+  requestSet.send(null);
 }
 
 function plusDish(i) {
@@ -107,6 +146,23 @@ function addAlreadyDish(i) {
   }
 }
 
+function showDes(i) {
+  image[i].style = "opacity:0.2;background-color : black;width: 100%";
+  var des = document.createElement("span");
+  des.innerText = descri[i];
+  des.style = "position: absolute;margin-bottom: 0;margin-top:-100px";
+  des.id = div[i].id + "des";
+  div[i].appendChild(des);
+  document.getElementById(div[i].id).setAttribute("onclick", `addDish(${i})`);
+  window.setTimeout(`recover(${i})`,2000);
+}
+
+function recover(i) {
+  image[i].style = "width: 100%";
+  div[i].removeChild(document.getElementById(div[i].id+"des"));
+  document.getElementById(div[i].id).setAttribute("onclick", `showDes(${i})`);
+}
+
 function clearAll() {
   localStorage.clear();
   var json = JSON.parse(request.response);
@@ -137,7 +193,7 @@ function ifSomething(flag) {
     form.action = "/send_cart";
     form.method = "POST";
     var table = document.createElement("table");
-    table.style="margin-top:13%";
+    table.style = "margin-top:13%";
     table.className = "table table-striped";
     table.id = "table";
     form.appendChild(table);
@@ -301,7 +357,6 @@ function calCost(d, flag) {
       for (var j = 0; j < json.length; j++) {
         if (localStorage.key(i) == json[j].food_name) {
           lastCost += parseInt(json[j].price * localStorage.getItem(localStorage.key(i)), 10);
-          console.log(`${lastCost}`);
         }
       }
     }
@@ -345,7 +400,7 @@ function ifNothing(flag) {
     var center = document.createElement("center");
     center.appendChild(p);
     document.getElementById("main").appendChild(center);
-  }else{
+  } else {
     var p = document.createElement("p");
     p.innerText = "尚未訂餐";
     p.style = "margin-top: 75%";
