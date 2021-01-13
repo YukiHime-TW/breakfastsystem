@@ -1,7 +1,7 @@
 var request = new XMLHttpRequest();
 var requestSet = new XMLHttpRequest();
 var urlDish = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/frontend/script/test.json";
-var urlSettest = "";
+var urlSettest = "https://raw.githubusercontent.com/YukiHime-TW/breakfastsystem/master/testSet.json";
 var urlSet = "https://hidden-garden-96019.herokuapp.com/get_set";
 var div = new Array(0);
 var image = new Array(0);
@@ -12,7 +12,7 @@ var dishLong = 0;
 function init() {
   let d = document.getElementById("main");
   var menu = document.createElement("div");
-  request.open("GET", url, true);
+  request.open("GET", urlDish, true);
   request.onload = function () {
     var json = JSON.parse(request.response);
     dishLong = json.length;
@@ -48,10 +48,12 @@ function init() {
   };
   request.send(null);
 
-  requestSet.open("GET", url, true);
+  requestSet.open("GET", urlSettest, true);
   requestSet.onload = function () {
     var set = JSON.parse(requestSet.response);
-    for (var i = dishLong; i < set.length + dishLong; i++) {
+    console.log(set);
+    for (var i = dishLong, j = 0; i < set.length + dishLong; i++,j++) {
+      descri[i] = set[j].description;
       div[i] = document.createElement("div");
       image[i] = document.createElement("img");
       var foodName = document.createElement("div");
@@ -61,9 +63,9 @@ function init() {
       foodName.style =
         "width:100%; background-color:black; opacity:0.5; position:relative; word-wrap:break-word; color:white";
       foodName.innerHTML =
-        "<center>" + set[i - dishLong].food_name + "$" + set[i - dishLong].price + "</center>";
+        "<center>" + set[i - dishLong].set_name + "$" + set[i - dishLong].price + "</center>";
       div[i].appendChild(foodName);
-      div[i].setAttribute("food", set[i - dishLong].food_name);
+      div[i].setAttribute("food", set[i - dishLong].set_name);
       if (i % 2 == 0) {
         div[i].style =
           "width: 25%; border-width:3px;border-style:solid;border-color:black;padding:5px; float:left;margin-left: 15%; margin-top: 20%;";
@@ -73,8 +75,7 @@ function init() {
       }
       div[i].id = set[i - dishLong]._id;
       div[i].setAttribute("onclick", `showDes(${i})`);
-      image[i].setAttribute("onmouseover", `showDes(${i})`);
-      image[i].setAttribute("onmouseout", `recover(${i})`);
+      div[i].setAttribute("unclick", `recover(${i})`);
       menu.appendChild(div[i]);
       initNum(i);
     }
