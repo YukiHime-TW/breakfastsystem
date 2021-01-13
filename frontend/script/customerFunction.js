@@ -51,7 +51,6 @@ function init() {
   requestSet.open("GET", urlSettest, true);
   requestSet.onload = function () {
     var set = JSON.parse(requestSet.response);
-    console.log(set);
     for (var i = dishLong, j = 0; i < set.length + dishLong; i++,j++) {
       descri[i] = set[j].description;
       div[i] = document.createElement("div");
