@@ -165,7 +165,7 @@ function MakingorderInit() {
             tr_item_value.style = "background:white;"
             td_item_order_value.innerHTML = "<center>" + json[i].order_num;
             var td_item_arrive_time_value = document.createElement("td");
-            td_item_arrive_time_value.innerHTML = "<center>" + json[i].arrive_time;
+            td_item_arrive_time_value.innerHTML = "<center>" + json[i].pickupTime;
             td_item_state_value[i] = document.createElement("td");
             td_item_state_value[i].setAttribute("align", "center");
 
@@ -212,6 +212,13 @@ function MakingorderInit() {
                 tr_food.appendChild(td_food_state);
                 tbody.appendChild(tr_food);
             }
+
+            var tr_price = document.createElement("tr");
+            var td_price = document.createElement("td");
+            td_price.colSpan = "3";
+            td_price.innerHTML = `<center>價錢: ${json[i].price}`;
+            tr_price.appendChild(td_price);
+            tbody.append(tr_price);
 
             var tr_divide = document.createElement("tr");               //分隔訂單
             var td1_divide = document.createElement("td");
