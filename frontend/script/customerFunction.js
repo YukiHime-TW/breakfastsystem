@@ -137,7 +137,7 @@ function ifSomething(flag) {
     form.action = "/send_cart";
     form.method = "POST";
     var table = document.createElement("table");
-    table.style="margin-top:10%";
+    table.style="margin-top:13%";
     table.className = "table table-striped";
     table.id = "table";
     form.appendChild(table);
