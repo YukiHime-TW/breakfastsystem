@@ -16,9 +16,9 @@ table, td, th{
     height: 800px;
 }
 #login{
-    width: 75%;
-    height: 320px;
-    margin-top: 20%;
+    width: 40%;
+    height: 220px;
+    margin-top: 10%;
     text-align: center;
 }
 #ordertime{
@@ -45,7 +45,7 @@ table, td, th{
 #main{
     background-color:wheat;
     font-family: Microsoft JhengHei;
-    width: auto;
+    width: 50%;
 }
 
 #page{
