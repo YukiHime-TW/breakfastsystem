@@ -7,6 +7,38 @@
     <script>
         window.onload = menuInit();
     </script>
+    <script type="text/javascript">
+        var socket;
+        if (!window.WebSocket) {
+            window.WebSocket = window.MozWebSocket;
+        }
+        if (window.WebSocket) {
+            socket = new WebSocket("ws://localhost:3000/");
+            socket.onmessage = function (event) {
+                if(confirm(event.data)==true)
+                    window.location.replace("/accept");
+                else
+                    window.location.replace("/refuse");
+            };
+            socket.onopen = function (event) {
+                var str=document.cookie;
+                    var strary=str.split(';');
+                    console.log(strary[1].indexOf('connect.sid='));
+                    console.log(strary[0].indexOf('connect.sid='));
+                    if(strary[0].indexOf('connect.sid=')==1)
+                    {    
+                        this.send(strary[1]);
+                    }
+                    else if(strary[1].indexOf('connect.sid=')==1)
+                        this.send(strary[0]);
+            };
+            socket.onclose = function (event) {
+            };
+        } 
+        else {
+            alert("不支援WebSocket！");
+        }
+    </script>
 </head>
 
 <body>

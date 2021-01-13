@@ -16,13 +16,9 @@ table, td, th{
     height: 800px;
 }
 #login{
-    width: 75%;
-    height: 320px;
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    margin-left:-150px;
-    margin-top:-190px;
+    width: 40%;
+    height: 220px;
+    margin-top: 10%;
     text-align: center;
 }
 #ordertime{
@@ -49,6 +45,7 @@ table, td, th{
 #main{
     background-color:wheat;
     font-family: Microsoft JhengHei;
+    width: auto%;
 }
 
 #page{
@@ -195,4 +192,26 @@ div{
 
 #brand{
     width: 12%;
+}
+
+ .flip
+{
+
+  margin:0px;
+  padding:15px;
+  text-align:center;
+  background:white;
+  border:solid 1px #c3c3c3;
+  width: 100%;
+}
+.panel
+{
+    margin:0px;
+    padding:15px;
+    text-align:center;
+    background:#e5eecc;
+    border:solid 1px #c3c3c3;
+    width: 100%;
+    height:120px;
+    display:none;
 }

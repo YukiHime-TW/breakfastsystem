@@ -277,7 +277,7 @@ function AllorderInit() {
                 ext.appendChild(text);
             }
             var total = document.createElement("p");
-            total.innerHTML = "總共:50元";
+            total.innerHTML = `總共:${json[i].price}元`;
             ext.appendChild(total);
             All_order.appendChild(order);
             All_order.appendChild(ext);

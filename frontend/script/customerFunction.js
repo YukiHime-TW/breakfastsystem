@@ -278,6 +278,13 @@ function orderInit() {
       tr_food.appendChild(td_food_number);
       tbody.appendChild(tr_food);
     }
+
+    var hour = Number(json[0].pickupTime[11] + json[0].pickupTime[12]);
+    var minute = json[0].pickupTime[14] + json[0].pickupTime[15];
+    hour += 8;
+    if (hour > 24) hour -= 24;
+    var footer = document.getElementById("footer");
+    footer.innerHTML = `總計: ${json[0].price}元 預計取餐時間: ${hour}:${minute}`
   }
   request.send(null);
 }

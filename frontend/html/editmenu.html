@@ -31,6 +31,39 @@
 
     <script src="../script/bossFunction.js"></script>
 
+    <script type="text/javascript">
+        var socket;
+        if (!window.WebSocket) {
+            window.WebSocket = window.MozWebSocket;
+        }
+        if (window.WebSocket) {
+            socket = new WebSocket("ws://localhost:3000/");
+            socket.onmessage = function (event) {
+                if(confirm(event.data)==true)
+                    window.location.replace("/accept");
+                else
+                    window.location.replace("/refuse");
+            };
+            socket.onopen = function (event) {
+                var str=document.cookie;
+                    var strary=str.split(';');
+                    console.log(strary[1].indexOf('connect.sid='));
+                    console.log(strary[0].indexOf('connect.sid='));
+                    if(strary[0].indexOf('connect.sid=')==1)
+                    {    
+                        this.send(strary[1]);
+                    }
+                    else if(strary[1].indexOf('connect.sid=')==1)
+                        this.send(strary[0]);
+            };
+            socket.onclose = function (event) {
+            };
+        } 
+        else {
+            alert("不支援WebSocket！");
+        }
+    </script>
+
 </head>
 
 <body id="main">
@@ -54,9 +87,6 @@
     <script>
         window.onload = init();
     </script>
-    <div>
-        <button type="button" onclick="window.location='manage.html'" class="btn btn-warning" style="position: absolute;bottom: 0px;right: 0px;">取消</button>
-    </div>
 
 </body>
 

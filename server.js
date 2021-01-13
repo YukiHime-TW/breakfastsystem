@@ -37,18 +37,19 @@ let srv=app.listen(PORT, () => {
 
 const wss = new WebSocket.Server({ server:app });
 var CLIENTS=[];
-wss.on('open',function open(){
+wss.on('open',function open(request){
     console.log('connected');
+    console.log(request.cookie);
 })
 wss.on('close',function close(){
     console.log('disconnected');
 })
-wss.on('connection',function connection(ws){
-        if(ws.user_id==undefined)
-        {    
-            ws.user_id=web_user;
-            CLIENTS.push(ws);
-        }
+wss.on('connection',function connection(ws){ 
+    ws.on("message",function incoming(message){
+        console.log(message);
+        ws.user_id=message;
+        CLIENTS.push(ws);
+    })
 })
 srv.on('upgrade',function(req, socket, head) {
     wss.handleUpgrade(req, socket, head, function connected(ws) {
@@ -81,11 +82,11 @@ app.use(session({
     store:new MongoStore({url:'mongodb+srv://admin:00757019@breakfastsystem.pcfwe.mongodb.net/breakfastSystem?retryWrites=true&w=majority'}),
     resave: false,
     saveUninitialized: false,
-    cookie:{maxAge:60 * 60 * 1000}
+    cookie:{maxAge:60 * 60 * 1000,httpOnly:false}
 }))
 
-app.use(express.static('frontend'))
-app.use(express.static('frontend/html'));
+app.use(express.static('frontend'));
+app.use(express.static('frontend/html'))
 app.get('/reg', function(req, res){
     res.sendFile(__dirname + '/frontend/html/reg.html')
 })
@@ -111,8 +112,16 @@ app.post('/menu.html', function(req, res) {
 })
 
 app.post('/editmenumiddle.html', function(req, res) {
-    single.SingleUpdateByName(req.body.name, req)
-    res.redirect('/editmenu.html')
+    // single.SingleUpdateByName(req.body.name, req)
+    var update = {
+        food_name: req.body.name,
+        price: req.body.price,
+        description: req.body.description
+    }
+    Single.findByIdAndUpdate(req.body.food_id, update, function(err, docs) {
+        console.log('successful edit');
+    })
+    res.redirect('/editmenu.html');
 })
 
 app.get('/delete_single', function(req, res) {
@@ -138,6 +147,7 @@ app.post('/check_login', function (req, res) {
         web_user = req.session.user;
         console.log(req.session);
         console.log(req.sessionID);
+        res.cookie("user", req.session.user, { maxAge: 900000});
         res.redirect('/manage.html');
     }
     else{
@@ -152,6 +162,7 @@ app.post('/check_login', function (req, res) {
                 web_user = req.session.user;
                 console.log(req.session);
                 console.log(req.sessionID);
+                res.cookie("user", req.session.user, { maxAge: 900000});
                 res.redirect('/menu.html');
             }
             else{
@@ -162,7 +173,7 @@ app.post('/check_login', function (req, res) {
     }
 });
 
-app.post('/reg.html', function (req, res) {
+app.post('/reg', function (req, res) {
     var postData = {
         gender: req.body.gender,
         account: req.body.AC,
@@ -217,7 +228,7 @@ app.get('/state2',function(req,res){
             console.log(user);
             if(CLIENTS[i].user_id==user){
                 CLIENTS[i].send('訂單已完成');
-                break;
+                // break;
             }
         }
     }();
@@ -238,44 +249,54 @@ app.get('/state3',function(req,res){
 })
 
 app.post('/send_cart', function(req, res){
-    // console.log(req.body.cart)
-    // console.log(req.body.price)
-    var postData = {
-        order_num: order_id,
-        user_id: req.session.user,
-        state: 2,
-        price: 0,
-        food_id: [],
-        set_id: [],
-        pickupTime: new Date()
-    };
-    var str = req.body.appt
-    var time = str.match( /(\d+)\:(\d+)/ );
-    var date = new Date()
-    date.setHours(parseInt(time[1]))
-    date.setMinutes(parseInt(time[2]))
-    postData.pickupTime = date
-    postData.price = req.body.price
-    // console.log(date)
-    // console.log(req.body.appt)
-    if (Array.isArray(req.body.cart.num)) {
-        for(var i = 0; i < req.body.cart.num.length; i++) {
-            // console.log(req.body.cart.id[i])
-            // console.log(req.body.cart.num[i])
-            postData.food_id.push({id: req.body.cart.id[i], name: req.body.cart.name[i], amount: req.body.cart.num[i], finished: false})
+    ~async function(){
+        const delay = (s) => {
+            return new Promise(resolve => {
+              setTimeout(resolve,s); 
+            });
+        };
+        var postData = {
+            order_num: order_id,
+            user_id: req.session.user,
+            state: 1,
+            price: 0,
+            food_id: [],
+            set_id: [],
+            pickupTime: new Date()
+        };
+        var str = req.body.appt
+        var time = str.match( /(\d+)\:(\d+)/ );
+        var date = new Date()
+        date.setHours(parseInt(time[1]))
+        date.setMinutes(parseInt(time[2]))
+        postData.pickupTime = date
+        postData.price = req.body.price
+        if (Array.isArray(req.body.cart.num)) {
+            for(var i = 0; i < req.body.cart.num.length; i++) {
+                // console.log(req.body.cart.id[i])
+                // console.log(req.body.cart.num[i])
+                postData.food_id.push({id: req.body.cart.id[i], name: req.body.cart.name[i], amount: req.body.cart.num[i], finished: false})
+            }
+            console.log(postData)
         }
-        console.log(postData)
-    }
-    else {
-        console.log(req.body.cart.id)
-        console.log(req.body.cart.num)
-        postData.food_id.push({id: req.body.cart.id, name: req.body.cart.name, amount: req.body.cart.num, finished: false})
-    }
-    Order.create(postData, function (err, data) {
-        if (err) throw err;
-        console.log('Successfully created order');
-    })
-    order_id++;
+        else {
+            console.log(req.body.cart.id)
+            console.log(req.body.cart.num)
+            postData.food_id.push({id: req.body.cart.id, name: req.body.cart.name, amount: req.body.cart.num, finished: false})
+        }
+        Order.create(postData, function (err, data) {
+            if (err) throw err;
+            console.log('Successfully created order');
+        })
+        order_id++;
+        await delay(200);
+        for(var i=0;i<CLIENTS.length;i++){
+            console.log(CLIENTS[i].user_id);
+            if(CLIENTS[i].user_id=='shopkeeper'){
+                CLIENTS[i].send(JSON.stringify(postData));
+            }
+        }
+    }();
     res.redirect('/menu.html')
 })
 
@@ -374,6 +395,13 @@ app.get('/logout', function (req, res){
 
 app.get('/get_menu', function(req, res) {
     single.SingleShowAll(res);
+})
+
+app.get('/get_set', function(req, res) {
+    Set.find()
+    .then((response) => {
+        res.json(response);
+    })
 })
 
 var name, price, description;

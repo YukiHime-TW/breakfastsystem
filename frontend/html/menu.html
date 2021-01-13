@@ -41,6 +41,16 @@
                 alert(event.data);
             };
             socket.onopen = function (event) {
+                var str=document.cookie;
+                    var strary=str.split(';');
+                    console.log(strary[1].indexOf('connect.sid='));
+                    console.log(strary[0].indexOf('connect.sid='));
+                    if(strary[0].indexOf('connect.sid=')==1)
+                    {    
+                        this.send(strary[1]);
+                    }
+                    else if(strary[1].indexOf('connect.sid=')==1)
+                        this.send(strary[0]);
             };
             socket.onclose = function (event) {
             };
