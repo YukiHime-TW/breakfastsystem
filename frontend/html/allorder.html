@@ -46,20 +46,6 @@
     <script>
         window.onload = AllorderInit();
     </script>
-    <script>
-        $(function () {
-            var year = date_now.getFullYear();
-
-            var month = date_now.getMonth() + 1 < 10 ? "0" + (date_now.getMonth() + 1) : (date_now.getMonth() + 1);
-
-            var date = date_now.getDate() < 10 ? "0" + date_now.getDate() : date_now.getDate();
-            $("#birthday").attr("max", year + "-" + month + "-" + date);
-            $("#birthday").val(year + "-" + month + "-" + date);
-        })
-    </script>
-    <script>
-        window.onload = AllorderInit();
-    </script>
 
     <script type="text/javascript">
         var socket;
